@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "lint": "npx stylelint '**/*.css' --fix"
+    "lint": "npx stylelint **/*.css --fix"
   },
   "devDependencies": {
     "prettier": "^2.6.2",
