@@ -2,6 +2,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  color: #fff;
 }
 
 .profile__avatar {
@@ -13,7 +14,6 @@
 
 .profile__info {
   margin-right: auto;
-  color: #fff;
 }
 
 .profile__name-wrap {
@@ -49,4 +49,13 @@
 }
 
 .profile__add-btn {
+  padding: 0;
+  width: 150px;
+  height: 50px;
+  background-color: #000;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  background-image: url("../../images/add-btn.svg");
+  background-repeat: no-repeat;
+  background-position: center;
 }
