@@ -1,0 +1,38 @@
+.card {
+  display: grid;
+  grid-template-areas:
+    "photo photo"
+    "title like";
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.card__photo {
+  grid-area: photo;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+.card__title {
+  padding-left: 21px;
+  max-width: 187px;
+  margin: 25px 0 26px;
+  grid-area: title;
+}
+
+.card__like-btn {
+  margin-right: 20px;
+  justify-self: end;
+  grid-area: like;
+  padding: 0;
+  width: 22px;
+  height: 19px;
+  background-color: #fff;
+  background-image: url("../../images/like-btn.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
