@@ -17,39 +17,3 @@
   background-color: #000;
   opacity: 0.5;
 }
-
-.popup__container {
-  position: relative;
-  margin: auto;
-  padding: 34px 37px 36px;
-  width: 100%;
-  max-width: 430px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: 10px;
-  z-index: 1;
-}
-
-.popup__title {
-  margin: 0 0 48px;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 1.21;
-}
-
-.popup__field {
-  margin-bottom: 30px;
-}
-
-.popup__close {
-  position: absolute;
-  top: -40px;
-  right: -39px;
-}
-
-.popup__field:last-of-type {
-  margin-bottom: 48px;
-}
