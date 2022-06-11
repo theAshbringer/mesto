@@ -15,5 +15,6 @@
 @import url("../blocks/profile/__edit-btn/profile__edit-btn.css");
 @import url("../blocks/button/_type/button_type_add.css");
 @import url("../blocks/cards/cards.css");
+@import url("../blocks/button/_type/button_type_like.css");
 @import url("../blocks/card/card.css");
 @import url("../blocks/footer/footer.css");
