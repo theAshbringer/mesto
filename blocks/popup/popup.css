@@ -1,13 +1,34 @@
 .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+
+.popup::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+.popup__container {
+  margin: auto;
   padding: 34px 37px 36px;
   width: 100%;
   max-width: 430px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   background-color: #fff;
   border-radius: 10px;
+  z-index: 1;
 }
 
 .popup__title {
