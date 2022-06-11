@@ -20,3 +20,7 @@
 @import url("../blocks/button/_place/button_place_card.css");
 @import url("../blocks/card/card.css");
 @import url("../blocks/footer/footer.css");
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/field/field.css");
+@import url("../blocks/button/_type/button_type_save.css");
+@import url("../blocks/button/_place/button_place_popup.css");
