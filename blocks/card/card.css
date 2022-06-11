@@ -31,12 +31,4 @@
   margin-right: 20px;
   justify-self: end;
   grid-area: like;
-  padding: 0;
-  width: 22px;
-  height: 19px;
-  background-color: #fff;
-  background-image: url("../../images/like-btn.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
 }
