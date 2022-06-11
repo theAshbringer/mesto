@@ -1,0 +1,6 @@
+.button_type_close {
+  width: 32px;
+  height: 32px;
+  background-image: url("../../../images/close-btn.svg");
+  background-color: transparent;
+}
