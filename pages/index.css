@@ -18,8 +18,11 @@
 @import url("../blocks/profile/__edit-btn/profile__edit-btn.css");
 @import url("../blocks/button/_type/button_type_add.css");
 @import url("../blocks/cards/cards.css");
-@import url("../blocks/button/_type/button_type_like.css");
 @import url("../blocks/card/card.css");
+@import url("../blocks/card/__photo/card__photo.css");
+@import url("../blocks/card/__title/card__title.css");
+@import url("../blocks/button/_type/button_type_like.css");
+@import url("../blocks/card/__like-btn/card__like-btn.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/field/field.css");
