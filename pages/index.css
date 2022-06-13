@@ -4,7 +4,6 @@
 @import url("../blocks/button/button.css");
 @import url("../blocks/button/_style/button_style_solid.css");
 @import url("../blocks/button/_style/button_style_white-line.css");
-@import url("../blocks/button/_style/button_style_black-line.css");
 @import url("../blocks/header/header.css");
 @import url("../blocks/header/__logo/header__logo.css");
 @import url("../blocks/content/content.css");
@@ -21,7 +20,8 @@
 @import url("../blocks/card/card.css");
 @import url("../blocks/card/__photo/card__photo.css");
 @import url("../blocks/card/__title/card__title.css");
-@import url("../blocks/button/_type/button_type_like.css");
+@import url("../blocks/like-btn/like-btn.css");
+@import url("../blocks/like-btn/like-btn_active.css");
 @import url("../blocks/card/__like-btn/card__like-btn.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/popup/popup.css");
