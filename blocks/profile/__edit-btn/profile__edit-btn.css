@@ -2,3 +2,12 @@
   margin-left: 9px;
   display: inline-block;
 }
+
+@media screen and (max-width: 751px) {
+  .profile__edit-btn {
+    margin-left: 0;
+    position: absolute;
+    top: 7px;
+    right: -29px;
+  }
+}

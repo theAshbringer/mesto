@@ -6,3 +6,12 @@
   font-size: 18px;
   line-height: 1.22;
 }
+
+@media screen and (max-width: 751px) {
+  .footer {
+    box-sizing: border-box;
+    padding-left: 19px;
+    font-size: 14px;
+    line-height: 1.214;
+  }
+}
