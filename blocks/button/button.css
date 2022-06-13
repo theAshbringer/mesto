@@ -1,9 +1,0 @@
-.button {
-  padding: 0;
-  background-color: #000;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.3s ease-out;
-}
