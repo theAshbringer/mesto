@@ -28,11 +28,17 @@ function closeEditForm() {
   popup.classList.remove("popup_opened");
 }
 
+/** Скопировать введенные данные в профиль */
+function updateProfile() {
+  profileNameTextNode = profileName.childNodes[0];
+  profileNameTextNode.nodeValue = nameFormField.value;
+  profileDescription.innerText = descriptionFormField.value;
+}
+
 /** Сохранить форму */
 function saveEditForm(evt) {
   evt.preventDefault();
-  profileName.childNodes[0].nodeValue = nameFormField.value;
-  profileDescription.innerText = descriptionFormField.value;
+  updateProfile();
   closeEditForm();
 }
 
