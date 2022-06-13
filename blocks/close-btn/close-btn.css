@@ -12,3 +12,9 @@
 .close-btn:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 751px) {
+  .close-btn {
+    background-image: url("../../images/close-btn-thin.svg");
+  }
+}
