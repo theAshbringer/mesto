@@ -30,8 +30,7 @@ function closeForm() {
 
 /** Скопировать введенные данные в профиль */
 function updateProfile() {
-  profileNameTextNode = profileName.childNodes[0];
-  profileNameTextNode.nodeValue = nameInput.value;
+  profileName.innerText = nameInput.value;
   profileDescription.innerText = jobInput.value;
 }
 
