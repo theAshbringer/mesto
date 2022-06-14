@@ -1,6 +1,5 @@
 .profile__edit-btn {
-  margin-left: 19px;
-  display: inline-block;
+  margin-left: 20px;
 }
 
 @media screen and (max-width: 751px) {
@@ -8,6 +7,6 @@
     margin-left: 0;
     position: absolute;
     top: 7px;
-    right: -29px;
+    right: -28px;
   }
 }
