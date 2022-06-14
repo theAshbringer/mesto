@@ -1,0 +1,26 @@
+.save-btn {
+  padding: 14px 0;
+  width: 100%;
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 2px;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.22;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease-out;
+}
+
+.save-btn:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 751px) {
+  .save-btn {
+    font-size: 14px;
+    line-height: 1.214;
+  }
+}

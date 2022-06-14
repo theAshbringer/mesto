@@ -1,0 +1,9 @@
+.card__title {
+  padding-left: 21px;
+  width: 187px;
+  margin: 25px 0 26px;
+  grid-area: title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

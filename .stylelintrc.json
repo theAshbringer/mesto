@@ -1,0 +1,7 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "rules": {
+    "import-notation": "url",
+    "alpha-value-notation": "number"
+  }
+}

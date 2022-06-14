@@ -1,20 +1,108 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Место</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
-</head>
-
-<body class="page">
-  <header class="header">
-  </header>
-  <main class="content">
-  </main>
-  <footer class="footer">
-  </footer>
-</body>
-
+  <body class="page">
+    <header class="header">
+      <a href="#" class="header__logo"></a>
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img src="./images/avatar.png" alt="Аватар" class="profile__avatar" />
+        <div class="profile__info">
+          <div class="profile__name-string">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="edit-btn profile__edit-btn"></button>
+          </div>
+          <p class="profile__description">Исследователь океана</p>
+        </div>
+        <button class="add-btn profile__add-btn"></button>
+      </section>
+      <section class="cards">
+        <article class="card">
+          <h2 class="card__title">Карачаевск</h2>
+          <img
+            src="./images/karachaevsk.png"
+            alt="Старый средневековый замок"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Гора Эльбрус</h2>
+          <img
+            src="./images/elbrus.png"
+            alt="Вид на Эльбрус издалека"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Домбай</h2>
+          <img
+            src="./images/dombay.png"
+            alt="Заснеженная вершина вблизи"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Гора Эльбрус</h2>
+          <img
+            src="./images/elbrus.png"
+            alt="Вид на Эльбрус издалека"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Домбай</h2>
+          <img
+            src="./images/dombay.png"
+            alt="Заснеженная вершина вблизи"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+        <article class="card">
+          <h2 class="card__title">Карачаево-Черкессия</h2>
+          <img
+            src="./images/karachaevsk.png"
+            alt="Старый средневековый замок"
+            class="card__photo"
+          />
+          <button class="like-btn card__like-btn"></button>
+        </article>
+      </section>
+    </main>
+    <footer class="footer">&#169; 2022 Mesto Russia</footer>
+    <div class="popup">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="field popup__name"
+          value="Жак-Ив Кусто"
+          required
+        />
+        <input
+          type="text"
+          name="description"
+          id="description"
+          class="field popup__description"
+          required
+        />
+        <button class="save-btn" type="submit">Сохранить</button>
+        <button class="close-btn popup__close" type="button"></button>
+        <script src="./scripts/index.js"></script>
+      </form>
+    </div>
+  </body>
 </html>
