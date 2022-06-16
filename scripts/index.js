@@ -1,15 +1,15 @@
 // Кнопки
-let editButton = document.querySelector(".edit-btn");
-let closeButton = document.querySelector(".close-btn");
+const editButton = document.querySelector(".edit-btn");
+const closeButton = document.querySelector(".close-btn");
 // Попап с оверлеем
-let popup = document.querySelector(".popup");
+const popup = document.querySelector(".popup");
 // Имя и описания в профиле
-let profileName = document.querySelector(".profile__name");
-let profileDescription = document.querySelector(".profile__description");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 // Форма и ее поля
-let formElement = document.querySelector(".popup__container");
-let nameInput = document.querySelector(".popup__name");
-let jobInput = document.querySelector(".popup__description");
+const formElement = document.querySelector(".popup__container");
+const nameInput = document.querySelector(".popup__field_type_name");
+const jobInput = document.querySelector(".popup__field_type_description");
 
 /** Инициализировать поля формы значениями из профиля */
 function initFormFields() {

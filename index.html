@@ -94,15 +94,17 @@
         </ul>
       </section>
     </main>
-    <footer class="footer">&#169; 2022 Mesto Russia</footer>
+    <footer class="footer">
+      <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
+    </footer>
     <div class="popup">
-      <form class="popup__container">
+      <form name="edit-profile" class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <input
           type="text"
           name="name"
           id="name"
-          class="field popup__name"
+          class="popup__field popup__field_type_name"
           value="Жак-Ив Кусто"
           required
         />
@@ -110,13 +112,13 @@
           type="text"
           name="description"
           id="description"
-          class="field popup__description"
+          class="popup__field popup__field_type_description"
           required
         />
         <button class="save-btn" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
-        <script src="./scripts/index.js"></script>
       </form>
     </div>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

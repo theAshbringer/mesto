@@ -1,9 +1,9 @@
-.popup__description {
+.popup__field_type_description {
   margin-bottom: 48px;
 }
 
 @media screen and (max-width: 751px) {
-  .popup__description {
+  .popup__field_type_description {
     margin-bottom: 45px;
   }
 }
