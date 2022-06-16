@@ -15,6 +15,6 @@
 
 @media screen and (max-width: 751px) {
   .close-btn {
-    background-image: url("../../images/close-btn-thin.svg");
+    background-size: 20px;
   }
 }
