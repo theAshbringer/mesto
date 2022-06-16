@@ -1,5 +1,6 @@
 .card {
   display: grid;
+  grid-template-columns: auto min-content;
   grid-template-areas:
     "photo photo"
     "title like";
