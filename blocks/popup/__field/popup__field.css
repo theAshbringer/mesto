@@ -1,4 +1,4 @@
-.field {
+.popup__field {
   display: block;
   padding-bottom: 8px;
   border: none;
@@ -8,6 +8,6 @@
   line-height: 1.21;
 }
 
-.field:focus {
+.popup__field:focus {
   outline: none;
 }
