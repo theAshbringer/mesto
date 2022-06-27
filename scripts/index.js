@@ -110,7 +110,12 @@ function updateProfile(name, job) {
   profileDescription.innerText = job;
 }
 
-/** Сохранить форму */
+/** Очистить форму */
+const clearForm = (topField, bottomField) => {
+  topField.value = '';
+  bottomField.value = '';
+};
+/** Обработчик отправки формы редактирования профиля */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
   [profileName, profileJob] = getInputValues(editForm);
@@ -118,13 +123,7 @@ const editFormSubmitHandler = (evt) => {
   closeForm(editForm);
 };
 
-/** Очистить форму */
-const clearForm = (topField, bottomField) => {
-  topField.value = '';
-  bottomField.value = '';
-};
-
-/** Сохранить форму */
+/** Обработчик отправки формы добавления карточки */
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   [cardName, cardLink] = getInputValues(addForm);
