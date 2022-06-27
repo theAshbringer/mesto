@@ -145,3 +145,11 @@ addFormCloseButton.addEventListener('click', () => closeForm(addForm));
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
 addFormElement.addEventListener('submit', addFormSubmitHandler);
+
+// Обработка кнопок лайков
+likeButtons = document.querySelectorAll('.like-btn');
+likeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    button.classList.toggle('like-btn_active');
+  });
+});
