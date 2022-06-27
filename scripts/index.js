@@ -31,20 +31,21 @@ const addButton = document.querySelector('.add-btn');
 const editFormCloseButton = document.querySelector('.edit-profile .close-btn');
 const addFormCloseButton = document.querySelector('.add-card .close-btn');
 
-  const cardTemplate = document.querySelector('#card-template').content;
+const cardTemplate = document.querySelector('#card-template').content;
 
 // Попап с оверлеем
 const popup = document.querySelector('.popup');
 
-const profileEditForm = {
+const editForm = {
   formClass: '.edit-profile',
   topInput: '.popup__field_type_name',
   bottomInput: '.popup__field_type_description',
   topInputInitValue: '.profile__name',
   bottomInputInitValue: '.profile__description',
 };
+editFormElement = document.querySelector(editForm.formClass);
 
-const addCardForm = {
+const addForm = {
   formClass: '.add-card',
   topInput: '.popup__field_type_card-name',
   bottomInput: '.popup__field_type_card-link',
@@ -93,25 +94,55 @@ function closeForm(form) {
   formElement.closest('.popup').classList.remove('popup_opened');
 }
 
+/** Получить содержимое полей формы */
+const getInputValues = (form) => {
+  const formElement = document.querySelector(form.formClass);
+  const topInput = formElement.querySelector(form.topInput);
+  const bottomInput = formElement.querySelector(form.bottomInput);
+  return [topInput, bottomInput];
+};
+
 /** Скопировать введенные данные в профиль */
-function updateProfile() {
-  profileName.innerText = nameInput.value;
-  profileDescription.innerText = jobInput.value;
+function updateProfile(name, job) {
+  const profileName = document.querySelector('.profile__name');
+  const profileDescription = document.querySelector('.profile__description');
+  profileName.innerText = name;
+  profileDescription.innerText = job;
 }
 
 /** Сохранить форму */
-function editFormSubmitHandler(evt) {
+const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  updateProfile();
-  closeForm();
-}
+  [profileName, profileJob] = getInputValues(editForm);
+  updateProfile(profileName.value, profileJob.value);
+  closeForm(editForm);
+};
+
+/** Очистить форму */
+const clearForm = (topField, bottomField) => {
+  topField.value = '';
+  bottomField.value = '';
+};
+
+/** Сохранить форму */
+const addFormSubmitHandler = (evt) => {
+  evt.preventDefault();
+  [cardName, cardLink] = getInputValues(addForm);
+  renderCard(cardName.value, cardLink.value);
+  clearForm(cardName, cardLink);
+  closeForm(addForm);
+};
 
 initializeCards();
 // Событие "Редактировать профиль"
-editButton.addEventListener('click', () => openForm(profileEditForm));
+editButton.addEventListener('click', () => openForm(editForm));
 // Событие "Закрыть форму редактирования профиля"
-editFormCloseButton.addEventListener('click', () => closeForm(profileEditForm));
+editFormCloseButton.addEventListener('click', () => closeForm(editForm));
 // Событие "Добавить карточку"
-addButton.addEventListener('click', () => openForm(addCardForm));
+addButton.addEventListener('click', () => openForm(addForm));
 // Событие "Закрыть форму добавления карточки"
-addFormCloseButton.addEventListener('click', () => closeForm(addCardForm));
+addFormCloseButton.addEventListener('click', () => closeForm(addForm));
+// Событие "Сохранить форму"
+editFormElement.addEventListener('submit', editFormSubmitHandler);
+// Событие "Сохранить форму"
+addFormElement.addEventListener('submit', addFormSubmitHandler);
