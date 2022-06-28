@@ -172,13 +172,13 @@ editButton.addEventListener('click', () => {
   initFormField(editForm.bottomInputInitValue, editForm.bottomInput);
 });
 // Событие "Закрыть форму редактирования профиля"
-editFormCloseButton.addEventListener('click', () => {
-  closePopup(editFormElement);
-});
+editFormCloseButton.addEventListener('click', () =>
+  closePopup(editFormElement)
+);
 // Событие "Добавить карточку"
-addButton.addEventListener('click', () => openForm(addForm));
+addButton.addEventListener('click', () => openPopup(addFormElement));
 // Событие "Закрыть форму добавления карточки"
-addFormCloseButton.addEventListener('click', () => closeForm(addForm));
+addFormCloseButton.addEventListener('click', () => closePopup(addFormElement));
 // Событие "Сохранить форму"
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
