@@ -43,14 +43,14 @@ const editForm = {
   topInputInitValue: '.profile__name',
   bottomInputInitValue: '.profile__description',
 };
-editFormElement = document.querySelector(editForm.formClass);
+const editFormElement = document.querySelector(editForm.formClass);
 
 const addForm = {
   formClass: '.add-card',
   topInput: '.popup__field_type_card-name',
   bottomInput: '.popup__field_type_card-link',
 };
-addFormElement = document.querySelector(addForm.formClass);
+const addFormElement = document.querySelector(addForm.formClass);
 
 /** Отрисовать карточку */
 const renderCard = (name, link) => {
@@ -70,14 +70,14 @@ const initializeCards = () => {
 };
 
 /** Инициализировать полt формы значениями из профиля */
-function initFormField(form, sourceElementCls, targetElementCls) {
+const initFormField = (form, sourceElementCls, targetElementCls) => {
   const sourceElement = document.querySelector(sourceElementCls);
   const targetElement = document.querySelector(targetElementCls);
   targetElement.value = sourceElement.innerText;
 }
 
 /** Открыть форму */
-function openForm(form) {
+const openForm = (form) => {
   const formElement = document.querySelector(form.formClass);
   formElement.closest('.popup').classList.add('popup_opened');
   if (form.topInputInitValue) {
@@ -89,7 +89,7 @@ function openForm(form) {
 }
 
 /** Закрыть форму */
-function closeForm(form) {
+const closeForm = (form) => {
   const formElement = document.querySelector(form.formClass);
   formElement.closest('.popup').classList.remove('popup_opened');
 }
@@ -103,7 +103,7 @@ const getInputValues = (form) => {
 };
 
 /** Скопировать введенные данные в профиль */
-function updateProfile(name, job) {
+const updateProfile = (name, job) => {
   const profileName = document.querySelector('.profile__name');
   const profileDescription = document.querySelector('.profile__description');
   profileName.innerText = name;
@@ -147,7 +147,7 @@ editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
 // Обработка кнопок лайков
-likeButtons = document.querySelectorAll('.like-btn');
+const likeButtons = document.querySelectorAll('.like-btn');
 likeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     button.classList.toggle('like-btn_active');
@@ -155,7 +155,7 @@ likeButtons.forEach((button) => {
 });
 
 // Обработка кнопок удаления
-deleteButtons = document.querySelectorAll('.delete-btn');
+const deleteButtons = document.querySelectorAll('.delete-btn');
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
     button.closest('li').remove();
