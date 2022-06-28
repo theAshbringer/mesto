@@ -60,12 +60,12 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('li').remove();
 };
 
-const openPopup = (element) => {
-  element.closest('.popup').classList.add('popup_opened');
+const openPopup = (popup_container) => {
+  popup_container.closest('.popup').classList.add('popup_opened');
 };
 
-const closePopup = (element) => {
-  element.closest('.popup').classList.remove('popup_opened');
+const closePopup = (popup_container) => {
+  popup_container.closest('.popup').classList.remove('popup_opened');
 };
 
 const passCardToPopup = (cardElement) => {
@@ -119,7 +119,7 @@ const initializeCards = () => {
   initialCards.forEach((item) => renderCard(item.name, item.link));
 };
 
-/** Инициализировать поля формы значениями из профиля */
+/** Инициализировать поля формы редактирования профиля */
 const initFormField = (form, sourceElementCls, targetElementCls) => {
   const sourceElement = document.querySelector(sourceElementCls);
   const targetElement = document.querySelector(targetElementCls);
