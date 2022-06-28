@@ -126,12 +126,6 @@ const initFormField = (sourceElementCls, targetElementCls) => {
   targetElement.value = sourceElement.innerText;
 };
 
-/** Закрыть форму */
-const closeForm = (form) => {
-  const formElement = document.querySelector(form.formClass);
-  formElement.closest('.popup').classList.remove('popup_opened');
-};
-
 /** Получить содержимое полей формы */
 const getInputValues = (form) => {
   const formElement = document.querySelector(form.formClass);
@@ -178,7 +172,9 @@ editButton.addEventListener('click', () => {
   initFormField(editForm.bottomInputInitValue, editForm.bottomInput);
 });
 // Событие "Закрыть форму редактирования профиля"
-editFormCloseButton.addEventListener('click', () => closeForm(editForm));
+editFormCloseButton.addEventListener('click', () => {
+  closePopup(editFormElement);
+});
 // Событие "Добавить карточку"
 addButton.addEventListener('click', () => openForm(addForm));
 // Событие "Закрыть форму добавления карточки"
