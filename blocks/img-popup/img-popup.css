@@ -1,0 +1,7 @@
+.img-popup {
+  margin: auto;
+  position: relative;
+  max-width: 75vw;
+  min-height: 75vh;
+  z-index: 1;
+}
