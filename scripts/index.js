@@ -1,3 +1,4 @@
+// Данные исходных карточек
 const initialCards = [
   {
     name: 'Архыз',
@@ -30,7 +31,9 @@ const editButton = document.querySelector('.edit-btn');
 const addButton = document.querySelector('.add-btn');
 const editFormCloseButton = document.querySelector('.edit-profile .close-btn');
 const addFormCloseButton = document.querySelector('.add-card .close-btn');
+const closeImgPopupButton = document.querySelector('.img-popup__close');
 
+// Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
 // Попап с оверлеем
@@ -55,7 +58,6 @@ const addForm = {
 };
 const addFormElement = document.querySelector(addForm.formClass);
 
-// Обработчик кнопок удаления
 const deleteButtonHandler = (evt) => {
   evt.target.closest('li').remove();
 };
@@ -76,18 +78,12 @@ const passCardToPopup = (cardElement) => {
     cardTitle.textContent;
 };
 
-// Закрытие попапа
-const closeImgPopupButton = document.querySelector('.img-popup__close');
-closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
-
-// Обработчик кнопок открытия картинки
 const imageButtonHandler = (evt) => {
   openPopup(imgPopup);
   const currentCard = evt.target.closest('.card');
   passCardToPopup(currentCard);
 };
 
-// Обработчик лайков
 const likeButtonHandler = (evt) => {
   evt.target.classList.toggle('like-btn_active');
 };
@@ -127,7 +123,7 @@ const initFormField = (sourceElementCls, targetElementCls) => {
 };
 
 /** Получить содержимое полей формы */
-const getInputValues = (form) => {
+const getInputElements = (form) => {
   const formElement = document.querySelector(form.formClass);
   const topInput = formElement.querySelector(form.topInput);
   const bottomInput = formElement.querySelector(form.bottomInput);
@@ -150,21 +146,23 @@ const clearForm = (topField, bottomField) => {
 /** Обработчик отправки формы редактирования профиля */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  [profileName, profileJob] = getInputValues(editForm);
+  [profileName, profileJob] = getInputElements(editForm);
   updateProfile(profileName.value, profileJob.value);
-  closeForm(editForm);
+  closePopup(editFormElement);
 };
 
 /** Обработчик отправки формы добавления карточки */
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  [cardName, cardLink] = getInputValues(addForm);
+  [cardName, cardLink] = getInputElements(addForm);
   renderCard(cardName.value, cardLink.value);
   clearForm(cardName, cardLink);
-  closeForm(addForm);
+  closePopup(addFormElement);
 };
 
 initializeCards();
+// Событие "Закрыть попап с картинкой"
+closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
 // Событие "Редактировать профиль"
 editButton.addEventListener('click', () => {
   openPopup(editFormElement);
