@@ -43,14 +43,14 @@ const editForm = {
   topInputInitValue: '.profile__name',
   bottomInputInitValue: '.profile__description',
 };
-editFormElement = document.querySelector(editForm.formClass);
+const editFormElement = document.querySelector(editForm.formClass);
 
 const addForm = {
   formClass: '.add-card',
   topInput: '.popup__field_type_card-name',
   bottomInput: '.popup__field_type_card-link',
 };
-addFormElement = document.querySelector(addForm.formClass);
+const addFormElement = document.querySelector(addForm.formClass);
 
 /** Отрисовать карточку */
 const renderCard = (name, link) => {
@@ -70,14 +70,14 @@ const initializeCards = () => {
 };
 
 /** Инициализировать полt формы значениями из профиля */
-function initFormField(form, sourceElementCls, targetElementCls) {
+const initFormField = (form, sourceElementCls, targetElementCls) => {
   const sourceElement = document.querySelector(sourceElementCls);
   const targetElement = document.querySelector(targetElementCls);
   targetElement.value = sourceElement.innerText;
-}
+};
 
 /** Открыть форму */
-function openForm(form) {
+const openForm = (form) => {
   const formElement = document.querySelector(form.formClass);
   formElement.closest('.popup').classList.add('popup_opened');
   if (form.topInputInitValue) {
@@ -86,13 +86,13 @@ function openForm(form) {
   if (form.bottomInputInitValue) {
     initFormField(form, form.bottomInputInitValue, form.bottomInput);
   }
-}
+};
 
 /** Закрыть форму */
-function closeForm(form) {
+const closeForm = (form) => {
   const formElement = document.querySelector(form.formClass);
   formElement.closest('.popup').classList.remove('popup_opened');
-}
+};
 
 /** Получить содержимое полей формы */
 const getInputValues = (form) => {
@@ -103,12 +103,12 @@ const getInputValues = (form) => {
 };
 
 /** Скопировать введенные данные в профиль */
-function updateProfile(name, job) {
+const updateProfile = (name, job) => {
   const profileName = document.querySelector('.profile__name');
   const profileDescription = document.querySelector('.profile__description');
   profileName.innerText = name;
   profileDescription.innerText = job;
-}
+};
 
 /** Очистить форму */
 const clearForm = (topField, bottomField) => {
@@ -147,7 +147,7 @@ editFormElement.addEventListener('submit', editFormSubmitHandler);
 addFormElement.addEventListener('submit', addFormSubmitHandler);
 
 // Обработка кнопок лайков
-likeButtons = document.querySelectorAll('.like-btn');
+const likeButtons = document.querySelectorAll('.like-btn');
 likeButtons.forEach((button) => {
   button.addEventListener('click', () => {
     button.classList.toggle('like-btn_active');
@@ -155,9 +155,48 @@ likeButtons.forEach((button) => {
 });
 
 // Обработка кнопок удаления
-deleteButtons = document.querySelectorAll('.delete-btn');
+const deleteButtons = document.querySelectorAll('.delete-btn');
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
     button.closest('li').remove();
+  });
+});
+
+// Попапы с картинками
+const imgPopup = document.querySelector('.img-popup');
+
+const openPopup = (element) => {
+  element.closest('.popup').classList.add('popup_opened');
+};
+
+const closePopup = (element) => {
+  element.closest('.popup').classList.remove('popup_opened');
+};
+
+const passCardToPopup = (cardElement) => {
+  cardImage = cardElement.querySelector('.card__photo');
+  cardTitle = cardElement.querySelector('.card__title');
+  document.querySelector('.img-popup__image').src = cardImage.src;
+  document.querySelector('.img-popup__title').textContent =
+    cardTitle.textContent;
+};
+
+// Открытие попапа
+const imageButtons = document.querySelectorAll('.card__onclick');
+
+imageButtons.forEach((button) => {
+  button.addEventListener('click', (evt) => {
+    openPopup(imgPopup);
+    const currentCard = evt.target.closest('.card');
+    passCardToPopup(currentCard);
+  });
+});
+
+// Закрытие попапа
+const closeImgPopupButtons = document.querySelectorAll('.img-popup__close');
+
+closeImgPopupButtons.forEach((button) => {
+  button.addEventListener('click', (evt) => {
+    closePopup(imgPopup);
   });
 });

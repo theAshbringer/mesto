@@ -75,13 +75,20 @@
         <button class="close-btn popup__close" type="button"></button>
       </form>
     </div>
+    <div class="popup">
+      <figure class="img-popup">
+        <img src="" alt="" class="img-popup__image" />
+        <figcaption class="img-popup__title"></figcaption>
+        <button class="close-btn img-popup__close" type="button"></button>
+      </figure>
+    </div>
     <template id="card-template">
       <li>
         <article class="card">
           <h2 class="card__title"></h2>
-          <a class="card__link" href="#">
-            <img src="" alt="" class="card__photo"
-          /></a>
+          <button class="card__onclick" type="button">
+            <img src="" alt="" class="card__photo" />
+          </button>
           <button class="like-btn card__like-btn" type="button"></button>
           <button class="delete-btn card__delete" type="button"></button>
         </article>
