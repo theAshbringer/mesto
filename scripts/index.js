@@ -153,3 +153,11 @@ likeButtons.forEach((button) => {
     button.classList.toggle('like-btn_active');
   });
 });
+
+// Обработка кнопок удаления
+deleteButtons = document.querySelectorAll('.delete-btn');
+deleteButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    button.closest('li').remove();
+  });
+});
