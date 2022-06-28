@@ -120,22 +120,10 @@ const initializeCards = () => {
 };
 
 /** Инициализировать поля формы редактирования профиля */
-const initFormField = (form, sourceElementCls, targetElementCls) => {
+const initFormField = (sourceElementCls, targetElementCls) => {
   const sourceElement = document.querySelector(sourceElementCls);
   const targetElement = document.querySelector(targetElementCls);
   targetElement.value = sourceElement.innerText;
-};
-
-/** Открыть форму */
-const openForm = (form) => {
-  const formElement = document.querySelector(form.formClass);
-  formElement.closest('.popup').classList.add('popup_opened');
-  if (form.topInputInitValue) {
-    initFormField(form, form.topInputInitValue, form.topInput);
-  }
-  if (form.bottomInputInitValue) {
-    initFormField(form, form.bottomInputInitValue, form.bottomInput);
-  }
 };
 
 /** Закрыть форму */
@@ -184,7 +172,11 @@ const addFormSubmitHandler = (evt) => {
 
 initializeCards();
 // Событие "Редактировать профиль"
-editButton.addEventListener('click', () => openForm(editForm));
+editButton.addEventListener('click', () => {
+  openPopup(editFormElement);
+  initFormField(editForm.topInputInitValue, editForm.topInput);
+  initFormField(editForm.bottomInputInitValue, editForm.bottomInput);
+});
 // Событие "Закрыть форму редактирования профиля"
 editFormCloseButton.addEventListener('click', () => closeForm(editForm));
 // Событие "Добавить карточку"
