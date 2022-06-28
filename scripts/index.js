@@ -77,14 +77,8 @@ const passCardToPopup = (cardElement) => {
 };
 
 // Закрытие попапа
-const closeImgPopupButtons = document.querySelectorAll('.img-popup__close');
-console.log(closeImgPopupButtons);
-
-closeImgPopupButtons.forEach((button) => {
-  button.addEventListener('click', (evt) => {
-    closePopup(imgPopup);
-  });
-});
+const closeImgPopupButton = document.querySelector('.img-popup__close');
+closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
 
 // Обработчик кнопок открытия картинки
 const imageButtonHandler = (evt) => {
