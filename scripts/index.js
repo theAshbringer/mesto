@@ -74,7 +74,7 @@ const initFormField = (form, sourceElementCls, targetElementCls) => {
   const sourceElement = document.querySelector(sourceElementCls);
   const targetElement = document.querySelector(targetElementCls);
   targetElement.value = sourceElement.innerText;
-}
+};
 
 /** Открыть форму */
 const openForm = (form) => {
@@ -86,13 +86,13 @@ const openForm = (form) => {
   if (form.bottomInputInitValue) {
     initFormField(form, form.bottomInputInitValue, form.bottomInput);
   }
-}
+};
 
 /** Закрыть форму */
 const closeForm = (form) => {
   const formElement = document.querySelector(form.formClass);
   formElement.closest('.popup').classList.remove('popup_opened');
-}
+};
 
 /** Получить содержимое полей формы */
 const getInputValues = (form) => {
@@ -108,7 +108,7 @@ const updateProfile = (name, job) => {
   const profileDescription = document.querySelector('.profile__description');
   profileName.innerText = name;
   profileDescription.innerText = job;
-}
+};
 
 /** Очистить форму */
 const clearForm = (topField, bottomField) => {
@@ -159,5 +159,44 @@ const deleteButtons = document.querySelectorAll('.delete-btn');
 deleteButtons.forEach((button) => {
   button.addEventListener('click', () => {
     button.closest('li').remove();
+  });
+});
+
+// Попапы с картинками
+const imgPopup = document.querySelector('.img-popup');
+
+const openPopup = (element) => {
+  element.closest('.popup').classList.add('popup_opened');
+};
+
+const closePopup = (element) => {
+  element.closest('.popup').classList.remove('popup_opened');
+};
+
+const passCardToPopup = (cardElement) => {
+  cardImage = cardElement.querySelector('.card__photo');
+  cardTitle = cardElement.querySelector('.card__title');
+  document.querySelector('.img-popup__image').src = cardImage.src;
+  document.querySelector('.img-popup__title').textContent =
+    cardTitle.textContent;
+};
+
+// Открытие попапа
+const imageButtons = document.querySelectorAll('.card__onclick');
+
+imageButtons.forEach((button) => {
+  button.addEventListener('click', (evt) => {
+    openPopup(imgPopup);
+    const currentCard = evt.target.closest('.card');
+    passCardToPopup(currentCard);
+  });
+});
+
+// Закрытие попапа
+const closeImgPopupButtons = document.querySelectorAll('.img-popup__close');
+
+closeImgPopupButtons.forEach((button) => {
+  button.addEventListener('click', (evt) => {
+    closePopup(imgPopup);
   });
 });
