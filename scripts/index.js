@@ -161,6 +161,7 @@ const addFormSubmitHandler = (evt) => {
 };
 
 initializeCards();
+
 // Событие "Закрыть попап с картинкой"
 closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
 // Событие "Редактировать профиль"
