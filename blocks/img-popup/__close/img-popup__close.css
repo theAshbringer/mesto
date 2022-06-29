@@ -1,11 +1,11 @@
-.popup__close {
+.img-popup__close {
   position: absolute;
   top: -40px;
-  right: -39px;
+  right: -40px;
 }
 
 @media screen and (max-width: 751px) {
-  .popup__close {
+  .img-popup__close {
     top: -36px;
     right: 0;
   }

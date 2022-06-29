@@ -1,0 +1,7 @@
+.img-popup__image {
+  margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
+}
