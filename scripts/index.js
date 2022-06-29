@@ -73,9 +73,10 @@ const closePopup = (popup_container) => {
 const passCardToPopup = (cardElement) => {
   cardImage = cardElement.querySelector('.card__photo');
   cardTitle = cardElement.querySelector('.card__title');
-  document.querySelector('.img-popup__image').src = cardImage.src;
+  document.querySelector('.img-popup__image').alt = cardTitle.textContent;
   document.querySelector('.img-popup__title').textContent =
     cardTitle.textContent;
+  document.querySelector('.img-popup__image').src = cardImage.src;
 };
 
 const imageButtonHandler = (evt) => {
