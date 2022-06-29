@@ -1,11 +1,11 @@
 .card {
+  position: relative;
   display: grid;
   grid-template-columns: auto min-content;
+  grid-template-rows: 282px min-content;
   grid-template-areas:
     "photo photo"
     "title like";
-  align-items: center;
-  justify-content: space-between;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
