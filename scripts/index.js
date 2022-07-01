@@ -66,8 +66,9 @@ const likeButtonHandler = (evt) => {
 /** Отрисовать карточку */
 const renderCard = (name, link) => {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__title').textContent = name;
   cardElement.querySelector('.card__photo').src = link;
+  cardElement.querySelector('.card__photo').alt = name;
+  cardElement.querySelector('.card__title').textContent = name;
 
   const cardList = document.querySelector('.cards');
   cardList.append(cardElement);
