@@ -8,6 +8,9 @@ const closeImgPopupButton = document.querySelector('.img-popup__close');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
+// Элемент карточки в шаблоне
+const cardElement = cardTemplate.querySelector('.card');
+
 // Попапы
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -63,30 +66,37 @@ const likeButtonHandler = (evt) => {
   evt.target.classList.toggle('like-btn_active');
 };
 
-/** Отрисовать карточку */
-const renderCard = (name, link) => {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  cardElement.querySelector('.card__photo').src = link;
-  cardElement.querySelector('.card__photo').alt = name;
-  cardElement.querySelector('.card__title').textContent = name;
+/** Создать карточку */
+const createCard = (name, link) => {
+  const card = cardElement.cloneNode(true);
+  card.querySelector('.card__photo').src = link;
+  card.querySelector('.card__photo').alt = name;
+  card.querySelector('.card__title').textContent = name;
 
-  const cardList = document.querySelector('.cards');
-  cardList.append(cardElement);
-
-  cardElement
+  card
     .querySelector('.card__delete')
     .addEventListener('click', deleteButtonHandler);
-  cardElement
+  card
     .querySelector('.card__onclick')
     .addEventListener('click', imageButtonHandler);
-  cardElement
+  card
     .querySelector('.card__like-btn')
     .addEventListener('click', likeButtonHandler);
+
+  return card;
+};
+
+const renderCard = (card) => {
+  const cardList = document.querySelector('.cards');
+  cardList.prepend(card);
 };
 
 /** Отобразить начальные карточки при загрузке страницы */
 const initializeCards = () => {
-  initialCards.forEach((item) => renderCard(item.name, item.link));
+  initialCards.forEach((item) => {
+    const card = createCard(item.name, item.link);
+    renderCard(card);
+  });
 };
 
 /** Обработчик отправки формы редактирования профиля */
@@ -100,7 +110,7 @@ const editFormSubmitHandler = (evt) => {
 /** Обработчик отправки формы добавления карточки */
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  renderCard(cardTitleField.value, cardLinkField.value);
+  renderCard(createCard(cardTitleField.value, cardLinkField.value));
   addFormElement.reset();
   closePopup(popupAdd);
 };
