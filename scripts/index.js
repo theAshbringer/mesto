@@ -54,9 +54,9 @@ const passCardToPopup = (cardElement) => {
 };
 
 const imageButtonHandler = (evt) => {
-  openPopup(popupImg);
   const currentCard = evt.target.closest('.card');
   passCardToPopup(currentCard);
+  openPopup(popupImg);
 };
 
 const likeButtonHandler = (evt) => {
