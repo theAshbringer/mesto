@@ -16,17 +16,17 @@ const imgPopup = document.querySelector('.img-popup');
 
 const editForm = {
   formClass: '.edit-profile',
-  topInput: '.popup__field_type_name',
-  bottomInput: '.popup__field_type_description',
-  topInputInitValue: '.profile__name',
-  bottomInputInitValue: '.profile__description',
+  name: '.popup__field_type_name',
+  description: '.popup__field_type_description',
+  nameInitValue: '.profile__name',
+  descriptionInitValue: '.profile__description',
 };
 const editFormElement = document.querySelector(editForm.formClass);
 
 const addForm = {
   formClass: '.add-card',
-  topInput: '.popup__field_type_card-name',
-  bottomInput: '.popup__field_type_card-link',
+  imgTitle: '.popup__field_type_card-name',
+  imgSource: '.popup__field_type_card-link',
 };
 const addFormElement = document.querySelector(addForm.formClass);
 
@@ -140,8 +140,8 @@ closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
 // Событие "Редактировать профиль"
 editButton.addEventListener('click', () => {
   openPopup(editFormElement);
-  initFormField(editForm.topInputInitValue, editForm.topInput);
-  initFormField(editForm.bottomInputInitValue, editForm.bottomInput);
+  initFormField(editForm.nameInitValue, editForm.name);
+  initFormField(editForm.descriptionInitValue, editForm.description);
 });
 // Событие "Закрыть форму редактирования профиля"
 editFormCloseButton.addEventListener('click', () =>
