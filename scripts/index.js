@@ -24,6 +24,10 @@ const descriptionField = document.querySelector(
 const cardTitleField = document.querySelector('.popup__field_type_card-name');
 const cardLinkField = document.querySelector('.popup__field_type_card-link');
 
+// Начальные значения полей формы редактирования
+const nameFieldInit = document.querySelector('.profile__name');
+const descriptionFieldInit = document.querySelector('.profile__description');
+
 const editForm = {
   formClass: '.edit-profile',
   name: '.popup__field_type_name',
@@ -97,21 +101,6 @@ const initializeCards = () => {
   initialCards.forEach((item) => renderCard(item.name, item.link));
 };
 
-/** Инициализировать поля формы редактирования профиля */
-const initFormField = (sourceElementCls, targetElementCls) => {
-  const sourceElement = document.querySelector(sourceElementCls);
-  const targetElement = document.querySelector(targetElementCls);
-  targetElement.value = sourceElement.innerText;
-};
-
-/** Скопировать введенные данные в профиль */
-const updateProfile = (name, job) => {
-  const profileName = document.querySelector('.profile__name');
-  const profileDescription = document.querySelector('.profile__description');
-  profileName.innerText = name;
-  profileDescription.innerText = job;
-};
-
 /** Очистить форму */
 const clearForm = (topField, bottomField) => {
   topField.value = '';
@@ -120,7 +109,8 @@ const clearForm = (topField, bottomField) => {
 /** Обработчик отправки формы редактирования профиля */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  updateProfile(nameField.value, descriptionField.value);
+  nameFieldInit.innerText = nameField.value;
+  descriptionFieldInit.innerText = descriptionField.value;
   closePopup(popupEdit);
 };
 
@@ -139,8 +129,8 @@ closeImgPopupButton.addEventListener('click', () => closePopup(popupImg));
 // Событие "Редактировать профиль"
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
-  initFormField(editForm.nameInitValue, editForm.name);
-  initFormField(editForm.descriptionInitValue, editForm.description);
+  nameField.value = nameFieldInit.innerText;
+  descriptionField.value = descriptionFieldInit.innerText;
 });
 // Событие "Закрыть форму редактирования профиля"
 editFormCloseButton.addEventListener('click', () => closePopup(popupEdit));
