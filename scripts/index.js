@@ -16,6 +16,10 @@ const popupImg = document.querySelector('.popup_type_img');
 // Контейнер попапа с картинкой
 const imgPopup = document.querySelector('.img-popup');
 
+// Элементы форм
+const editFormElement = document.querySelector('.edit-profile');
+const addFormElement = document.querySelector('.add-card');
+
 // Поля форм
 const nameField = document.querySelector('.popup__field_type_name');
 const descriptionField = document.querySelector(
@@ -27,22 +31,6 @@ const cardLinkField = document.querySelector('.popup__field_type_card-link');
 // Начальные значения полей формы редактирования
 const nameFieldInit = document.querySelector('.profile__name');
 const descriptionFieldInit = document.querySelector('.profile__description');
-
-const editForm = {
-  formClass: '.edit-profile',
-  name: '.popup__field_type_name',
-  description: '.popup__field_type_description',
-  nameInitValue: '.profile__name',
-  descriptionInitValue: '.profile__description',
-};
-const editFormElement = document.querySelector(editForm.formClass);
-
-const addForm = {
-  formClass: '.add-card',
-  imgTitle: '.popup__field_type_card-name',
-  imgSource: '.popup__field_type_card-link',
-};
-const addFormElement = document.querySelector(addForm.formClass);
 
 const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
@@ -101,11 +89,6 @@ const initializeCards = () => {
   initialCards.forEach((item) => renderCard(item.name, item.link));
 };
 
-/** Очистить форму */
-const clearForm = (topField, bottomField) => {
-  topField.value = '';
-  bottomField.value = '';
-};
 /** Обработчик отправки формы редактирования профиля */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
@@ -118,7 +101,7 @@ const editFormSubmitHandler = (evt) => {
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   renderCard(cardTitleField.value, cardLinkField.value);
-  clearForm(cardName, cardLink);
+  addFormElement.reset();
   closePopup(popupAdd);
 };
 
