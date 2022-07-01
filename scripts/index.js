@@ -31,7 +31,7 @@ const addForm = {
 const addFormElement = document.querySelector(addForm.formClass);
 
 const deleteButtonHandler = (evt) => {
-  evt.target.closest('li').remove();
+  evt.target.closest('.card').remove();
 };
 
 const openPopup = (popup_container) => {
@@ -67,10 +67,8 @@ const renderCard = (name, link) => {
   cardElement.querySelector('.card__title').textContent = name;
   cardElement.querySelector('.card__photo').src = link;
 
-  const listItem = document.createElement('li');
-  listItem.append(cardElement);
   const cardList = document.querySelector('.cards');
-  cardList.append(listItem);
+  cardList.append(cardElement);
 
   cardElement
     .querySelector('.card__delete')
