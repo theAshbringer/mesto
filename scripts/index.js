@@ -16,6 +16,14 @@ const popupImg = document.querySelector('.popup_type_img');
 // Контейнер попапа с картинкой
 const imgPopup = document.querySelector('.img-popup');
 
+// Поля форм
+const nameField = document.querySelector('.popup__field_type_name');
+const descriptionField = document.querySelector(
+  '.popup__field_type_description'
+);
+const cardTitleField = document.querySelector('.popup__field_type_card-name');
+const cardLinkField = document.querySelector('.popup__field_type_card-link');
+
 const editForm = {
   formClass: '.edit-profile',
   name: '.popup__field_type_name',
@@ -96,14 +104,6 @@ const initFormField = (sourceElementCls, targetElementCls) => {
   targetElement.value = sourceElement.innerText;
 };
 
-/** Получить содержимое полей формы */
-const getInputElements = (form) => {
-  const formElement = document.querySelector(form.formClass);
-  const topInput = formElement.querySelector(form.topInput);
-  const bottomInput = formElement.querySelector(form.bottomInput);
-  return [topInput, bottomInput];
-};
-
 /** Скопировать введенные данные в профиль */
 const updateProfile = (name, job) => {
   const profileName = document.querySelector('.profile__name');
@@ -120,16 +120,14 @@ const clearForm = (topField, bottomField) => {
 /** Обработчик отправки формы редактирования профиля */
 const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  [profileName, profileJob] = getInputElements(editForm);
-  updateProfile(profileName.value, profileJob.value);
+  updateProfile(nameField.value, descriptionField.value);
   closePopup(popupEdit);
 };
 
 /** Обработчик отправки формы добавления карточки */
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
-  [cardName, cardLink] = getInputElements(addForm);
-  renderCard(cardName.value, cardLink.value);
+  renderCard(cardTitleField.value, cardLinkField.value);
   clearForm(cardName, cardLink);
   closePopup(popupAdd);
 };
