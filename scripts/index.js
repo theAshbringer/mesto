@@ -8,10 +8,12 @@ const closeImgPopupButton = document.querySelector('.img-popup__close');
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
-// Попап с оверлеем
-const popup = document.querySelector('.popup');
+// Попапы
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupAdd = document.querySelector('.popup_type_add');
+const popupImg = document.querySelector('.popup_type_img');
 
-// Попап с картинкой
+// Контейнер попапа с картинкой
 const imgPopup = document.querySelector('.img-popup');
 
 const editForm = {
@@ -34,12 +36,12 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
-const openPopup = (popup_container) => {
-  popup_container.closest('.popup').classList.add('popup_opened');
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
 };
 
-const closePopup = (popup_container) => {
-  popup_container.closest('.popup').classList.remove('popup_opened');
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
 };
 
 const passCardToPopup = (cardElement) => {
@@ -52,7 +54,7 @@ const passCardToPopup = (cardElement) => {
 };
 
 const imageButtonHandler = (evt) => {
-  openPopup(imgPopup);
+  openPopup(popupImg);
   const currentCard = evt.target.closest('.card');
   passCardToPopup(currentCard);
 };
@@ -119,7 +121,7 @@ const editFormSubmitHandler = (evt) => {
   evt.preventDefault();
   [profileName, profileJob] = getInputElements(editForm);
   updateProfile(profileName.value, profileJob.value);
-  closePopup(editFormElement);
+  closePopup(popupEdit);
 };
 
 /** Обработчик отправки формы добавления карточки */
@@ -128,27 +130,25 @@ const addFormSubmitHandler = (evt) => {
   [cardName, cardLink] = getInputElements(addForm);
   renderCard(cardName.value, cardLink.value);
   clearForm(cardName, cardLink);
-  closePopup(addFormElement);
+  closePopup(popupAdd);
 };
 
 initializeCards();
 
 // Событие "Закрыть попап с картинкой"
-closeImgPopupButton.addEventListener('click', () => closePopup(imgPopup));
+closeImgPopupButton.addEventListener('click', () => closePopup(popupImg));
 // Событие "Редактировать профиль"
 editButton.addEventListener('click', () => {
-  openPopup(editFormElement);
+  openPopup(popupEdit);
   initFormField(editForm.nameInitValue, editForm.name);
   initFormField(editForm.descriptionInitValue, editForm.description);
 });
 // Событие "Закрыть форму редактирования профиля"
-editFormCloseButton.addEventListener('click', () =>
-  closePopup(editFormElement)
-);
+editFormCloseButton.addEventListener('click', () => closePopup(popupEdit));
 // Событие "Добавить карточку"
-addButton.addEventListener('click', () => openPopup(addFormElement));
+addButton.addEventListener('click', () => openPopup(popupAdd));
 // Событие "Закрыть форму добавления карточки"
-addFormCloseButton.addEventListener('click', () => closePopup(addFormElement));
+addFormCloseButton.addEventListener('click', () => closePopup(popupAdd));
 // Событие "Сохранить форму"
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
