@@ -11,5 +11,5 @@
 
 .popup__field:focus {
   outline: none;
-  border-bottom: 1px dashed rgba(14, 5, 54, 0.2);
+  border-bottom-style: dashed;
 }
