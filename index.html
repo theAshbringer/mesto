@@ -31,7 +31,11 @@
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
     <div class="popup popup_type_edit">
-      <form name="edit-profile" class="edit-profile popup__container">
+      <form
+        name="edit-profile"
+        class="edit-profile popup__container"
+        novalidate
+      >
         <h2 class="popup__title">Редактировать профиль</h2>
         <input
           type="text"
@@ -41,7 +45,10 @@
           placeholder="Имя"
           value="Жак-Ив Кусто"
           required
+          minlength="2"
+          maxlength="40"
         />
+        <span class="popup__input-error popup__input-error_active">Ошибка</span>
         <input
           type="text"
           name="edit-profile-description"
@@ -49,7 +56,10 @@
           class="popup__field popup__field_type_description"
           placeholder="Описание"
           required
+          minlength="2"
+          maxlength="200"
         />
+        <span class="popup__input-error popup__input-error_active">Ошибка</span>
         <button class="save-btn" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
       </form>
