@@ -1,4 +1,4 @@
-.card {
+.card__container {
   position: relative;
   display: grid;
   grid-template-columns: auto min-content;
