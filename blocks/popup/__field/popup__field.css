@@ -13,7 +13,3 @@
   outline: none;
   border-bottom: 1px dashed rgba(14, 5, 54, 0.2);
 }
-
-.popup__field:invalid {
-  border-bottom: 1px solid #f00;
-}
