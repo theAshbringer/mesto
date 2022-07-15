@@ -41,7 +41,8 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
-const escapeKeyHandler = (evt, popupElement) => {
+const escapeKeyHandler = (evt) => {
+  const popupElement = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
     closePopup(popupElement);
   }
@@ -49,7 +50,7 @@ const escapeKeyHandler = (evt, popupElement) => {
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
-  window.addEventListener('keydown', (evt) => escapeKeyHandler(evt, popup));
+  window.addEventListener('keydown', escapeKeyHandler);
 };
 
 const closePopup = (popup) => {
