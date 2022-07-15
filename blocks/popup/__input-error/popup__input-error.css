@@ -1,0 +1,18 @@
+.popup__input-error {
+  min-height: 30px;
+  margin-bottom: 13px;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #f00;
+  opacity: 0;
+}
+
+.popup__input-error:last-of-type {
+  margin-bottom: 31px;
+}
+
+@media screen and (max-width: 751px) {
+  .popup__input-error:last-of-type {
+    margin-bottom: 28px;
+  }
+}
