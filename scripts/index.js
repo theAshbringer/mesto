@@ -41,6 +41,7 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
+/** Закрыть попап по кнопке Esc */
 const escapeKeyHandler = (evt) => {
   const popupElement = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
@@ -48,14 +49,23 @@ const escapeKeyHandler = (evt) => {
   }
 };
 
+/** Закрыть попап по клику на оверлей */
+const overlayEventHandler = (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+};
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', escapeKeyHandler);
+  popup.addEventListener('mousedown', overlayEventHandler);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   window.removeEventListener('keydown', escapeKeyHandler);
+  popup.removeEventListener('mousedown', overlayEventHandler);
 };
 
 /** Показать картинку в попапе */
@@ -145,13 +155,3 @@ addFormCloseButton.addEventListener('click', () => closePopup(popupAdd));
 editFormElement.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
 addFormElement.addEventListener('submit', addFormSubmitHandler);
-
-// Закрывать попапы по клику на оверлей
-const popupList = document.querySelectorAll('.popup');
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-});
