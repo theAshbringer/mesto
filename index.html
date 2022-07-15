@@ -31,26 +31,36 @@
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
     <div class="popup popup_type_edit">
-      <form name="edit-profile" class="edit-profile popup__container">
+      <form
+        name="edit-profile"
+        class="edit-profile popup__container"
+        novalidate
+      >
         <h2 class="popup__title">Редактировать профиль</h2>
         <input
           type="text"
           name="edit-profile-name"
-          id="edit-profile-name"
+          id="profile-name"
           class="popup__field popup__field_type_name"
           placeholder="Имя"
           value="Жак-Ив Кусто"
           required
+          minlength="2"
+          maxlength="40"
         />
+        <span class="popup__input-error profile-name-error">Ошибка</span>
         <input
           type="text"
           name="edit-profile-description"
-          id="edit-profile-description"
+          id="profile-description"
           class="popup__field popup__field_type_description"
           placeholder="Описание"
           required
+          minlength="2"
+          maxlength="200"
         />
-        <button class="save-btn" type="submit">Сохранить</button>
+        <span class="popup__input-error profile-description-error">Ошибка</span>
+        <button class="save-btn popup__button" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
       </form>
     </div>
@@ -73,7 +83,7 @@
           placeholder="Ссылка на картинку"
           required
         />
-        <button class="save-btn" type="submit">Сохранить</button>
+        <button class="save-btn popup__button" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
       </form>
     </div>
@@ -98,5 +108,6 @@
     </template>
     <script src="./scripts/cards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
