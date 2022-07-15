@@ -48,7 +48,7 @@
           minlength="2"
           maxlength="40"
         />
-        <span class="popup__input-error profile-name-error">Ошибка</span>
+        <span class="popup__input-error profile-name-error"></span>
         <input
           type="text"
           name="edit-profile-description"
@@ -59,30 +59,34 @@
           minlength="2"
           maxlength="200"
         />
-        <span class="popup__input-error profile-description-error">Ошибка</span>
+        <span class="popup__input-error profile-description-error"></span>
         <button class="save-btn popup__button" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
       </form>
     </div>
     <div class="popup popup_type_add">
-      <form name="add-card" class="add-card popup__container">
+      <form name="add-card" class="add-card popup__container" novalidate>
         <h2 class="popup__title">Новое место</h2>
         <input
           type="text"
           name="add-card-name"
-          id="add-card-name"
+          id="card-name"
           class="popup__field popup__field_type_card-name"
           placeholder="Название"
           required
+          minlength="2"
+          maxlength="30"
         />
+        <span class="popup__input-error card-name-error"></span>
         <input
           type="url"
           name="add-card-description"
-          id="add-card-description"
+          id="card-description"
           class="popup__field popup__field_type_card-link"
           placeholder="Ссылка на картинку"
           required
         />
+        <span class="popup__input-error card-description-error"></span>
         <button class="save-btn popup__button" type="submit">Сохранить</button>
         <button class="close-btn popup__close" type="button"></button>
       </form>
