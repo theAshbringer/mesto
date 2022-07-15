@@ -52,10 +52,14 @@ const setEventListeners = (formElement, settings) => {
     settings.submitButtonSelector
   );
 
+  // Изначально деактивируем кнопку, только если все поля формы пустые
+  if (inputList.every((inEl) => !inEl.value)) {
+    toggleButtonState(inputList, buttonElement, settings.inactiveButtonClass);
+  }
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, settings);
-
       toggleButtonState(inputList, buttonElement, settings.inactiveButtonClass);
     });
   });
