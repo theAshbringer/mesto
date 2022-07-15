@@ -1,9 +1,9 @@
 // Кнопки
-const editButton = document.querySelector('.edit-btn');
-const addButton = document.querySelector('.add-btn');
-const editFormCloseButton = document.querySelector('.edit-profile .close-btn');
-const addFormCloseButton = document.querySelector('.add-card .close-btn');
-const closeImgPopupButton = document.querySelector('.img-popup__close');
+const btnEdit = document.querySelector('.edit-btn');
+const btnAdd = document.querySelector('.add-btn');
+const btnCloseEditForm = document.querySelector('.edit-profile .close-btn');
+const btnCloseAddForm = document.querySelector('.add-card .close-btn');
+const btnCloseImgPopup = document.querySelector('.img-popup__close');
 
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content;
@@ -17,8 +17,8 @@ const popupAdd = document.querySelector('.popup_type_add');
 const popupImg = document.querySelector('.popup_type_img');
 
 // Контейнеры попапов
-const editFormElement = document.querySelector('.edit-profile');
-const addFormElement = document.querySelector('.add-card');
+const formEdit = document.querySelector('.edit-profile');
+const formAdd = document.querySelector('.add-card');
 const imgPopup = document.querySelector('.img-popup');
 
 // Поля форм
@@ -41,12 +41,31 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
+/** Закрыть попап по кнопке Esc */
+const escapeKeyHandler = (evt) => {
+  const popupElement = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popupElement);
+  }
+};
+
+/** Закрыть попап по клику на оверлей */
+const overlayEventHandler = (evt) => {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+};
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  window.addEventListener('keydown', escapeKeyHandler);
+  popup.addEventListener('mousedown', overlayEventHandler);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  window.removeEventListener('keydown', escapeKeyHandler);
+  popup.removeEventListener('mousedown', overlayEventHandler);
 };
 
 /** Показать картинку в попапе */
@@ -112,49 +131,27 @@ const editFormSubmitHandler = (evt) => {
 const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   renderCard(createCard(cardTitleField.value, cardLinkField.value));
-  addFormElement.reset();
+  formAdd.reset();
   closePopup(popupAdd);
 };
 
 initializeCards();
 
 // Событие "Закрыть попап с картинкой"
-closeImgPopupButton.addEventListener('click', () => closePopup(popupImg));
+btnCloseImgPopup.addEventListener('click', () => closePopup(popupImg));
 // Событие "Редактировать профиль"
-editButton.addEventListener('click', () => {
+btnEdit.addEventListener('click', () => {
   openPopup(popupEdit);
   nameField.value = nameFieldInit.innerText;
   descriptionField.value = descriptionFieldInit.innerText;
 });
 // Событие "Закрыть форму редактирования профиля"
-editFormCloseButton.addEventListener('click', () => closePopup(popupEdit));
+btnCloseEditForm.addEventListener('click', () => closePopup(popupEdit));
 // Событие "Добавить карточку"
-addButton.addEventListener('click', () => openPopup(popupAdd));
+btnAdd.addEventListener('click', () => openPopup(popupAdd));
 // Событие "Закрыть форму добавления карточки"
-addFormCloseButton.addEventListener('click', () => closePopup(popupAdd));
+btnCloseAddForm.addEventListener('click', () => closePopup(popupAdd));
 // Событие "Сохранить форму"
-editFormElement.addEventListener('submit', editFormSubmitHandler);
+formEdit.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
-addFormElement.addEventListener('submit', addFormSubmitHandler);
-
-// Закрывать попапы по клику на оверлей
-const popupList = document.querySelectorAll('.popup');
-popupList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-});
-
-// Закрывать попапы по нажатию Esc
-window.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    const openedPopup = Array.from(popupList).find((popup) =>
-      popup.classList.contains('popup_opened')
-    );
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
-});
+formAdd.addEventListener('submit', addFormSubmitHandler);
