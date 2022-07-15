@@ -146,3 +146,15 @@ popupList.forEach((popup) => {
     }
   });
 });
+
+// Закрывать попапы по нажатию Esc
+window.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    const openedPopup = Array.from(popupList).find((popup) =>
+      popup.classList.contains('popup_opened')
+    );
+    if (openedPopup) {
+      closePopup(openedPopup);
+    }
+  }
+});
