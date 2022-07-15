@@ -140,7 +140,7 @@ addFormElement.addEventListener('submit', addFormSubmitHandler);
 // Закрывать попапы по клику на оверлей
 const popupList = document.querySelectorAll('.popup');
 popupList.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
+  popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup')) {
       closePopup(popup);
     }
