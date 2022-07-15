@@ -41,12 +41,20 @@ const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
+const escapeKeyHandler = (evt, popupElement) => {
+  if (evt.key === 'Escape') {
+    closePopup(popupElement);
+  }
+};
+
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
+  window.addEventListener('keydown', (evt) => escapeKeyHandler(evt, popup));
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
+  window.removeEventListener('keydown', escapeKeyHandler);
 };
 
 /** Показать картинку в попапе */
@@ -145,16 +153,4 @@ popupList.forEach((popup) => {
       closePopup(popup);
     }
   });
-});
-
-// Закрывать попапы по нажатию Esc
-window.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    const openedPopup = Array.from(popupList).find((popup) =>
-      popup.classList.contains('popup_opened')
-    );
-    if (openedPopup) {
-      closePopup(openedPopup);
-    }
-  }
 });
