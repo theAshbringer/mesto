@@ -37,13 +37,16 @@ const descriptionFieldInit = document.querySelector('.profile__description');
 const imgPopupTitle = document.querySelector('.img-popup__title');
 const imgPopupPic = document.querySelector('.img-popup__image');
 
+const keyEscape = 'Escape';
+
+/** Удаление карточки по щелчку на корзину */
 const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
 };
 
 /** Закрыть попап по кнопке Esc */
 const escapeKeyHandler = (evt) => {
-  if (evt.key === 'Escape') {
+  if (evt.key === keyEscape) {
     const popupElement = document.querySelector('.popup_opened');
     closePopup(popupElement);
   }
