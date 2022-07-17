@@ -160,3 +160,12 @@ btnAdd.addEventListener('click', () => openPopup(popupAdd));
 formEdit.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
 formAdd.addEventListener('submit', addFormSubmitHandler);
+
+enableValidation({
+  formSelector: '.popup__container',
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__field_invalid',
+  errorClass: 'popup__input-error_active',
+});

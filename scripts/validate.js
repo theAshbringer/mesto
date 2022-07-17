@@ -87,12 +87,3 @@ const enableValidation = (settings) => {
     setEventListeners(formElement, settings);
   });
 };
-
-enableValidation({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__field_invalid',
-  errorClass: 'popup__input-error_active',
-});
