@@ -7,14 +7,24 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
+/** Отключить кнопку */
+const disableButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.classList.add(inactiveButtonClass);
+  buttonElement.setAttribute('disabled', 'disabled');
+};
+
+/** Включить кнопку */
+const enableButton = (buttonElement, inactiveButtonClass) => {
+  buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.removeAttribute('disabled', 'disabled');
+};
+
 /** Переключение состояния кнопки */
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute('disabled', 'disabled');
+    disableButton(buttonElement, inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.removeAttribute('disabled', 'disabled');
+    enableButton(buttonElement, inactiveButtonClass);
   }
 };
 
