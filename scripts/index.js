@@ -43,8 +43,8 @@ const deleteButtonHandler = (evt) => {
 
 /** Закрыть попап по кнопке Esc */
 const escapeKeyHandler = (evt) => {
-  const popupElement = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popupElement = document.querySelector('.popup_opened');
     closePopup(popupElement);
   }
 };
