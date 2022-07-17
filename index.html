@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css" />
+    <script defer src="./scripts/cards.js"></script>
+    <script defer src="./scripts/validate.js"></script>
+    <script defer src="./scripts/index.js"></script>
   </head>
 
   <body class="page">
@@ -17,11 +20,21 @@
         <div class="profile__info">
           <div class="profile__name-string">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="edit-btn profile__edit-btn" type="button"></button>
+            <button
+              class="edit-btn profile__edit-btn"
+              type="button"
+              aria-label="Редактировать профиль"
+              title="Редактировать профиль"
+            ></button>
           </div>
           <p class="profile__description">Исследователь океана</p>
         </div>
-        <button class="add-btn profile__add-btn" type="button"></button>
+        <button
+          class="add-btn profile__add-btn"
+          type="button"
+          aria-label="Добавить карточку"
+          title="Добавить карточку"
+        ></button>
       </section>
       <section>
         <ul class="cards"></ul>
@@ -61,7 +74,12 @@
         />
         <span class="popup__input-error profile-description-error"></span>
         <button class="save-btn popup__button" type="submit">Сохранить</button>
-        <button class="close-btn popup__close" type="button"></button>
+        <button
+          class="close-btn popup__close"
+          type="button"
+          aria-label="Закрыть"
+          title="Закрыть"
+        ></button>
       </form>
     </div>
     <div class="popup popup_type_add">
@@ -88,14 +106,24 @@
         />
         <span class="popup__input-error card-description-error"></span>
         <button class="save-btn popup__button" type="submit">Сохранить</button>
-        <button class="close-btn popup__close" type="button"></button>
+        <button
+          class="close-btn popup__close"
+          type="button"
+          aria-label="Закрыть"
+          title="Закрыть"
+        ></button>
       </form>
     </div>
     <div class="popup popup_type_img">
       <figure class="img-popup">
         <img src="./images/dombay.png" alt="Домбай" class="img-popup__image" />
         <figcaption class="img-popup__title"></figcaption>
-        <button class="close-btn img-popup__close" type="button"></button>
+        <button
+          class="close-btn popup__close"
+          type="button"
+          aria-label="Закрыть"
+          title="Закрыть"
+        ></button>
       </figure>
     </div>
     <template id="card-template">
@@ -105,13 +133,20 @@
           <button class="card__onclick" type="button">
             <img src="./images/dombay.png" alt="Домбай" class="card__photo" />
           </button>
-          <button class="like-btn card__like-btn" type="button"></button>
-          <button class="delete-btn card__delete" type="button"></button>
+          <button
+            class="like-btn card__like-btn"
+            type="button"
+            aria-label="Нравится"
+            title="Нравится"
+          ></button>
+          <button
+            class="delete-btn card__delete"
+            type="button"
+            aria-label="Удалить карточку"
+            title="Удалить карточку"
+          ></button>
         </article>
       </li>
     </template>
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validate.js"></script>
   </body>
 </html>
