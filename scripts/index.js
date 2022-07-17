@@ -54,7 +54,7 @@ const escapeKeyHandler = (evt) => {
 
 /** Закрыть попап по клику на оверлей */
 const overlayClickHandler = (evt) => {
-  if (evt.target.classList.contains('popup')) {
+  if (evt.target.classList.contains('popup') && evt.button === 0) {
     closePopup(evt.target);
   }
 };
