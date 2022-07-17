@@ -39,6 +39,8 @@ const imgPopupPic = document.querySelector('.img-popup__image');
 
 const keyEscape = 'Escape';
 
+const leftButtonNumber = 0;
+
 /** Удаление карточки по щелчку на корзину */
 const deleteButtonHandler = (evt) => {
   evt.target.closest('.card').remove();
@@ -53,22 +55,26 @@ const escapeKeyHandler = (evt) => {
 };
 
 /** Закрыть попап по клику на оверлей */
-const overlayClickHandler = (evt) => {
-  if (evt.target.classList.contains('popup') && evt.button === 0) {
-    closePopup(evt.target);
+const clicksToCloseHandler = (evt) => {
+  if (
+    (evt.target.classList.contains('popup') ||
+      evt.target.classList.contains('popup__close')) &&
+    evt.button === leftButtonNumber
+  ) {
+    closePopup(evt.currentTarget);
   }
 };
 
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', escapeKeyHandler);
-  popup.addEventListener('mousedown', overlayClickHandler);
+  popup.addEventListener('mousedown', clicksToCloseHandler);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   window.removeEventListener('keydown', escapeKeyHandler);
-  popup.removeEventListener('mousedown', overlayClickHandler);
+  popup.removeEventListener('mousedown', clicksToCloseHandler);
 };
 
 /** Показать картинку в попапе */
@@ -140,20 +146,14 @@ const addFormSubmitHandler = (evt) => {
 
 initializeCards();
 
-// Событие "Закрыть попап с картинкой"
-btnCloseImgPopup.addEventListener('click', () => closePopup(popupImg));
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   openPopup(popupEdit);
   nameField.value = nameFieldInit.innerText;
   descriptionField.value = descriptionFieldInit.innerText;
 });
-// Событие "Закрыть форму редактирования профиля"
-btnCloseEditForm.addEventListener('click', () => closePopup(popupEdit));
 // Событие "Добавить карточку"
 btnAdd.addEventListener('click', () => openPopup(popupAdd));
-// Событие "Закрыть форму добавления карточки"
-btnCloseAddForm.addEventListener('click', () => closePopup(popupAdd));
 // Событие "Сохранить форму"
 formEdit.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
