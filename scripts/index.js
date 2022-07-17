@@ -4,6 +4,7 @@ const btnAdd = document.querySelector('.add-btn');
 const btnCloseEditForm = document.querySelector('.edit-profile .close-btn');
 const btnCloseAddForm = document.querySelector('.add-card .close-btn');
 const btnCloseImgPopup = document.querySelector('.img-popup__close');
+const btnSubmitAddForm = document.querySelector('.add-card .save-btn');
 
 // Шаблон карточки
 const cardTemplate = document.querySelector('#card-template').content;
@@ -141,6 +142,7 @@ const addFormSubmitHandler = (evt) => {
   evt.preventDefault();
   renderCard(createCard(cardTitleField.value, cardLinkField.value));
   formAdd.reset();
+  disableButton(btnSubmitAddForm, 'popup__button_disabled');
   closePopup(popupAdd);
 };
 
