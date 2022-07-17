@@ -53,7 +53,7 @@ const escapeKeyHandler = (evt) => {
 };
 
 /** Закрыть попап по клику на оверлей */
-const overlayEventHandler = (evt) => {
+const overlayClickHandler = (evt) => {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
   }
@@ -62,13 +62,13 @@ const overlayEventHandler = (evt) => {
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', escapeKeyHandler);
-  popup.addEventListener('mousedown', overlayEventHandler);
+  popup.addEventListener('mousedown', overlayClickHandler);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   window.removeEventListener('keydown', escapeKeyHandler);
-  popup.removeEventListener('mousedown', overlayEventHandler);
+  popup.removeEventListener('mousedown', overlayClickHandler);
 };
 
 /** Показать картинку в попапе */
