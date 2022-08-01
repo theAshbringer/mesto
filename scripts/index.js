@@ -1,3 +1,7 @@
+import initialCards from './cards.js';
+import Card from './card.js';
+import { enableValidation, disableButton } from './validate.js';
+
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
 const btnAdd = document.querySelector('.add-btn');

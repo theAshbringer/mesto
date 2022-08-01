@@ -83,3 +83,5 @@ const enableValidation = (settings) => {
     setEventListeners(formElement, settings);
   });
 };
+
+export { enableValidation, disableButton };
