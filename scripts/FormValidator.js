@@ -73,7 +73,7 @@ export default class FormValidator {
     );
 
     // Изначально деактивируем кнопку, только если все поля формы пустые
-    if (inputList.every((inEl) => !inEl.value)) {
+    if (inputList.every((inputElement) => !inputElement.value)) {
       this._toggleButtonState(inputList);
     }
 
