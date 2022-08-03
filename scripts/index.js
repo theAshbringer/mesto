@@ -34,7 +34,7 @@ const keyEscape = 'Escape';
 
 const leftButtonNumber = 0;
 
-/** Закрыть попап по кнопке Esc */
+/** Обработчик события клика на кнопку Esc */
 const escapeKeyHandler = (evt) => {
   if (evt.key === keyEscape) {
     const popupElement = document.querySelector('.popup_opened');
@@ -42,7 +42,7 @@ const escapeKeyHandler = (evt) => {
   }
 };
 
-/** Закрыть попап по клику на оверлей */
+/** Обработчик события клика на оверлей попапа*/
 const clicksToCloseHandler = (evt) => {
   if (
     (evt.target.classList.contains('popup') ||
@@ -53,12 +53,14 @@ const clicksToCloseHandler = (evt) => {
   }
 };
 
+/** Открыть попап */
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', escapeKeyHandler);
   popup.addEventListener('mousedown', clicksToCloseHandler);
 };
 
+/** Закрыть попап */
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
   window.removeEventListener('keydown', escapeKeyHandler);
@@ -106,8 +108,6 @@ const addFormSubmitHandler = (evt) => {
   closePopup(popupAdd);
 };
 
-initializeCards();
-
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   openPopup(popupEdit);
@@ -121,6 +121,9 @@ formEdit.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
 formAdd.addEventListener('submit', addFormSubmitHandler);
 
+initializeCards();
+
+// Валидация форм
 const formAddValidation = new FormValidator(
   {
     inputSelector: '.popup__field',
