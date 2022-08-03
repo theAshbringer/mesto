@@ -1,6 +1,6 @@
 import initialCards from './cards.js';
 import Card from './Card.js';
-import { enableValidation, disableButton } from './validate.js';
+import FormValidator from './FormValidator.js';
 
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
@@ -120,11 +120,26 @@ formEdit.addEventListener('submit', editFormSubmitHandler);
 // Событие "Сохранить форму"
 formAdd.addEventListener('submit', addFormSubmitHandler);
 
-enableValidation({
-  formSelector: '.popup__container',
+const formAddValidation = new FormValidator(
+  {
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__field_invalid',
+    errorClass: 'popup__input-error_active',
+  },
+  formAdd
+);
+formAddValidation.enableValidation();
+
+const formEditValidation = new FormValidator(
+  {
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__field_invalid',
   errorClass: 'popup__input-error_active',
-});
+  },
+  formEdit
+);
+formEditValidation.enableValidation();
