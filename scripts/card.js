@@ -4,9 +4,9 @@ export default class Card {
     this._alt = data.title;
     this._image = data.image;
     this._templateSelector = templateSelector;
-    this._popupImg = document.querySelector('.popup_type_img');
-    this._popupTitle = this._popupImg.querySelector('.img-popup__title');
-    this._popupPicture = this._popupImg.querySelector('.img-popup__image');
+    this._cardPopup = document.querySelector('.popup_type_img');
+    this._popupTitle = this._cardPopup.querySelector('.img-popup__title');
+    this._popupPicture = this._cardPopup.querySelector('.img-popup__image');
     this._openPopup = openPopup;
   }
 
@@ -20,7 +20,7 @@ export default class Card {
     return cardElement;
   }
 
-  /** Удаление карточки по щелчку на корзину */
+  /** Удалить карточку по щелчку на корзину */
   _deleteButtonHandler = () => {
     this._element.remove();
   };
@@ -30,12 +30,12 @@ export default class Card {
     evt.target.classList.toggle('like-btn_active');
   };
 
-  /** Показать картинку в попапе */
+  /** Отобразить карточку в попапе */
   _showImage = () => {
     this._popupTitle.alt = this._title;
     this._popupTitle.textContent = this._title;
     this._popupPicture.src = this._image;
-    this._openPopup(this._popupImg);
+    this._openPopup(this._cardPopup);
   };
 
   /** Установить слушатели на элементы карточки */
@@ -50,11 +50,7 @@ export default class Card {
 
     this._element
       .querySelector('.card__onclick')
-      .addEventListener('click', (evt) => {
-        const cardImage = this._element.querySelector('.card__photo');
-        const cardTitle = this._element.querySelector('.card__title');
-        this._showImage(cardTitle, cardImage);
-      });
+      .addEventListener('click', this._showImage);
   }
 
   /** Сгенерировать готовую карточку */
