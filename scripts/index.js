@@ -101,7 +101,8 @@ const addFormSubmitHandler = (evt) => {
   );
   renderCard(card);
   formAdd.reset();
-  disableButton(btnSubmitAddForm, 'popup__button_disabled');
+  btnSubmitAddForm.classList.add('popup__button_disabled');
+  btnSubmitAddForm.setAttribute('disabled', 'disabled');
   closePopup(popupAdd);
 };
 
@@ -134,11 +135,11 @@ formAddValidation.enableValidation();
 
 const formEditValidation = new FormValidator(
   {
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__field_invalid',
-  errorClass: 'popup__input-error_active',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__field_invalid',
+    errorClass: 'popup__input-error_active',
   },
   formEdit
 );
