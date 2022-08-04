@@ -57,9 +57,10 @@ export default class Card {
   /** Сгенерировать готовую карточку */
   generateCard() {
     this._element = this._getTemplate();
+    this._cardImageElement = this._element.querySelector('.card__photo');
     this._setEventListeners();
-    this._element.querySelector('.card__photo').src = this._image;
-    this._element.querySelector('.card__photo').alt = this._title;
+    this._cardImageElement.src = this._image;
+    this._cardImageElement.alt = this._title;
     this._element.querySelector('.card__title').textContent = this._title;
 
     return this._element;
