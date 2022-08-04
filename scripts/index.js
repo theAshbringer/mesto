@@ -137,12 +137,14 @@ const handleAddFormSubmit = (evt) => {
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
-  openPopup(popupEdit, formEditValidator);
+  openPopup(popupEdit, formValidators['edit-profile']);
   nameField.value = nameFieldInit.innerText;
   descriptionField.value = descriptionFieldInit.innerText;
 });
 // Событие "Добавить карточку"
-btnAdd.addEventListener('click', () => openPopup(popupAdd, formAddValidator));
+btnAdd.addEventListener('click', () =>
+  openPopup(popupAdd, formValidators['add-card'])
+);
 // Событие "Сохранить форму"
 formEdit.addEventListener('submit', handleEditFormSubmit);
 // Событие "Сохранить форму"
@@ -151,7 +153,10 @@ formAdd.addEventListener('submit', handleAddFormSubmit);
 initializeCards();
 
 // Валидация форм
+const formValidators = {};
+
 const validationOptions = {
+  formSelector: '.popup__container',
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
@@ -159,8 +164,18 @@ const validationOptions = {
   errorClass: 'popup__input-error_active',
 };
 
-const formAddValidator = new FormValidator(validationOptions, formAdd);
-formAddValidator.enableValidation();
+// Включить валидацию
+const enableValidation = (validationOptions) => {
+  const formList = Array.from(
+    document.querySelectorAll(validationOptions.formSelector)
+  );
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(validationOptions, formElement);
+    const formName = formElement.getAttribute('name');
 
-const formEditValidator = new FormValidator(validationOptions, formEdit);
-formEditValidator.enableValidation();
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationOptions);
