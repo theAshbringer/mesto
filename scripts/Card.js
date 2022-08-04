@@ -22,12 +22,12 @@ export default class Card {
   }
 
   /** Удалить карточку по щелчку на корзину */
-  _deleteButtonHandler = () => {
+  _handleDeleteButton = () => {
     this._element.remove();
   };
 
   /** Поставить лайк */
-  _likeButtonHandler = (evt) => {
+  _handleLikeButton = (evt) => {
     evt.target.classList.toggle('like-btn_active');
   };
 
@@ -43,11 +43,11 @@ export default class Card {
   _setEventListeners() {
     this._element
       .querySelector('.card__delete')
-      .addEventListener('click', this._deleteButtonHandler);
+      .addEventListener('click', this._handleDeleteButton);
 
     this._element
       .querySelector('.card__like-btn')
-      .addEventListener('click', this._likeButtonHandler);
+      .addEventListener('click', this._handleLikeButton);
 
     this._element
       .querySelector('.card__onclick')
