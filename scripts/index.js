@@ -13,6 +13,11 @@ const cardTemplateSelector = '#card-template';
 // Попапы
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
+const popupCard = document.querySelector('.popup_type_img');
+
+// Элементы попапа с карточкой
+const popupCardTitle = popupCard.querySelector('.img-popup__title');
+const popupCardPicture = popupCard.querySelector('.img-popup__image');
 
 // Контейнеры попапов
 const formEdit = document.querySelector('.edit-profile');
@@ -56,7 +61,9 @@ const handleClicksToClose = (evt) => {
 
 /** Открыть попап */
 const openPopup = (popup, validation) => {
-  validation.resetValidation();
+  if (validation) {
+    validation.resetValidation();
+  }
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', handleEscKey);
   popup.addEventListener('mousedown', handleClicksToClose);
@@ -69,12 +76,20 @@ const closePopup = (popup) => {
   popup.removeEventListener('mousedown', handleClicksToClose);
 };
 
+/** Обработчик отправки формы редактирования профиля */
+const handleCardClick = (name, link) => {
+  popupCardTitle.textContent = name;
+  popupCardPicture.alt = name;
+  popupCardPicture.src = link;
+  openPopup(popupCard);
+};
+
 /** Создать карточку */
 const createCard = (title, image, templateSelector) => {
   const card = new Card(
     { title: title, image: image },
     templateSelector,
-    openPopup
+    handleCardClick
   ).generateCard();
   return card;
 };

@@ -1,14 +1,10 @@
-const popupCard = document.querySelector('.popup_type_img');
-const popupCardTitle = popupCard.querySelector('.img-popup__title');
-const popupCardPicture = popupCard.querySelector('.img-popup__image');
-
 export default class Card {
-  constructor(data, templateSelector, openPopup) {
+  constructor(data, templateSelector, handleCardClick) {
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
     this._templateSelector = templateSelector;
-    this._openPopup = openPopup;
+    this._handleCardClick = handleCardClick;
   }
 
   /** Достать элемент карточки из шаблона */
@@ -31,14 +27,6 @@ export default class Card {
     evt.target.classList.toggle('like-btn_active');
   };
 
-  /** Отобразить карточку в попапе */
-  _showImage = () => {
-    popupCardTitle.textContent = this._title;
-    popupCardPicture.alt = this._title;
-    popupCardPicture.src = this._image;
-    this._openPopup(popupCard);
-  };
-
   /** Установить слушатели на элементы карточки */
   _setEventListeners() {
     this._element
@@ -51,7 +39,9 @@ export default class Card {
 
     this._element
       .querySelector('.card__onclick')
-      .addEventListener('click', this._showImage);
+      .addEventListener('click', () =>
+        this._handleCardClick(this._title, this._image)
+      );
   }
 
   /** Сгенерировать готовую карточку */
