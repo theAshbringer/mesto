@@ -135,26 +135,16 @@ formAdd.addEventListener('submit', handleAddFormSubmit);
 initializeCards();
 
 // Валидация форм
-const formAddValidation = new FormValidator(
-  {
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__field_invalid',
-    errorClass: 'popup__input-error_active',
-  },
-  formAdd
-);
+const validationOptions = {
+  inputSelector: '.popup__field',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__field_invalid',
+  errorClass: 'popup__input-error_active',
+};
+
+const formAddValidation = new FormValidator(validationOptions, formAdd);
 formAddValidation.enableValidation();
 
-const formEditValidation = new FormValidator(
-  {
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__field_invalid',
-    errorClass: 'popup__input-error_active',
-  },
-  formEdit
-);
+const formEditValidation = new FormValidator(validationOptions, formEdit);
 formEditValidation.enableValidation();
