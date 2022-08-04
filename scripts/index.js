@@ -60,9 +60,9 @@ const handleClicksToClose = (evt) => {
 };
 
 /** Открыть попап */
-const openPopup = (popup, validation) => {
-  if (validation) {
-    validation.resetValidation();
+const openPopup = (popup, validator) => {
+  if (validator) {
+    validator.resetValidation();
   }
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', handleEscKey);
@@ -137,12 +137,12 @@ const handleAddFormSubmit = (evt) => {
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
-  openPopup(popupEdit, formEditValidation);
+  openPopup(popupEdit, formEditValidator);
   nameField.value = nameFieldInit.innerText;
   descriptionField.value = descriptionFieldInit.innerText;
 });
 // Событие "Добавить карточку"
-btnAdd.addEventListener('click', () => openPopup(popupAdd, formAddValidation));
+btnAdd.addEventListener('click', () => openPopup(popupAdd, formAddValidator));
 // Событие "Сохранить форму"
 formEdit.addEventListener('submit', handleEditFormSubmit);
 // Событие "Сохранить форму"
@@ -159,8 +159,8 @@ const validationOptions = {
   errorClass: 'popup__input-error_active',
 };
 
-const formAddValidation = new FormValidator(validationOptions, formAdd);
-formAddValidation.enableValidation();
+const formAddValidator = new FormValidator(validationOptions, formAdd);
+formAddValidator.enableValidation();
 
-const formEditValidation = new FormValidator(validationOptions, formEdit);
-formEditValidation.enableValidation();
+const formEditValidator = new FormValidator(validationOptions, formEdit);
+formEditValidator.enableValidation();
