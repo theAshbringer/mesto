@@ -55,7 +55,8 @@ const handleClicksToClose = (evt) => {
 };
 
 /** Открыть попап */
-const openPopup = (popup) => {
+const openPopup = (popup, validation) => {
+  validation.resetValidation();
   popup.classList.add('popup_opened');
   window.addEventListener('keydown', handleEscKey);
   popup.addEventListener('mousedown', handleClicksToClose);
@@ -121,12 +122,12 @@ const handleAddFormSubmit = (evt) => {
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
-  openPopup(popupEdit);
+  openPopup(popupEdit, formEditValidation);
   nameField.value = nameFieldInit.innerText;
   descriptionField.value = descriptionFieldInit.innerText;
 });
 // Событие "Добавить карточку"
-btnAdd.addEventListener('click', () => openPopup(popupAdd));
+btnAdd.addEventListener('click', () => openPopup(popupAdd, formAddValidation));
 // Событие "Сохранить форму"
 formEdit.addEventListener('submit', handleEditFormSubmit);
 // Событие "Сохранить форму"

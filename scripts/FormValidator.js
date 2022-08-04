@@ -9,8 +9,8 @@ export default class FormValidator {
   }
 
   /** Проверка, есть ли хоть одно невалидное поле */
-  _hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput = () => {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
@@ -28,8 +28,8 @@ export default class FormValidator {
   }
 
   /** Переключение состояния кнопки */
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
       this._disableButton();
     } else {
       this._enableButton();
@@ -61,26 +61,35 @@ export default class FormValidator {
     }
   }
 
-  _inputHandler = (inputElement, inputList) => {
+  _inputHandler = (inputElement) => {
     this._isValid(inputElement);
-    this._toggleButtonState(inputList);
+    this._toggleButtonState();
   };
 
   /** Установить слушатели на форму */
   _setEventListeners() {
-    const inputList = Array.from(
+    this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
 
     // Изначально деактивируем кнопку, только если все поля формы пустые
-    if (inputList.every((inputElement) => !inputElement.value)) {
-      this._toggleButtonState(inputList);
+    if (this._inputList.every((inputElement) => !inputElement.value)) {
+      this._toggleButtonState();
     }
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () =>
-        this._inputHandler(inputElement, inputList)
+        this._inputHandler(inputElement)
       );
+    });
+  }
+
+  /** Сброс ошибок валидации */
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
     });
   }
 
