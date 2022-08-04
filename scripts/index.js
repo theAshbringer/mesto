@@ -35,7 +35,7 @@ const keyEscape = 'Escape';
 const leftButtonNumber = 0;
 
 /** Обработчик события клика на кнопку Esc */
-const escapeKeyHandler = (evt) => {
+const handleEscKey = (evt) => {
   if (evt.key === keyEscape) {
     const popupElement = document.querySelector('.popup_opened');
     closePopup(popupElement);
@@ -43,7 +43,7 @@ const escapeKeyHandler = (evt) => {
 };
 
 /** Обработчик события клика на оверлей попапа*/
-const clicksToCloseHandler = (evt) => {
+const handleClicksToClose = (evt) => {
   if (
     (evt.target.classList.contains('popup') ||
       evt.target.classList.contains('popup__close')) &&
@@ -56,15 +56,15 @@ const clicksToCloseHandler = (evt) => {
 /** Открыть попап */
 const openPopup = (popup) => {
   popup.classList.add('popup_opened');
-  window.addEventListener('keydown', escapeKeyHandler);
-  popup.addEventListener('mousedown', clicksToCloseHandler);
+  window.addEventListener('keydown', handleEscKey);
+  popup.addEventListener('mousedown', handleClicksToClose);
 };
 
 /** Закрыть попап */
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
-  window.removeEventListener('keydown', escapeKeyHandler);
-  popup.removeEventListener('mousedown', clicksToCloseHandler);
+  window.removeEventListener('keydown', handleEscKey);
+  popup.removeEventListener('mousedown', handleClicksToClose);
 };
 
 /** Отрисовать карточку */
@@ -86,7 +86,7 @@ const initializeCards = () => {
 };
 
 /** Обработчик отправки формы редактирования профиля */
-const editFormSubmitHandler = (evt) => {
+const handleEditFormSubmit = (evt) => {
   evt.preventDefault();
   nameFieldInit.innerText = nameField.value;
   descriptionFieldInit.innerText = descriptionField.value;
@@ -94,7 +94,7 @@ const editFormSubmitHandler = (evt) => {
 };
 
 /** Обработчик отправки формы добавления карточки */
-const addFormSubmitHandler = (evt) => {
+const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
   const card = new Card(
     { title: cardTitleField.value, image: cardLinkField.value },
@@ -117,9 +117,9 @@ btnEdit.addEventListener('click', () => {
 // Событие "Добавить карточку"
 btnAdd.addEventListener('click', () => openPopup(popupAdd));
 // Событие "Сохранить форму"
-formEdit.addEventListener('submit', editFormSubmitHandler);
+formEdit.addEventListener('submit', handleEditFormSubmit);
 // Событие "Сохранить форму"
-formAdd.addEventListener('submit', addFormSubmitHandler);
+formAdd.addEventListener('submit', handleAddFormSubmit);
 
 initializeCards();
 
