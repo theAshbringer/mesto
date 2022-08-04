@@ -68,21 +68,32 @@ const closePopup = (popup) => {
   popup.removeEventListener('mousedown', handleClicksToClose);
 };
 
+/** Создать карточку */
+const createCard = (title, image, templateSelector) => {
+  const card = new Card(
+    { title: title, image: image },
+    templateSelector,
+    openPopup
+  ).generateCard();
+  return card;
+};
+
 /** Отрисовать карточку */
-const renderCard = (card) => {
-  cardList.prepend(card.generateCard());
+const renderCard = (cards) => {
+  if (Array.isArray(cards)) {
+    cardList.prepend(...cards);
+  } else {
+    cardList.prepend(cards);
+  }
 };
 
 /** Отобразить начальные карточки при загрузке страницы */
 const initializeCards = () => {
+  const cards = [];
   initialCards.forEach((item) => {
-    const card = new Card(
-      { title: item.name, image: item.link },
-      cardTemplateSelector,
-      openPopup
-    );
-    renderCard(card);
+    cards.push(createCard(item.name, item.link, cardTemplateSelector));
   });
+  renderCard(cards);
 };
 
 /** Обработчик отправки формы редактирования профиля */
@@ -96,10 +107,10 @@ const handleEditFormSubmit = (evt) => {
 /** Обработчик отправки формы добавления карточки */
 const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
-  const card = new Card(
-    { title: cardTitleField.value, image: cardLinkField.value },
-    cardTemplateSelector,
-    openPopup
+  const card = createCard(
+    cardTitleField.value,
+    cardLinkField.value,
+    cardTemplateSelector
   );
   renderCard(card);
   formAdd.reset();
