@@ -25,6 +25,7 @@ const descriptionField = document.querySelector(
 );
 const cardTitleField = document.querySelector('.popup__field_type_card-name');
 const cardLinkField = document.querySelector('.popup__field_type_card-link');
+const cardList = document.querySelector('.cards');
 
 // Начальные значения полей формы редактирования
 const nameFieldInit = document.querySelector('.profile__name');
@@ -69,7 +70,6 @@ const closePopup = (popup) => {
 
 /** Отрисовать карточку */
 const renderCard = (card) => {
-  const cardList = document.querySelector('.cards');
   cardList.prepend(card.generateCard());
 };
 
