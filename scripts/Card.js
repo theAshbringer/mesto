@@ -33,8 +33,8 @@ export default class Card {
 
   /** Отобразить карточку в попапе */
   _showImage = () => {
-    popupCardTitle.alt = this._title;
     popupCardTitle.textContent = this._title;
+    popupCardPicture.alt = this._title;
     popupCardPicture.src = this._image;
     this._openPopup(popupCard);
   };
