@@ -15,12 +15,6 @@ export default class FormValidator {
     });
   };
 
-  /** Отключить кнопку */
-  _disableButton() {
-    this._button.classList.add(this._inactiveButtonClass);
-    this._button.setAttribute('disabled', 'disabled');
-  }
-
   /** Включить кнопку */
   _enableButton() {
     this._button.classList.remove(this._inactiveButtonClass);
@@ -30,7 +24,7 @@ export default class FormValidator {
   /** Переключение состояния кнопки */
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._disableButton();
+      this.disableButton();
     } else {
       this._enableButton();
     }
@@ -82,6 +76,12 @@ export default class FormValidator {
         this._inputHandler(inputElement)
       );
     });
+  }
+
+  /** Отключить кнопку */
+  disableButton() {
+    this._button.classList.add(this._inactiveButtonClass);
+    this._button.setAttribute('disabled', 'disabled');
   }
 
   /** Сброс ошибок валидации */

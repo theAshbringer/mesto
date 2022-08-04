@@ -5,7 +5,6 @@ import FormValidator from './FormValidator.js';
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
 const btnAdd = document.querySelector('.add-btn');
-const btnSubmitAddForm = document.querySelector('.add-card .save-btn');
 
 // Селектор шаблона карточки
 const cardTemplateSelector = '#card-template';
@@ -130,8 +129,7 @@ const handleAddFormSubmit = (evt) => {
   );
   renderCard(card);
   formAdd.reset();
-  btnSubmitAddForm.classList.add('popup__button_disabled');
-  btnSubmitAddForm.setAttribute('disabled', 'disabled');
+  formValidators['add-card'].disableButton();
   closePopup(popupAdd);
 };
 
