@@ -1,11 +1,11 @@
 export default class FormValidator {
   constructor(options, form) {
-    (this._inputSelector = options.inputSelector),
-      (this._inactiveButtonClass = options.inactiveButtonClass),
-      (this._inputErrorClass = options.inputErrorClass),
-      (this._errorClass = options.errorClass),
-      (this._form = form),
-      (this._button = form.querySelector(options.submitButtonSelector));
+    this._inputSelector = options.inputSelector;
+    this._inactiveButtonClass = options.inactiveButtonClass;
+    this._inputErrorClass = options.inputErrorClass;
+    this._errorClass = options.errorClass;
+    this._form = form;
+    this._button = form.querySelector(options.submitButtonSelector);
   }
 
   /** Проверка, есть ли хоть одно невалидное поле */
