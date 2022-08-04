@@ -30,9 +30,9 @@ export default class FormValidator {
   /** Переключение состояния кнопки */
   _toggleButtonState(inputList) {
     if (this._hasInvalidInput(inputList)) {
-      this._disableButton(this._button, this._inactiveButtonClass);
+      this._disableButton();
     } else {
-      this._enableButton(this._button, this._inactiveButtonClass);
+      this._enableButton();
     }
   }
 
