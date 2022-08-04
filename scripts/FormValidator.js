@@ -1,25 +1,19 @@
 export default class FormValidator {
   constructor(options, form) {
-    (this._inputSelector = options.inputSelector),
-      (this._inactiveButtonClass = options.inactiveButtonClass),
-      (this._inputErrorClass = options.inputErrorClass),
-      (this._errorClass = options.errorClass),
-      (this._form = form),
-      (this._button = form.querySelector(options.submitButtonSelector));
+    this._inputSelector = options.inputSelector;
+    this._inactiveButtonClass = options.inactiveButtonClass;
+    this._inputErrorClass = options.inputErrorClass;
+    this._errorClass = options.errorClass;
+    this._form = form;
+    this._button = form.querySelector(options.submitButtonSelector);
   }
 
   /** Проверка, есть ли хоть одно невалидное поле */
-  _hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => {
+  _hasInvalidInput = () => {
+    return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   };
-
-  /** Отключить кнопку */
-  _disableButton() {
-    this._button.classList.add(this._inactiveButtonClass);
-    this._button.setAttribute('disabled', 'disabled');
-  }
 
   /** Включить кнопку */
   _enableButton() {
@@ -28,11 +22,11 @@ export default class FormValidator {
   }
 
   /** Переключение состояния кнопки */
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
-      this._disableButton(this._button, this._inactiveButtonClass);
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.disableButton();
     } else {
-      this._enableButton(this._button, this._inactiveButtonClass);
+      this._enableButton();
     }
   }
 
@@ -61,26 +55,41 @@ export default class FormValidator {
     }
   }
 
-  _inputHandler = (inputElement, inputList) => {
+  _inputHandler = (inputElement) => {
     this._isValid(inputElement);
-    this._toggleButtonState(inputList);
+    this._toggleButtonState();
   };
 
   /** Установить слушатели на форму */
   _setEventListeners() {
-    const inputList = Array.from(
+    this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
     );
 
     // Изначально деактивируем кнопку, только если все поля формы пустые
-    if (inputList.every((inputElement) => !inputElement.value)) {
-      this._toggleButtonState(inputList);
+    if (this._inputList.every((inputElement) => !inputElement.value)) {
+      this._toggleButtonState();
     }
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () =>
-        this._inputHandler(inputElement, inputList)
+        this._inputHandler(inputElement)
       );
+    });
+  }
+
+  /** Отключить кнопку */
+  disableButton() {
+    this._button.classList.add(this._inactiveButtonClass);
+    this._button.setAttribute('disabled', 'disabled');
+  }
+
+  /** Сброс ошибок валидации */
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
     });
   }
 
