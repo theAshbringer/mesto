@@ -118,7 +118,7 @@ const handleAddFormSubmit = (evt) => {
     cardLinkField.value,
     cardTemplateSelector
   );
-  renderCard(card);
+  cardList.addItem(card);
   formAdd.reset();
   formValidators['add-card'].disableButton();
   closePopup(popupAdd);
