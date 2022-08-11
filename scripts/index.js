@@ -1,6 +1,7 @@
 import initialCards from './cards.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
 
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
@@ -29,7 +30,7 @@ const descriptionField = document.querySelector(
 );
 const cardTitleField = document.querySelector('.popup__field_type_card-name');
 const cardLinkField = document.querySelector('.popup__field_type_card-link');
-const cardList = document.querySelector('.cards');
+const cardListSelector = '.cards';
 
 // Начальные значения полей формы редактирования
 const nameFieldInit = document.querySelector('.profile__name');
@@ -90,23 +91,16 @@ const createCard = (title, image, templateSelector) => {
   return card;
 };
 
-/** Отрисовать карточку */
-const renderCard = (cards) => {
-  if (Array.isArray(cards)) {
-    cardList.prepend(...cards);
-  } else {
-    cardList.prepend(cards);
-  }
-};
-
-/** Отобразить начальные карточки при загрузке страницы */
-const initializeCards = () => {
-  const cards = [];
-  initialCards.forEach((item) => {
-    cards.push(createCard(item.name, item.link, cardTemplateSelector));
-  });
-  renderCard(cards);
-};
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer(item) {
+      return createCard(item.name, item.link, cardTemplateSelector);
+    },
+  },
+  cardListSelector
+);
+cardList.renderItems();
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (evt) => {
@@ -146,8 +140,6 @@ btnAdd.addEventListener('click', () => {
 formEdit.addEventListener('submit', handleEditFormSubmit);
 // Событие "Сохранить форму"
 formAdd.addEventListener('submit', handleAddFormSubmit);
-
-initializeCards();
 
 // Валидация форм
 const formValidators = {};
