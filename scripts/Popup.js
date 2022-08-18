@@ -6,15 +6,15 @@ export default class Popup {
   }
 
   /** Обработчик события клика на кнопку Esc */
-  _handleEscKey(evt) {
+  _handleEscKey = (evt) => {
     const keyEscape = 'Escape';
     if (evt.key === keyEscape) {
       this.close(this._popup);
     }
-  }
+  };
 
   /** Обработчик события клика на оверлей попапа*/
-  _handleOverlayClose(evt) {
+  _handleOverlayClose = (evt) => {
     const leftButtonNumber = 0;
     if (
       evt.target.classList.contains(this._overlaySelector) &&
@@ -22,7 +22,12 @@ export default class Popup {
     ) {
       this.close();
     }
-  }
+  };
+
+  /** Обработчик события клика на кнопку "закрыть"*/
+  _handleCloseBtn = () => {
+    this.close();
+  };
 
   /** Открыть попап */
   open() {
@@ -38,21 +43,15 @@ export default class Popup {
 
   /** Навесить слушатели */
   _setEventListeners() {
-    window.addEventListener('keydown', this._handleEscKey.bind(this));
-    this._popup.addEventListener(
-      'mousedown',
-      this._handleOverlayClose.bind(this)
-    );
-    this._closeBtn.addEventListener('click', () => this.close());
+    window.addEventListener('keydown', this._handleEscKey);
+    this._popup.addEventListener('mousedown', this._handleOverlayClose);
+    this._closeBtn.addEventListener('click', this._handleCloseBtn);
   }
 
   /** Убрать слушатели */
   _removeEventListeners() {
-    window.removeEventListener('keydown', this._handleEscKey.bind(this));
-    this._popup.removeEventListener(
-      'mousedown',
-      this._handleOverlayClose.bind(this)
-    );
-    this._closeBtn.removeEventListener('click', () => this.close());
+    window.removeEventListener('keydown', this._handleEscKey);
+    this._popup.removeEventListener('mousedown', this._handleOverlayClose);
+    this._closeBtn.removeEventListener('click', this._handleCloseBtn);
   }
 }
