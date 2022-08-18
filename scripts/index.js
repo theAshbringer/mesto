@@ -2,6 +2,7 @@ import initialCards from './cards.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
 
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
@@ -13,11 +14,6 @@ const cardTemplateSelector = '#card-template';
 // Попапы
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
-const popupCard = document.querySelector('.popup_type_img');
-
-// Элементы попапа с карточкой
-const popupCardTitle = popupCard.querySelector('.img-popup__title');
-const popupCardPicture = popupCard.querySelector('.img-popup__image');
 
 // Контейнеры попапов
 const formEdit = document.querySelector('.edit-profile');
@@ -36,49 +32,11 @@ const cardListSelector = '.cards';
 const nameFieldInit = document.querySelector('.profile__name');
 const descriptionFieldInit = document.querySelector('.profile__description');
 
-const keyEscape = 'Escape';
-
-const leftButtonNumber = 0;
-
-/** Обработчик события клика на кнопку Esc */
-const handleEscKey = (evt) => {
-  if (evt.key === keyEscape) {
-    const popupElement = document.querySelector('.popup_opened');
-    closePopup(popupElement);
-  }
-};
-
-/** Обработчик события клика на оверлей попапа*/
-const handleClicksToClose = (evt) => {
-  if (
-    (evt.target.classList.contains('popup') ||
-      evt.target.classList.contains('popup__close')) &&
-    evt.button === leftButtonNumber
-  ) {
-    closePopup(evt.currentTarget);
-  }
-};
-
-/** Открыть попап */
-const openPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  window.addEventListener('keydown', handleEscKey);
-  popup.addEventListener('mousedown', handleClicksToClose);
-};
-
-/** Закрыть попап */
-const closePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  window.removeEventListener('keydown', handleEscKey);
-  popup.removeEventListener('mousedown', handleClicksToClose);
-};
+const popupCard = new PopupWithImage('.popup_type_img');
 
 /** Обработчик отправки формы редактирования профиля */
 const handleCardClick = (name, link) => {
-  popupCardTitle.textContent = name;
-  popupCardPicture.alt = name;
-  popupCardPicture.src = link;
-  openPopup(popupCard);
+  popupCard.open(name, link);
 };
 
 /** Создать карточку */
@@ -91,6 +49,7 @@ const createCard = (title, image, templateSelector) => {
   return card;
 };
 
+// Создаем контейнер с карточками
 const cardList = new Section(
   {
     items: initialCards,
