@@ -4,12 +4,11 @@ import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
 import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
 // Кнопки
 const btnEdit = document.querySelector('.edit-btn');
 const btnAdd = document.querySelector('.add-btn');
-
-// Селектор шаблона карточки
 const cardTemplateSelector = '#card-template';
 
 // Поля форм
@@ -20,13 +19,9 @@ const descriptionField = document.querySelector(
 
 const cardListSelector = '.cards';
 
-// Начальные значения полей формы редактирования
-const nameFieldInit = document.querySelector('.profile__name');
-const descriptionFieldInit = document.querySelector('.profile__description');
-
 const popupCard = new PopupWithImage('.popup_type_img');
 
-/** Обработчик отправки формы редактирования профиля */
+/** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
   popupCard.open(name, link);
 };
@@ -53,10 +48,17 @@ const cardList = new Section(
 );
 cardList.renderItems();
 
+const profile = new UserInfo({
+  nameSelector: '.profile__name',
+  descriptionSelector: '.profile__description',
+});
+
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
-  nameFieldInit.innerText = formData['profile-name'];
-  descriptionFieldInit.innerText = formData['profile-description'];
+  profile.setUserInfo({
+    name: formData['profile-name'],
+    description: formData['profile-description'],
+  });
 };
 
 /** Обработчик отправки формы добавления карточки */
@@ -77,8 +79,9 @@ const popupAdd = new PopupWithForm('.popup_type_add', handleAddFormSubmit);
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
   popupEdit.open();
-  nameField.value = nameFieldInit.innerText;
-  descriptionField.value = descriptionFieldInit.innerText;
+  const { name, description } = profile.getUserInfo();
+  nameField.value = name;
+  descriptionField.value = description;
 });
 
 // Событие "Добавить карточку"
