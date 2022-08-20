@@ -32,7 +32,6 @@ export default class Popup {
   /** Открыть попап */
   open() {
     this._popup.classList.add('popup_opened');
-    this._setEventListeners();
   }
 
   /** Закрыть попап */
@@ -42,7 +41,7 @@ export default class Popup {
   }
 
   /** Навесить слушатели */
-  _setEventListeners() {
+  setEventListeners() {
     window.addEventListener('keydown', this._handleEscKey);
     this._popup.addEventListener('mousedown', this._handleOverlayClose);
     this._closeBtn.addEventListener('click', this._handleCloseBtn);

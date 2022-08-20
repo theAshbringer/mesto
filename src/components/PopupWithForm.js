@@ -25,15 +25,9 @@ export default class PopupWithForm extends Popup {
   };
 
   /** Навесить слушатели */
-  _setEventListeners() {
-    super._setEventListeners();
+  setEventListeners() {
+    super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmit);
-  }
-
-  /** Убрать слушатели */
-  _removeEventListeners() {
-    super._removeEventListeners();
-    this._form.removeEventListener('submit', this._handleSubmit);
   }
 
   /** Закрыть попап */

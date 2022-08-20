@@ -16,6 +16,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
 const popupCard = new PopupWithImage('.popup_type_img');
+popupCard.setEventListeners();
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
@@ -70,6 +71,8 @@ const handleAddFormSubmit = (formData) => {
 
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit);
 const popupAdd = new PopupWithForm('.popup_type_add', handleAddFormSubmit);
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
