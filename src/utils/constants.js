@@ -1,13 +1,5 @@
-// Кнопки
 const btnAdd = document.querySelector('.add-btn');
 const btnEdit = document.querySelector('.edit-btn');
-
-// Поля форм
-const nameField = document.querySelector('.popup__field_type_name');
-const descriptionField = document.querySelector(
-  '.popup__field_type_description'
-);
-
 const cardListSelector = '.cards';
 const cardTemplateSelector = '#card-template';
 
@@ -42,8 +34,6 @@ const initialCards = [
 export {
   btnAdd,
   btnEdit,
-  nameField,
-  descriptionField,
   cardListSelector,
   cardTemplateSelector,
   initialCards,

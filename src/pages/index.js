@@ -73,8 +73,10 @@ btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
   popupEdit.open();
   const { name, description } = profile.getUserInfo();
-  nameField.value = name;
-  descriptionField.value = description;
+  popupEdit.setInputValues({
+    'profile-name': name,
+    'profile-description': description,
+  });
 });
 
 // Событие "Добавить карточку"
