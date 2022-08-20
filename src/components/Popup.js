@@ -9,7 +9,7 @@ export default class Popup {
   _handleEscKey = (evt) => {
     const keyEscape = 'Escape';
     if (evt.key === keyEscape) {
-      this.close(this._popup);
+      this.close();
     }
   };
 
