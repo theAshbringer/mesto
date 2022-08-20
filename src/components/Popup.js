@@ -32,13 +32,13 @@ export default class Popup {
   /** Открыть попап */
   open() {
     this._popup.classList.add('popup_opened');
-    window.addEventListener('keydown', this._handleEscKey);
+    document.addEventListener('keydown', this._handleEscKey);
   }
 
   /** Закрыть попап */
   close() {
     this._popup.classList.remove('popup_opened');
-    window.removeEventListener('keydown', this._handleEscKey);
+    document.removeEventListener('keydown', this._handleEscKey);
   }
 
   /** Навесить слушатели */
