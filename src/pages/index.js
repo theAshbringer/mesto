@@ -34,16 +34,10 @@ const createCard = (title, image, templateSelector) => {
 };
 
 // Создаем контейнер с карточками
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer(item) {
-      return createCard(item.name, item.link, cardTemplateSelector);
-    },
-  },
-  cardListSelector
-);
-cardList.renderItems();
+const cardList = new Section((item) => {
+  return createCard(item.name, item.link, cardTemplateSelector);
+}, cardListSelector);
+cardList.renderItems(initialCards);
 
 const profile = new UserInfo({
   nameSelector: '.profile__name',
