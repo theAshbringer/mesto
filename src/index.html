@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css" />
-    <script defer type="module" src="./pages/index.js"></script>
   </head>
 
   <body class="page">
@@ -14,7 +12,11 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/avatar.png" alt="Аватар" class="profile__avatar" />
+        <img
+          src="<%=require('./images/avatar.png')%>"
+          alt="Аватар"
+          class="profile__avatar"
+        />
         <div class="profile__info">
           <div class="profile__name-string">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -114,7 +116,11 @@
     </div>
     <div class="popup popup_type_img">
       <figure class="img-popup">
-        <img src="./images/dombay.png" alt="Домбай" class="img-popup__image" />
+        <img
+          src="<%=require('./images/dombay.png')%>"
+          alt="Домбай"
+          class="img-popup__image"
+        />
         <figcaption class="img-popup__title"></figcaption>
         <button
           class="close-btn popup__close"
@@ -129,7 +135,11 @@
         <article class="card__container">
           <h2 class="card__title"></h2>
           <button class="card__onclick" type="button">
-            <img src="./images/dombay.png" alt="Домбай" class="card__photo" />
+            <img
+              src="<%=require('./images/dombay.png')%>"
+              alt="Домбай"
+              class="card__photo"
+            />
           </button>
           <button
             class="like-btn card__like-btn"
