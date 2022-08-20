@@ -1,23 +1,18 @@
-import initialCards from './cards.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
-
-// Кнопки
-const btnEdit = document.querySelector('.edit-btn');
-const btnAdd = document.querySelector('.add-btn');
-const cardTemplateSelector = '#card-template';
-
-// Поля форм
-const nameField = document.querySelector('.popup__field_type_name');
-const descriptionField = document.querySelector(
-  '.popup__field_type_description'
-);
-
-const cardListSelector = '.cards';
+import {
+  btnAdd,
+  btnEdit,
+  nameField,
+  descriptionField,
+  cardListSelector,
+  cardTemplateSelector,
+  initialCards,
+} from '../utils/constants.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const popupCard = new PopupWithImage('.popup_type_img');
 
