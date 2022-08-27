@@ -20,6 +20,7 @@ export default class Card {
   /** Удалить карточку по щелчку на корзину */
   _handleDeleteButton = () => {
     this._element.remove();
+    this._element = null;
   };
 
   /** Поставить лайк */

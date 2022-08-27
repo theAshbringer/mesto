@@ -17,6 +17,13 @@ export default class PopupWithForm extends Popup {
     return formValues;
   }
 
+  /** Собрать данные всех полей */
+  setInputValues(data) {
+    this._inputList.forEach((input) => {
+      input.value = data[input.name];
+    });
+  }
+
   /** Обработчик отправки формы */
   _handleSubmit = (evt) => {
     evt.preventDefault();
@@ -25,15 +32,9 @@ export default class PopupWithForm extends Popup {
   };
 
   /** Навесить слушатели */
-  _setEventListeners() {
-    super._setEventListeners();
+  setEventListeners() {
+    super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmit);
-  }
-
-  /** Убрать слушатели */
-  _removeEventListeners() {
-    super._removeEventListeners();
-    this._form.removeEventListener('submit', this._handleSubmit);
   }
 
   /** Закрыть попап */

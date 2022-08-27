@@ -16,6 +16,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
 const popupCard = new PopupWithImage('.popup_type_img');
+popupCard.setEventListeners();
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
@@ -33,16 +34,10 @@ const createCard = (title, image, templateSelector) => {
 };
 
 // Создаем контейнер с карточками
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer(item) {
-      return createCard(item.name, item.link, cardTemplateSelector);
-    },
-  },
-  cardListSelector
-);
-cardList.renderItems();
+const cardList = new Section((item) => {
+  return createCard(item.name, item.link, cardTemplateSelector);
+}, cardListSelector);
+cardList.renderItems(initialCards);
 
 const profile = new UserInfo({
   nameSelector: '.profile__name',
@@ -70,14 +65,18 @@ const handleAddFormSubmit = (formData) => {
 
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit);
 const popupAdd = new PopupWithForm('.popup_type_add', handleAddFormSubmit);
+popupEdit.setEventListeners();
+popupAdd.setEventListeners();
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
   popupEdit.open();
   const { name, description } = profile.getUserInfo();
-  nameField.value = name;
-  descriptionField.value = description;
+  popupEdit.setInputValues({
+    'profile-name': name,
+    'profile-description': description,
+  });
 });
 
 // Событие "Добавить карточку"

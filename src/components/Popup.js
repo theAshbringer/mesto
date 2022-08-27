@@ -9,7 +9,7 @@ export default class Popup {
   _handleEscKey = (evt) => {
     const keyEscape = 'Escape';
     if (evt.key === keyEscape) {
-      this.close(this._popup);
+      this.close();
     }
   };
 
@@ -32,26 +32,18 @@ export default class Popup {
   /** Открыть попап */
   open() {
     this._popup.classList.add('popup_opened');
-    this._setEventListeners();
+    document.addEventListener('keydown', this._handleEscKey);
   }
 
   /** Закрыть попап */
   close() {
     this._popup.classList.remove('popup_opened');
-    this._removeEventListeners();
+    document.removeEventListener('keydown', this._handleEscKey);
   }
 
   /** Навесить слушатели */
-  _setEventListeners() {
-    window.addEventListener('keydown', this._handleEscKey);
+  setEventListeners() {
     this._popup.addEventListener('mousedown', this._handleOverlayClose);
     this._closeBtn.addEventListener('click', this._handleCloseBtn);
-  }
-
-  /** Убрать слушатели */
-  _removeEventListeners() {
-    window.removeEventListener('keydown', this._handleEscKey);
-    this._popup.removeEventListener('mousedown', this._handleOverlayClose);
-    this._closeBtn.removeEventListener('click', this._handleCloseBtn);
   }
 }
