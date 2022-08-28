@@ -31,11 +31,25 @@ const createCard = (title, image, templateSelector) => {
   return card;
 };
 
+/** Загрузить карточки с сервера */
+const initializeCards = () => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
+    headers: {
+      authorization: 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78',
+    },
+  })
+    .then((res) => res.json())
+    .then((cards) => {
+      cardList.renderItems(cards);
+    });
+};
+
 // Создаем контейнер с карточками
 const cardList = new Section((item) => {
   return createCard(item.name, item.link, cardTemplateSelector);
 }, cardListSelector);
-cardList.renderItems(initialCards);
+
+initializeCards();
 
 const profile = new UserInfo({
   nameSelector: '.profile__name',
