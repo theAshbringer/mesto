@@ -31,10 +31,13 @@ const initialCards = [
   },
 ];
 
+const authToken = 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78';
+
 export {
   btnAdd,
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
+  authToken,
 };

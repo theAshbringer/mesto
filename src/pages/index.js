@@ -1,9 +1,8 @@
 import './index.css';
 import {
+  authToken,
   btnAdd,
   btnEdit,
-  nameField,
-  descriptionField,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
@@ -37,16 +36,35 @@ const createCard = (title, image, templateSelector) => {
 const cardList = new Section((item) => {
   return createCard(item.name, item.link, cardTemplateSelector);
 }, cardListSelector);
-cardList.renderItems(initialCards);
 
 const profile = new UserInfo({
   nameSelector: '.profile__name',
   descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar',
 });
+
+/** Загрузить карточки с сервера */
+const initializeCards = () => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
+    headers: {
+      authorization: authToken,
+    },
+  })
+    .then((res) => res.json())
+    .then((cards) => {
+      cardList.renderItems(cards);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+initializeCards();
+profile.loadUserInfo();
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
-  profile.setUserInfo({
+  profile.updateUserInfo({
     name: formData['profile-name'],
     description: formData['profile-description'],
   });
@@ -71,11 +89,12 @@ popupAdd.setEventListeners();
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  popupEdit.open();
-  const { name, description } = profile.getUserInfo();
-  popupEdit.setInputValues({
-    'profile-name': name,
-    'profile-description': description,
+  profile.getUserInfo().then(({ name, about }) => {
+    popupEdit.setInputValues({
+      'profile-name': name,
+      'profile-description': about,
+    });
+    popupEdit.open();
   });
 });
 
