@@ -44,12 +44,29 @@ const initializeCards = () => {
     });
 };
 
+/** Загрузить данные профиля с сервера */
+const getProfileInfo = () => {
+  fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me ', {
+    headers: {
+      authorization: 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78',
+    },
+  })
+    .then((res) => res.json())
+    .then((profileInfo) => {
+      profile.setUserInfo({
+        name: profileInfo.name,
+        description: profileInfo.about,
+      });
+    });
+};
+
 // Создаем контейнер с карточками
 const cardList = new Section((item) => {
   return createCard(item.name, item.link, cardTemplateSelector);
 }, cardListSelector);
 
 initializeCards();
+getProfileInfo();
 
 const profile = new UserInfo({
   nameSelector: '.profile__name',
