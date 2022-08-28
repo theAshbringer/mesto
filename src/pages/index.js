@@ -1,5 +1,6 @@
 import './index.css';
 import {
+  authToken,
   btnAdd,
   btnEdit,
   cardListSelector,
@@ -35,7 +36,7 @@ const createCard = (title, image, templateSelector) => {
 const initializeCards = () => {
   fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
     headers: {
-      authorization: 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78',
+      authorization: authToken,
     },
   })
     .then((res) => res.json())
@@ -51,7 +52,7 @@ const initializeCards = () => {
 const getProfileInfo = () => {
   fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me ', {
     headers: {
-      authorization: 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78',
+      authorization: authToken,
     },
   })
     .then((res) => res.json())
