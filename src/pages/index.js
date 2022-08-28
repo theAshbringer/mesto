@@ -41,6 +41,9 @@ const initializeCards = () => {
     .then((res) => res.json())
     .then((cards) => {
       cardList.renderItems(cards);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
