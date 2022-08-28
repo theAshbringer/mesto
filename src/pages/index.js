@@ -84,7 +84,7 @@ const profile = new UserInfo({
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
-  profile.setUserInfo({
+  profile.updateUserInfo({
     name: formData['profile-name'],
     description: formData['profile-description'],
   });
