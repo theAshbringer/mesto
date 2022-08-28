@@ -33,6 +33,8 @@ const initialCards = [
 
 const authToken = 'b83e92bb-9e9d-4e00-bf65-d2bd8a4e2e78';
 
+const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-49/';
+
 export {
   btnAdd,
   btnEdit,
@@ -40,4 +42,5 @@ export {
   cardTemplateSelector,
   initialCards,
   authToken,
+  baseUrl,
 };
