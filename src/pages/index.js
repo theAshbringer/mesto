@@ -2,8 +2,6 @@ import './index.css';
 import {
   btnAdd,
   btnEdit,
-  nameField,
-  descriptionField,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
