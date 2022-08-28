@@ -32,6 +32,17 @@ const createCard = (title, image, templateSelector) => {
   return card;
 };
 
+// Создаем контейнер с карточками
+const cardList = new Section((item) => {
+  return createCard(item.name, item.link, cardTemplateSelector);
+}, cardListSelector);
+
+const profile = new UserInfo({
+  nameSelector: '.profile__name',
+  descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar',
+});
+
 /** Загрузить карточки с сервера */
 const initializeCards = () => {
   fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
@@ -48,39 +59,8 @@ const initializeCards = () => {
     });
 };
 
-/** Загрузить данные профиля с сервера */
-const getProfileInfo = () => {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me ', {
-    headers: {
-      authorization: authToken,
-    },
-  })
-    .then((res) => res.json())
-    .then((profileInfo) => {
-      profile.setUserInfo({
-        name: profileInfo.name,
-        description: profileInfo.about,
-      });
-      profile.setAvatar(profileInfo.avatar);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
-// Создаем контейнер с карточками
-const cardList = new Section((item) => {
-  return createCard(item.name, item.link, cardTemplateSelector);
-}, cardListSelector);
-
 initializeCards();
-getProfileInfo();
-
-const profile = new UserInfo({
-  nameSelector: '.profile__name',
-  descriptionSelector: '.profile__description',
-  avatarSelector: '.profile__avatar',
-});
+profile.loadUserInfo();
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
@@ -109,11 +89,12 @@ popupAdd.setEventListeners();
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  popupEdit.open();
-  const { name, description } = profile.getUserInfo();
-  popupEdit.setInputValues({
-    'profile-name': name,
-    'profile-description': description,
+  profile.getUserInfo().then(({ name, about }) => {
+    popupEdit.setInputValues({
+      'profile-name': name,
+      'profile-description': about,
+    });
+    popupEdit.open();
   });
 });
 

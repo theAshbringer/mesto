@@ -8,13 +8,25 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return {
-      name: this._name.textContent,
-      description: this._description.textContent,
-    };
+    return fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me ', {
+      headers: {
+        authorization: authToken,
+      },
+    })
+      .then((res) => res.json())
+      .catch(() => {
+        console.log('Не удалось загрузить профиль');
+      });
   }
 
-  setUserInfo({ name, description }) {
+  loadUserInfo() {
+    this.getUserInfo().then(({ name, about, avatar }) => {
+      this._setUserInfo({ name, description: about });
+      this._setAvatar(avatar);
+    });
+  }
+
+  _setUserInfo({ name, description }) {
     this._name.textContent = name;
     this._description.textContent = description;
   }
@@ -31,28 +43,19 @@ export default class UserInfo {
         about: description,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          fetch('https://mesto.nomoreparties.co/v1/cohort-49/users/me', {
-            headers: {
-              authorization: authToken,
-            },
-          })
-            .then((res) => res.json())
-            .then((profileInfo) => {
-              this.setUserInfo({
-                name: profileInfo.name,
-                description: profileInfo.about,
-              });
-            });
-        }
+      .then((res) => res.json())
+      .then((profileInfo) => {
+        this._setUserInfo({
+          name: profileInfo.name,
+          description: profileInfo.about,
+        });
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        console.log('Не удалось обновить профиль');
       });
   }
 
-  setAvatar(avatarLink) {
+  _setAvatar(avatarLink) {
     this._avatar.src = avatarLink;
   }
 }
