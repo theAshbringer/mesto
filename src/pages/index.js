@@ -41,11 +41,14 @@ const cardList = new Section((item) => {
   return createCard(item.name, item.link, cardTemplateSelector);
 }, cardListSelector);
 
-const profile = new UserInfo({
-  nameSelector: '.profile__name',
-  descriptionSelector: '.profile__description',
-  avatarSelector: '.profile__avatar',
-});
+const profile = new UserInfo(
+  {
+    nameSelector: '.profile__name',
+    descriptionSelector: '.profile__description',
+    avatarSelector: '.profile__avatar',
+  },
+  api
+);
 
 /** Загрузить карточки с сервера */
 const initializeCards = () => {
