@@ -57,6 +57,10 @@ const getProfileInfo = () => {
         name: profileInfo.name,
         description: profileInfo.about,
       });
+      profile.setAvatar(profileInfo.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -71,6 +75,7 @@ getProfileInfo();
 const profile = new UserInfo({
   nameSelector: '.profile__name',
   descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar',
 });
 
 /** Обработчик отправки формы редактирования профиля */
