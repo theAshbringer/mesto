@@ -6,6 +6,15 @@ export default class UserInfo {
     this._api = api;
   }
 
+  _setUserInfo({ name, description }) {
+    this._name.textContent = name;
+    this._description.textContent = description;
+  }
+
+  _setAvatar(avatarLink) {
+    this._avatar.src = avatarLink;
+  }
+
   getUserInfo() {
     return this._api.get('users/me');
   }
@@ -15,11 +24,6 @@ export default class UserInfo {
       this._setUserInfo({ name, description: about });
       this._setAvatar(avatar);
     });
-  }
-
-  _setUserInfo({ name, description }) {
-    this._name.textContent = name;
-    this._description.textContent = description;
   }
 
   updateUserInfo({ name, description }) {
@@ -41,9 +45,5 @@ export default class UserInfo {
         console.log('Не удалось обновить профиль');
         console.log(err);
       });
-  }
-
-  _setAvatar(avatarLink) {
-    this._avatar.src = avatarLink;
   }
 }
