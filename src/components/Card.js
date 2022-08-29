@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick, api) {
+  constructor(data, templateSelector, handlers, api) {
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
@@ -8,7 +8,7 @@ export default class Card {
     this._template = document.querySelector(this._templateSelector).content;
     this._cardElement = this._template.querySelector('.card');
     this._likesNumber = this._template.querySelector('.card__likes-number');
-    this._handleCardClick = handleCardClick;
+    this._handleCardClick = handlers.handleCardClick;
     this._api = api;
   }
 

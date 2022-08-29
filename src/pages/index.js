@@ -28,11 +28,9 @@ const handleCardClick = (name, link) => {
 
 /** Создать карточку */
 const createCard = ({ title, image, likes }, templateSelector) => {
-  const card = new Card(
-    { title, image, likes },
-    templateSelector,
-    handleCardClick
-  ).generateCard();
+  const card = new Card({ title, image, likes }, templateSelector, {
+    handleCardClick,
+  }).generateCard();
   return card;
 };
 
@@ -93,7 +91,7 @@ const handleAddFormSubmit = (formData) => {
       likes: [].length,
     },
     cardTemplateSelector,
-    handleCardClick,
+    { handleCardClick },
     api
   );
   card
