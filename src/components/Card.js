@@ -6,6 +6,7 @@ export default class Card {
     this._likes = data.likes;
     this._templateSelector = templateSelector;
     this._template = document.querySelector(this._templateSelector).content;
+    this._cardElement = this._template.querySelector('.card');
     this._likesNumber = this._template.querySelector('.card__likes-number');
     this._handleCardClick = handleCardClick;
     this._api = api;
@@ -13,11 +14,7 @@ export default class Card {
 
   /** Достать элемент карточки из шаблона */
   _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector('.card')
-      .cloneNode(true);
-
+    const cardElement = this._cardElement.cloneNode(true);
     return cardElement;
   }
 
