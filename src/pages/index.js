@@ -27,9 +27,9 @@ const handleCardClick = (name, link) => {
 };
 
 /** Создать карточку */
-const createCard = (title, image, templateSelector) => {
+const createCard = ({ title, image, likes }, templateSelector) => {
   const card = new Card(
-    { title: title, image: image },
+    { title, image, likes },
     templateSelector,
     handleCardClick
   ).generateCard();
@@ -38,7 +38,14 @@ const createCard = (title, image, templateSelector) => {
 
 // Создаем контейнер с карточками
 const cardList = new Section((item) => {
-  return createCard(item.name, item.link, cardTemplateSelector);
+  return createCard(
+    {
+      title: item.name,
+      image: item.link,
+      likes: item.likes.length,
+    },
+    cardTemplateSelector
+  );
 }, cardListSelector);
 
 const profile = new UserInfo(
@@ -83,6 +90,7 @@ const handleAddFormSubmit = (formData) => {
     {
       title: formData['card-name'],
       image: formData['card-description'],
+      likes: [].length,
     },
     cardTemplateSelector,
     handleCardClick,
