@@ -13,6 +13,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api';
 
@@ -28,11 +29,10 @@ const handleCardClick = (name, link) => {
 
 /** Создать карточку */
 const createCard = ({ title, image, likes }, templateSelector) => {
-  const card = new Card(
-    { title, image, likes },
-    templateSelector,
-    handleCardClick
-  ).generateCard();
+  const card = new Card({ title, image, likes }, templateSelector, {
+    handleCardClick,
+    handleDeleteCard,
+  }).generateCard();
   return card;
 };
 
@@ -76,6 +76,14 @@ const initializeCards = () => {
 initializeCards();
 profile.loadUserInfo();
 
+const popupDelete = new PopupDelete('.popup_type_del', handleDeleteSubmit);
+popupDelete.setEventListeners();
+
+/** Обработчик удаления карточки */
+const handleDeleteCard = () => {
+  popupDelete.open();
+};
+
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
   profile.updateUserInfo({
@@ -93,7 +101,7 @@ const handleAddFormSubmit = (formData) => {
       likes: [].length,
     },
     cardTemplateSelector,
-    handleCardClick,
+    { handleCardClick, handleDeleteCard },
     api
   );
   card
