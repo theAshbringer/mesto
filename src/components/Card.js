@@ -9,6 +9,7 @@ export default class Card {
     this._alt = data.title;
     this._image = data.image;
     this._likes = data.likes;
+    this._isOwner = data.isOwner;
     this._templateSelector = templateSelector;
     this._template = document.querySelector(this._templateSelector).content;
     this._cardElement = this._template.querySelector('.card');
@@ -36,11 +37,20 @@ export default class Card {
     evt.target.classList.toggle('like-btn_active');
   };
 
+  /** Удалить кнопку удаления карточки, если карточка чужая */
+  _removeDeleteBtnIfForeign() {
+    this._deleteBtn = this._element.querySelector('.card__delete');
+    if (!this._isOwner) {
+      this._deleteBtn.remove();
+      this._deleteBtn = '';
+    }
+  }
+
   /** Установить слушатели на элементы карточки */
   _setEventListeners() {
-    this._element
-      .querySelector('.card__delete')
-      .addEventListener('click', this._handleDeleteButton);
+    if (this._deleteBtn) {
+      this._deleteBtn.addEventListener('click', this._handleDeleteButton);
+    }
 
     this._element
       .querySelector('.card__like-btn')
@@ -56,6 +66,7 @@ export default class Card {
   /** Сгенерировать готовую карточку */
   generateCard() {
     this._element = this._getTemplate();
+    this._removeDeleteBtnIfForeign();
     this._cardImageElement = this._element.querySelector('.card__photo');
     this._setEventListeners();
     this._cardImageElement.src = this._image;

@@ -21,6 +21,7 @@ const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();
 
 const api = new Api({ baseUrl, authToken });
+const userId = api.get('users/me').then((res) => res._id);
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
@@ -28,8 +29,8 @@ const handleCardClick = (name, link) => {
 };
 
 /** Создать карточку */
-const createCard = ({ title, image, likes }, templateSelector) => {
-  const card = new Card({ title, image, likes }, templateSelector, {
+const createCard = ({ title, image, likes, isOwner }, templateSelector) => {
+  const card = new Card({ title, image, likes, isOwner }, templateSelector, {
     handleCardClick,
     handleDeleteCard,
   }).generateCard();
@@ -37,12 +38,18 @@ const createCard = ({ title, image, likes }, templateSelector) => {
 };
 
 // Создаем контейнер с карточками
-const cardList = new Section((item) => {
+const cardList = new Section(async (item) => {
+  let isOwner = false;
+  const myId = await userId;
+  if (item.owner._id === myId) {
+    isOwner = true;
+  }
   return createCard(
     {
       title: item.name,
       image: item.link,
       likes: item.likes.length,
+      isOwner: isOwner,
     },
     cardTemplateSelector
   );
@@ -99,6 +106,7 @@ const handleAddFormSubmit = (formData) => {
       title: formData['card-name'],
       image: formData['card-description'],
       likes: [].length,
+      isOwner: true,
     },
     cardTemplateSelector,
     { handleCardClick, handleDeleteCard },
