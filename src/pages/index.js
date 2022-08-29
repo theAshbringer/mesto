@@ -79,12 +79,24 @@ const handleEditFormSubmit = (formData) => {
 
 /** Обработчик отправки формы добавления карточки */
 const handleAddFormSubmit = (formData) => {
-  const card = createCard(
-    formData['card-name'],
-    formData['card-description'],
-    cardTemplateSelector
+  const card = new Card(
+    {
+      title: formData['card-name'],
+      image: formData['card-description'],
+    },
+    cardTemplateSelector,
+    handleCardClick,
+    api
   );
-  cardList.addItem(card);
+  card
+    .postCard()
+    .then(() => {
+      cardList.addItem(card.generateCard());
+    })
+    .catch((err) => {
+      console.log('Не удалось запостить карточку');
+      console.log(err);
+    });
   formValidators['add-card'].disableButton();
 };
 

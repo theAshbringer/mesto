@@ -1,10 +1,11 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, api) {
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._api = api;
   }
 
   /** Достать элемент карточки из шаблона */
@@ -55,5 +56,15 @@ export default class Card {
     this._element.querySelector('.card__title').textContent = this._title;
 
     return this._element;
+  }
+
+  postCard() {
+    return this._api.post({
+      url: 'cards',
+      body: {
+        name: this._title,
+        link: this._image,
+      },
+    });
   }
 }
