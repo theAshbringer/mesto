@@ -36,9 +36,9 @@
 @import url("../blocks/popup/__field/_invalid/popup__field_invalid.css");
 @import url("../blocks/popup/__input-error/popup__input-error.css");
 @import url("../blocks/popup/__input-error/_active/popup__input-error_active.css");
+@import url("../blocks/popup/__button/popup__button.css");
 @import url("../blocks/close-btn/close-btn.css");
 @import url("../blocks/popup/__close/popup__close.css");
-@import url("../blocks/save-btn/save-btn.css");
 @import url("../blocks/popup/__button/_disabled/popup__button_disabled.css");
 @import url("../blocks/popup/_type/popup_type_img.css");
 @import url("../blocks/img-popup/img-popup.css");
