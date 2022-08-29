@@ -24,4 +24,16 @@ export default class Api {
     });
     return await res.json();
   }
+
+  async post({ url, body }) {
+    const res = await fetch(`${this._baseUrl}${url}`, {
+      method: 'POST',
+      headers: {
+        authorization: this._authToken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    return await res.json();
+  }
 }
