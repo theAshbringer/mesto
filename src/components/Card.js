@@ -1,5 +1,10 @@
 export default class Card {
-  constructor(data, templateSelector, handlers, api) {
+  constructor(
+    data,
+    templateSelector,
+    { handleCardClick, handleDeleteCard },
+    api
+  ) {
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
@@ -8,8 +13,9 @@ export default class Card {
     this._template = document.querySelector(this._templateSelector).content;
     this._cardElement = this._template.querySelector('.card');
     this._likesNumber = this._template.querySelector('.card__likes-number');
-    this._handleCardClick = handlers.handleCardClick;
+    this._handleCardClick = handleCardClick;
     this._api = api;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   /** Достать элемент карточки из шаблона */
@@ -20,8 +26,9 @@ export default class Card {
 
   /** Удалить карточку по щелчку на корзину */
   _handleDeleteButton = () => {
-    this._element.remove();
-    this._element = null;
+    this._handleDeleteCard();
+    // this._element.remove();
+    // this._element = null;
   };
 
   /** Поставить лайк */
