@@ -5,11 +5,13 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._submitCallback = submitCallback;
     this._form = this._popup.querySelector('.popup__container');
+    this.card = null;
   }
 
   /** Обработчик отправки формы */
   _handleSubmit = (evt) => {
     evt.preventDefault();
+    this._submitCallback(this.card);
     this.close();
   };
 

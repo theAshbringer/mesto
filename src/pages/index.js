@@ -7,6 +7,7 @@ import {
   cardTemplateSelector,
   initialCards,
   api,
+  myId,
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -25,9 +26,9 @@ const handleCardClick = (name, link) => {
 };
 
 /** Создать карточку */
-const createCard = ({ id, title, image, likes, isOwner }, templateSelector) => {
+const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
   const card = new Card(
-    { id, title, image, likes, isOwner },
+    { id, title, image, likes, owner },
     templateSelector,
     {
       handleCardClick,
@@ -51,7 +52,7 @@ const cardList = new Section(async (item) => {
       title: item.name,
       image: item.link,
       likes: item.likes,
-      isOwner: isOwner,
+      owner: item.owner._id,
     },
     cardTemplateSelector
   );
@@ -85,11 +86,18 @@ const initializeCards = () => {
 initializeCards();
 profile.loadUserInfo();
 
-const popupDelete = new PopupDelete('.popup_type_del', handleDeleteSubmit);
+/** Обработчик удаления карточки */
+const handlePopupDeleteSubmit = (card) => {
+  api.delete(`cards/${card._id}`).then(() => {
+    card.removeElement();
+  });
+};
+
 popupDelete.setEventListeners();
 
 /** Обработчик удаления карточки */
-const handleDeleteCard = () => {
+const handleDeleteCard = (card) => {
+  popupDelete.card = card;
   popupDelete.open();
 };
 
