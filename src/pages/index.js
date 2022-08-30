@@ -7,6 +7,7 @@ import {
   cardTemplateSelector,
   initialCards,
   api,
+  myId,
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -25,12 +26,13 @@ const handleCardClick = (name, link) => {
 };
 
 /** Создать карточку */
-const createCard = ({ id, title, image, likes }, templateSelector) => {
+const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
   const card = new Card(
-    { id, title, image, likes },
+    { id, title, image, likes, owner },
     templateSelector,
     {
       handleCardClick,
+      handleDeleteCard,
     },
     api
   ).generateCard();
@@ -38,13 +40,14 @@ const createCard = ({ id, title, image, likes }, templateSelector) => {
 };
 
 // Создаем контейнер с карточками
-const cardList = new Section((item) => {
+const cardList = new Section(async (item) => {
   return createCard(
     {
       id: item._id,
       title: item.name,
       image: item.link,
       likes: item.likes,
+      owner: item.owner._id,
     },
     cardTemplateSelector
   );
@@ -78,6 +81,22 @@ const initializeCards = () => {
 initializeCards();
 profile.loadUserInfo();
 
+/** Обработчик удаления карточки */
+const handlePopupDeleteSubmit = (card) => {
+  api.delete(`cards/${card._id}`).then(() => {
+    card.removeElement();
+  });
+};
+
+const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
+popupDelete.setEventListeners();
+
+/** Обработчик удаления карточки */
+const handleDeleteCard = (card) => {
+  popupDelete.card = card;
+  popupDelete.open();
+};
+
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
   profile.updateUserInfo({
@@ -88,26 +107,34 @@ const handleEditFormSubmit = (formData) => {
 
 /** Обработчик отправки формы добавления карточки */
 const handleAddFormSubmit = (formData) => {
-  const card = new Card(
-    {
-      title: formData['card-name'],
-      image: formData['card-description'],
-      likes: [],
-    },
-    cardTemplateSelector,
-    { handleCardClick, handleDeleteCard },
-    api
-  );
-  card
-    .postCard()
-    .then(() => {
-      cardList.addItem(card.generateCard());
+  api
+    .post({
+      url: 'cards',
+      body: {
+        name: formData['card-name'],
+        link: formData['card-description'],
+      },
+    })
+    .then((res) => {
+      const card = createCard(
+        {
+          id: res._id,
+          title: res.name,
+          image: res.link,
+          likes: res.likes,
+          owner: res.owner._id,
+        },
+        cardTemplateSelector
+      );
+      cardList.addItem(card);
     })
     .catch((err) => {
       console.log('Не удалось запостить карточку');
       console.log(err);
+    })
+    .finally(() => {
+      formValidators['add-card'].disableButton();
     });
-  formValidators['add-card'].disableButton();
 };
 
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit);

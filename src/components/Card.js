@@ -1,17 +1,25 @@
 import { myId } from '../utils/constants';
 
 export default class Card {
-  constructor(data, templateSelector, { handleCardClick }, api) {
+  constructor(
+    data,
+    templateSelector,
+    { handleCardClick, handleDeleteCard },
+    api
+  ) {
     this._id = data.id;
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
     this._likes = data.likes;
+    this._owner = data.owner;
+    this._isOwner = this._owner === myId;
     this._liked = this._likes.map((item) => item._id).includes(myId);
     this._templateSelector = templateSelector;
     this._template = document.querySelector(this._templateSelector).content;
     this._cardElement = this._template.querySelector('.card');
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
     this._api = api;
   }
 
@@ -21,7 +29,9 @@ export default class Card {
   }
 
   /** Удалить карточку по щелчку на корзину */
-  _handleDeleteButton = () => {};
+  _handleDeleteButton = () => {
+    this._handleDeleteCard(this);
+  };
 
   /** Переключить лайк в зависимости от состояния */
   _toggleLike() {
@@ -53,11 +63,20 @@ export default class Card {
     }
   };
 
+  /** Удалить кнопку удаления карточки, если карточка чужая */
+  _removeDeleteBtnIfForeign() {
+    this._deleteBtn = this._element.querySelector('.card__delete');
+    if (!this._isOwner) {
+      this._deleteBtn.remove();
+      this._deleteBtn = '';
+    }
+  }
+
   /** Установить слушатели на элементы карточки */
   _setEventListeners() {
-    this._element
-      .querySelector('.card__delete')
-      .addEventListener('click', this._handleDeleteButton);
+    if (this._deleteBtn) {
+      this._deleteBtn.addEventListener('click', this._handleDeleteButton);
+    }
 
     this._element
       .querySelector('.card__like-btn')
@@ -70,10 +89,17 @@ export default class Card {
       );
   }
 
+  /** Удалить элемент карточки */
+  removeElement() {
+    this._element.remove();
+    this._element = null;
+  }
+
   /** Сгенерировать готовую карточку */
   generateCard() {
     this._getTemplate();
     this._toggleLike();
+    this._removeDeleteBtnIfForeign();
     this._cardImageElement = this._element.querySelector('.card__photo');
     this._setEventListeners();
     this._cardImageElement.src = this._image;
