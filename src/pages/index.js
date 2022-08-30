@@ -1,13 +1,10 @@
 import './index.css';
 import {
-  authToken,
   btnAdd,
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
-  initialCards,
   api,
-  myId,
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -125,8 +122,7 @@ const handleAddFormSubmit = (formData) => {
       cardList.addItem(card);
     })
     .catch((err) => {
-      console.log('Не удалось запостить карточку');
-      console.log(err);
+      console.log('Не удалось запостить карточку: ', err);
     })
     .finally(() => {
       formValidators['add-card'].disableButton();
