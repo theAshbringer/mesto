@@ -1,12 +1,12 @@
 import './index.css';
 import {
   authToken,
-  baseUrl,
   btnAdd,
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
+  api,
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -15,12 +15,9 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
-import Api from '../components/Api';
 
 const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();
-
-const api = new Api({ baseUrl, authToken });
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
