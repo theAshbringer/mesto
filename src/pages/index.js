@@ -1,12 +1,12 @@
 import './index.css';
 import {
   authToken,
-  baseUrl,
   btnAdd,
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
+  api,
 } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
@@ -15,13 +15,9 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
-import Api from '../components/Api';
 
 const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();
-
-const api = new Api({ baseUrl, authToken });
-const userId = api.get('users/me').then((res) => res._id);
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
@@ -29,11 +25,16 @@ const handleCardClick = (name, link) => {
 };
 
 /** Создать карточку */
-const createCard = ({ title, image, likes, isOwner }, templateSelector) => {
-  const card = new Card({ title, image, likes, isOwner }, templateSelector, {
-    handleCardClick,
-    handleDeleteCard,
-  }).generateCard();
+const createCard = ({ id, title, image, likes, isOwner }, templateSelector) => {
+  const card = new Card(
+    { id, title, image, likes, isOwner },
+    templateSelector,
+    {
+      handleCardClick,
+      handleDeleteCard,
+    },
+    api
+  ).generateCard();
   return card;
 };
 
@@ -46,9 +47,10 @@ const cardList = new Section(async (item) => {
   }
   return createCard(
     {
+      id: item._id,
       title: item.name,
       image: item.link,
-      likes: item.likes.length,
+      likes: item.likes,
       isOwner: isOwner,
     },
     cardTemplateSelector
@@ -105,7 +107,7 @@ const handleAddFormSubmit = (formData) => {
     {
       title: formData['card-name'],
       image: formData['card-description'],
-      likes: [].length,
+      likes: [],
       isOwner: true,
     },
     cardTemplateSelector,
