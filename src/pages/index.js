@@ -41,11 +41,6 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
 
 // Создаем контейнер с карточками
 const cardList = new Section(async (item) => {
-  let isOwner = false;
-  const myId = await userId;
-  if (item.owner._id === myId) {
-    isOwner = true;
-  }
   return createCard(
     {
       id: item._id,
@@ -93,6 +88,7 @@ const handlePopupDeleteSubmit = (card) => {
   });
 };
 
+const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
 popupDelete.setEventListeners();
 
 /** Обработчик удаления карточки */
@@ -111,27 +107,34 @@ const handleEditFormSubmit = (formData) => {
 
 /** Обработчик отправки формы добавления карточки */
 const handleAddFormSubmit = (formData) => {
-  const card = new Card(
-    {
-      title: formData['card-name'],
-      image: formData['card-description'],
-      likes: [],
-      isOwner: true,
-    },
-    cardTemplateSelector,
-    { handleCardClick, handleDeleteCard },
-    api
-  );
-  card
-    .postCard()
-    .then(() => {
-      cardList.addItem(card.generateCard());
+  api
+    .post({
+      url: 'cards',
+      body: {
+        name: formData['card-name'],
+        link: formData['card-description'],
+      },
+    })
+    .then((res) => {
+      const card = createCard(
+        {
+          id: res._id,
+          title: res.name,
+          image: res.link,
+          likes: res.likes,
+          owner: res.owner._id,
+        },
+        cardTemplateSelector
+      );
+      cardList.addItem(card);
     })
     .catch((err) => {
       console.log('Не удалось запостить карточку');
       console.log(err);
+    })
+    .finally(() => {
+      formValidators['add-card'].disableButton();
     });
-  formValidators['add-card'].disableButton();
 };
 
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit);
