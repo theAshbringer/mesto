@@ -30,7 +30,7 @@ const createCard = ({ id, title, image, likes }, templateSelector) => {
     { id, title, image, likes },
     templateSelector,
     {
-    handleCardClick,
+      handleCardClick,
     },
     api
   ).generateCard();
@@ -77,14 +77,6 @@ const initializeCards = () => {
 
 initializeCards();
 profile.loadUserInfo();
-
-const popupDelete = new PopupDelete('.popup_type_del', handleDeleteSubmit);
-popupDelete.setEventListeners();
-
-/** Обработчик удаления карточки */
-const handleDeleteCard = () => {
-  popupDelete.open();
-};
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {

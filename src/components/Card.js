@@ -13,7 +13,6 @@ export default class Card {
     this._cardElement = this._template.querySelector('.card');
     this._handleCardClick = handleCardClick;
     this._api = api;
-    this._handleDeleteCard = handleDeleteCard;
   }
 
   /** Достать элемент карточки из шаблона */
@@ -22,11 +21,7 @@ export default class Card {
   }
 
   /** Удалить карточку по щелчку на корзину */
-  _handleDeleteButton = () => {
-    this._handleDeleteCard();
-    // this._element.remove();
-    // this._element = null;
-  };
+  _handleDeleteButton = () => {};
 
   /** Переключить лайк в зависимости от состояния */
   _toggleLike() {
