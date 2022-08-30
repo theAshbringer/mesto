@@ -36,4 +36,24 @@ export default class Api {
     });
     return await res.json();
   }
+
+  async put(url) {
+    const res = await fetch(`${this._baseUrl}${url}`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authToken,
+      },
+    });
+    return await res.json();
+  }
+
+  async delete(url) {
+    const res = await fetch(`${this._baseUrl}${url}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authToken,
+      },
+    });
+    return await res.json();
+  }
 }
