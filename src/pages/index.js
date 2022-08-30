@@ -64,17 +64,13 @@ const profile = new UserInfo(
 
 /** Загрузить карточки с сервера */
 const initializeCards = () => {
-  fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards ', {
-    headers: {
-      authorization: authToken,
-    },
-  })
-    .then((res) => res.json())
+  api
+    .get('cards')
     .then((cards) => {
       cardList.renderItems(cards);
     })
     .catch((err) => {
-      console.log(err);
+      console.log('Не удалось инициализировать карточки: ', err);
     });
 };
 
