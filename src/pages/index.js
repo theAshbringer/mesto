@@ -40,6 +40,12 @@ const handleCardClick = (name, link) => {
   popupCard.open(name, link);
 };
 
+/** Обработчик удаления карточки */
+const handleDeleteCard = (card) => {
+  popupDelete.card = card;
+  popupDelete.open();
+};
+
 /** Создать карточку */
 const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
   const card = new Card(
@@ -95,12 +101,6 @@ const handlePopupDeleteSubmit = (card) => {
 
 const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
 popupDelete.setEventListeners();
-
-/** Обработчик удаления карточки */
-const handleDeleteCard = (card) => {
-  popupDelete.card = card;
-  popupDelete.open();
-};
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
