@@ -1,8 +1,13 @@
 export default class UserInfo {
-  constructor({ nameSelector, descriptionSelector, avatarSelector }, api) {
+  constructor(
+    { nameSelector, descriptionSelector, avatarSelector },
+    handleAvatarClick,
+    api
+  ) {
     this._name = document.querySelector(nameSelector);
     this._description = document.querySelector(descriptionSelector);
     this._avatar = document.querySelector(avatarSelector);
+    this._handleAvatarClick = handleAvatarClick;
     this._api = api;
   }
 
@@ -11,7 +16,13 @@ export default class UserInfo {
     this._description.textContent = description;
   }
 
-  _setAvatar(avatarLink) {
+  _setEventListeners() {
+    this._avatar
+      .closest('.profile__avatar-container')
+      .addEventListener('click', this._handleAvatarClick);
+  }
+
+  setAvatar(avatarLink) {
     this._avatar.src = avatarLink;
   }
 
@@ -22,7 +33,8 @@ export default class UserInfo {
   loadUserInfo() {
     this.getUserInfo().then(({ name, about, avatar }) => {
       this._setUserInfo({ name, description: about });
-      this._setAvatar(avatar);
+      this.setAvatar(avatar);
+      this._setEventListeners();
     });
   }
 
