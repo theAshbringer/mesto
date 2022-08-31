@@ -112,14 +112,4 @@ export default class Card {
 
     return this._element;
   }
-
-  postCard() {
-    return this._api.post({
-      url: 'cards',
-      body: {
-        name: this._title,
-        link: this._image,
-      },
-    });
-  }
 }
