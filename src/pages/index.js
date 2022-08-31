@@ -50,12 +50,17 @@ const cardList = new Section(async (item) => {
   );
 }, cardListSelector);
 
+const handleAvatarClick = () => {
+  popupAvatar.open();
+};
+
 const profile = new UserInfo(
   {
     nameSelector: '.profile__name',
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar',
   },
+  handleAvatarClick,
   api
 );
 
@@ -129,10 +134,28 @@ const handleAddFormSubmit = (formData) => {
     });
 };
 
+const handleAvatarFormSubmit = (formData) => {
+  api
+    .patch({
+      url: 'users/me/avatar',
+      body: {
+        avatar: formData['avatar-link'],
+      },
+    })
+    .then((res) => {
+      profile.setAvatar(res.avatar);
+    });
+};
+
 const popupEdit = new PopupWithForm('.popup_type_edit', handleEditFormSubmit);
 const popupAdd = new PopupWithForm('.popup_type_add', handleAddFormSubmit);
+const popupAvatar = new PopupWithForm(
+  '.popup_type_avatar',
+  handleAvatarFormSubmit
+);
 popupEdit.setEventListeners();
 popupAdd.setEventListeners();
+popupAvatar.setEventListeners();
 
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
