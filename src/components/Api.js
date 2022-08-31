@@ -1,16 +1,20 @@
 export default class Api {
-  constructor({ baseUrl, authToken }) {
+  constructor({ baseUrl, authToken }, { handleInitialCards }) {
     this._baseUrl = baseUrl;
     this._authToken = authToken;
+    this._handleInitialCards = handleInitialCards;
   }
 
-  async get(url) {
-    const res = await fetch(`${this._baseUrl}${url}`, {
+  get(url) {
+    return fetch(`${this._baseUrl}${url}`, {
       headers: {
         authorization: this._authToken,
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
-    return await res.json();
   }
 
   async patch({ url, body }) {
@@ -55,5 +59,16 @@ export default class Api {
       },
     });
     return await res.json();
+  }
+
+  /** Загрузить карточки с сервера */
+  getInitialCards() {
+    this.get('cards')
+      .then((cards) => {
+        this._handleInitialCards(cards);
+      })
+      .catch((err) => {
+        console.log('Не удалось инициализировать карточки: ', err.status);
+      });
   }
 }

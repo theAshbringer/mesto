@@ -4,8 +4,10 @@ import {
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
-  api,
+  baseUrl,
+  authToken,
 } from '../utils/constants.js';
+import Api from '../components/Api';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -13,6 +15,22 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
+
+/** Обработчик загрузки карточек с сервера */
+const handleInitialCards = (cards) => {
+  cardList.renderItems(cards);
+};
+
+const api = new Api({ baseUrl, authToken }, { handleInitialCards });
+
+// Инициализация карточек
+let myId = '';
+api
+  .get('users/me')
+  .then((res) => {
+    myId = res._id;
+  })
+  .then(() => api.getInitialCards());
 
 const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();
@@ -31,6 +49,7 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
       handleCardClick,
       handleDeleteCard,
     },
+    myId,
     api
   ).generateCard();
   return card;
@@ -64,19 +83,7 @@ const profile = new UserInfo(
   api
 );
 
-/** Загрузить карточки с сервера */
-const initializeCards = () => {
-  api
-    .get('cards')
-    .then((cards) => {
-      cardList.renderItems(cards);
-    })
-    .catch((err) => {
-      console.log('Не удалось инициализировать карточки: ', err);
-    });
-};
-
-initializeCards();
+// initializeCards();
 profile.loadUserInfo();
 
 /** Обработчик удаления карточки */
