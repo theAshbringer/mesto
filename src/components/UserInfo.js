@@ -11,7 +11,7 @@ export default class UserInfo {
     this._description.textContent = description;
   }
 
-  _setAvatar(avatarLink) {
+  setAvatar(avatarLink) {
     this._avatar.src = avatarLink;
   }
 
@@ -22,7 +22,7 @@ export default class UserInfo {
   loadUserInfo() {
     this.getUserInfo().then(({ name, about, avatar }) => {
       this._setUserInfo({ name, description: about });
-      this._setAvatar(avatar);
+      this.setAvatar(avatar);
     });
   }
 
