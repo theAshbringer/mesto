@@ -16,12 +16,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
 
-/** Обработчик загрузки карточек с сервера */
-const handleInitialCards = (cards) => {
-  cardList.renderItems(cards);
-};
-
-const api = new Api({ baseUrl, authToken }, { handleInitialCards });
+const api = new Api({ baseUrl, authToken });
 
 // Инициализация карточек
 let myId = '';
@@ -30,7 +25,11 @@ api
   .then((res) => {
     myId = res._id;
   })
-  .then(() => api.getInitialCards());
+  .then(() => {
+    api.getInitialCards().then((cards) => {
+      cardList.renderItems(cards);
+    });
+  });
 
 const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();

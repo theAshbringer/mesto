@@ -1,8 +1,7 @@
 export default class Api {
-  constructor({ baseUrl, authToken }, { handleInitialCards }) {
+  constructor({ baseUrl, authToken }) {
     this._baseUrl = baseUrl;
     this._authToken = authToken;
-    this._handleInitialCards = handleInitialCards;
   }
 
   get(url) {
@@ -75,9 +74,9 @@ export default class Api {
 
   /** Загрузить карточки с сервера */
   getInitialCards() {
-    this.get('cards')
+    return this.get('cards')
       .then((cards) => {
-        this._handleInitialCards(cards);
+        return cards;
       })
       .catch((err) => {
         console.log('Не удалось инициализировать карточки: ', err.status);
