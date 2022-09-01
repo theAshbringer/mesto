@@ -4,8 +4,10 @@ import {
   btnEdit,
   cardListSelector,
   cardTemplateSelector,
-  api,
+  baseUrl,
+  authToken,
 } from '../utils/constants.js';
+import Api from '../components/Api';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -14,12 +16,17 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupDelete from '../components/PopupDelete.js';
 import UserInfo from '../components/UserInfo.js';
 
-const popupCard = new PopupWithImage('.popup_type_img');
-popupCard.setEventListeners();
+const api = new Api({ baseUrl, authToken });
 
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
   popupCard.open(name, link);
+};
+
+/** Обработчик удаления карточки */
+const handleDeleteCard = (card) => {
+  popupDelete.card = card;
+  popupDelete.open();
 };
 
 /** Создать карточку */
@@ -31,7 +38,8 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
       handleCardClick,
       handleDeleteCard,
     },
-    api
+    api,
+    myId
   ).generateCard();
   return card;
 };
@@ -50,6 +58,19 @@ const cardList = new Section(async (item) => {
   );
 }, cardListSelector);
 
+// Инициализация карточек
+let myId = '';
+api
+  .get('users/me')
+  .then((res) => {
+    myId = res._id;
+  })
+  .then(() => {
+    api.getInitialCards().then((cards) => {
+      cardList.renderItems(cards);
+    });
+  });
+
 const handleAvatarClick = () => {
   popupAvatar.open();
 };
@@ -60,24 +81,21 @@ const profile = new UserInfo(
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar',
   },
-  handleAvatarClick,
-  api
+  handleAvatarClick
 );
 
-/** Загрузить карточки с сервера */
-const initializeCards = () => {
-  api
-    .get('cards')
-    .then((cards) => {
-      cardList.renderItems(cards);
-    })
-    .catch((err) => {
-      console.log('Не удалось инициализировать карточки: ', err);
-    });
-};
+function loadProfile() {
+  api.getUserInfo().then(({ name, about, avatar }) => {
+    profile.setUserInfo({ name, description: about });
+    profile.setAvatar(avatar);
+    profile.setEventListeners();
+  });
+}
 
-initializeCards();
-profile.loadUserInfo();
+loadProfile();
+
+const popupCard = new PopupWithImage('.popup_type_img');
+popupCard.setEventListeners();
 
 /** Обработчик удаления карточки */
 const handlePopupDeleteSubmit = (card) => {
@@ -89,15 +107,19 @@ const handlePopupDeleteSubmit = (card) => {
 const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
 popupDelete.setEventListeners();
 
-/** Обработчик удаления карточки */
-const handleDeleteCard = (card) => {
-  popupDelete.card = card;
-  popupDelete.open();
-};
+/** Обновить */
+function updateProfile({ name, description }) {
+  api.updateUserInfo({ name, description }).then((profileInfo) => {
+    profile.setUserInfo({
+      name: profileInfo.name,
+      description: profileInfo.about,
+    });
+  });
+}
 
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
-  profile.updateUserInfo({
+  updateProfile({
     name: formData['profile-name'],
     description: formData['profile-description'],
   });
@@ -160,7 +182,7 @@ popupAvatar.setEventListeners();
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  profile.getUserInfo().then(({ name, about }) => {
+  api.getUserInfo().then(({ name, about }) => {
     popupEdit.setInputValues({
       'profile-name': name,
       'profile-description': about,

@@ -1,20 +1,20 @@
-import { myId } from '../utils/constants';
-
 export default class Card {
   constructor(
     data,
     templateSelector,
     { handleCardClick, handleDeleteCard },
-    api
+    api,
+    userId
   ) {
     this._id = data.id;
     this._title = data.title;
     this._alt = data.title;
     this._image = data.image;
     this._likes = data.likes;
+    this._userId = userId;
     this._owner = data.owner;
-    this._isOwner = this._owner === myId;
-    this._liked = this._likes.map((item) => item._id).includes(myId);
+    this._isOwner = this._owner === this._userId;
+    this._liked = this._likes.map((item) => item._id).includes(this._userId);
     this._templateSelector = templateSelector;
     this._template = document.querySelector(this._templateSelector).content;
     this._cardElement = this._template.querySelector('.card');
@@ -111,15 +111,5 @@ export default class Card {
     this._element.querySelector('.card__title').textContent = this._title;
 
     return this._element;
-  }
-
-  postCard() {
-    return this._api.post({
-      url: 'cards',
-      body: {
-        name: this._title,
-        link: this._image,
-      },
-    });
   }
 }
