@@ -71,6 +71,7 @@ api
     });
   });
 
+/** Обработчик клика по аватарке */
 const handleAvatarClick = () => {
   popupAvatar.open();
 };
@@ -84,6 +85,7 @@ const profile = new UserInfo(
   handleAvatarClick
 );
 
+/** Загрузить данные профиля */
 function loadProfile() {
   api.getUserInfo().then(({ name, about, avatar }) => {
     profile.setUserInfo({ name, description: about });
@@ -156,6 +158,7 @@ const handleAddFormSubmit = (formData) => {
     });
 };
 
+/** Обработчик отправки новой аватарки */
 const handleAvatarFormSubmit = (formData) => {
   api
     .patch({
