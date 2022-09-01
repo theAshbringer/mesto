@@ -1,5 +1,3 @@
-import Api from '../components/Api';
-
 const btnAdd = document.querySelector('.add-btn');
 const btnEdit = document.querySelector('.edit-btn');
 const cardListSelector = '.cards';
