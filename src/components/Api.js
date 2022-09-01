@@ -17,48 +17,60 @@ export default class Api {
     });
   }
 
-  async patch({ url, body }) {
-    const res = await fetch(`${this._baseUrl}${url}`, {
+  patch({ url, body }) {
+    return fetch(`${this._baseUrl}${url}`, {
       method: 'PATCH',
       headers: {
         authorization: this._authToken,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
-    return await res.json();
   }
 
-  async post({ url, body }) {
-    const res = await fetch(`${this._baseUrl}${url}`, {
+  post({ url, body }) {
+    return fetch(`${this._baseUrl}${url}`, {
       method: 'POST',
       headers: {
         authorization: this._authToken,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
-    return await res.json();
   }
 
-  async put(url) {
-    const res = await fetch(`${this._baseUrl}${url}`, {
+  put(url) {
+    return fetch(`${this._baseUrl}${url}`, {
       method: 'PUT',
       headers: {
         authorization: this._authToken,
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
-    return await res.json();
   }
 
-  async delete(url) {
-    const res = await fetch(`${this._baseUrl}${url}`, {
+  delete(url) {
+    return fetch(`${this._baseUrl}${url}`, {
       method: 'DELETE',
       headers: {
         authorization: this._authToken,
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     });
-    return await res.json();
   }
 
   /** Загрузить карточки с сервера */
