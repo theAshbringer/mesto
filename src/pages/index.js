@@ -111,12 +111,18 @@ popupDelete.setEventListeners();
 
 /** Обновить */
 function updateProfile({ name, description }) {
-  api.updateUserInfo({ name, description }).then((profileInfo) => {
-    profile.setUserInfo({
-      name: profileInfo.name,
-      description: profileInfo.about,
+  api
+    .updateUserInfo({ name, description })
+    .then((profileInfo) => {
+      profile.setUserInfo({
+        name: profileInfo.name,
+        description: profileInfo.about,
+      });
+    })
+    .finally(() => {
+      popupEdit.renderSaving(false);
+      popupEdit.close();
     });
-  });
 }
 
 /** Обработчик отправки формы редактирования профиля */
@@ -155,6 +161,8 @@ const handleAddFormSubmit = (formData) => {
     })
     .finally(() => {
       formValidators['add-card'].disableButton();
+      popupAdd.renderSaving(false);
+      popupAdd.close();
     });
 };
 
@@ -169,6 +177,11 @@ const handleAvatarFormSubmit = (formData) => {
     })
     .then((res) => {
       profile.setAvatar(res.avatar);
+    })
+    .finally(() => {
+      formValidators['edit-avatar'].disableButton();
+      popupAvatar.renderSaving(false);
+      popupAdd.close();
     });
 };
 
