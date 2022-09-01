@@ -82,4 +82,24 @@ export default class Api {
         console.log('Не удалось инициализировать карточки: ', err.status);
       });
   }
+
+  /** Загрузить данные профиля с сервера */
+  getUserInfo() {
+    return this.get('users/me').catch((err) => {
+      console.log('Не удалось загрузить данные профиля: ', err.status);
+    });
+  }
+
+  /** Обновить данные профиля с сервера */
+  updateUserInfo({ name, description }) {
+    return this.patch({
+      url: 'users/me',
+      body: {
+        name: name,
+        about: description,
+      },
+    }).catch((err) => {
+      console.log('Не удалось обновить профиль: ', err.status);
+    });
+  }
 }

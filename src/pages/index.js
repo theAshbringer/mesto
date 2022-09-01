@@ -18,22 +18,6 @@ import UserInfo from '../components/UserInfo.js';
 
 const api = new Api({ baseUrl, authToken });
 
-// Инициализация карточек
-let myId = '';
-api
-  .get('users/me')
-  .then((res) => {
-    myId = res._id;
-  })
-  .then(() => {
-    api.getInitialCards().then((cards) => {
-      cardList.renderItems(cards);
-    });
-  });
-
-const popupCard = new PopupWithImage('.popup_type_img');
-popupCard.setEventListeners();
-
 /** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
   popupCard.open(name, link);
@@ -74,6 +58,19 @@ const cardList = new Section(async (item) => {
   );
 }, cardListSelector);
 
+// Инициализация карточек
+let myId = '';
+api
+  .get('users/me')
+  .then((res) => {
+    myId = res._id;
+  })
+  .then(() => {
+    api.getInitialCards().then((cards) => {
+      cardList.renderItems(cards);
+    });
+  });
+
 const handleAvatarClick = () => {
   popupAvatar.open();
 };
@@ -84,12 +81,21 @@ const profile = new UserInfo(
     descriptionSelector: '.profile__description',
     avatarSelector: '.profile__avatar',
   },
-  handleAvatarClick,
-  api
+  handleAvatarClick
 );
 
-// initializeCards();
-profile.loadUserInfo();
+function loadProfile() {
+  api.getUserInfo().then(({ name, about, avatar }) => {
+    profile.setUserInfo({ name, description: about });
+    profile.setAvatar(avatar);
+    profile.setEventListeners();
+  });
+}
+
+loadProfile();
+
+const popupCard = new PopupWithImage('.popup_type_img');
+popupCard.setEventListeners();
 
 /** Обработчик удаления карточки */
 const handlePopupDeleteSubmit = (card) => {
@@ -101,9 +107,19 @@ const handlePopupDeleteSubmit = (card) => {
 const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
 popupDelete.setEventListeners();
 
+/** Обновить */
+function updateProfile({ name, description }) {
+  api.updateUserInfo({ name, description }).then((profileInfo) => {
+    profile.setUserInfo({
+      name: profileInfo.name,
+      description: profileInfo.about,
+    });
+  });
+}
+
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
-  profile.updateUserInfo({
+  updateProfile({
     name: formData['profile-name'],
     description: formData['profile-description'],
   });
@@ -166,7 +182,7 @@ popupAvatar.setEventListeners();
 // Событие "Редактировать профиль"
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  profile.getUserInfo().then(({ name, about }) => {
+  api.getUserInfo().then(({ name, about }) => {
     popupEdit.setInputValues({
       'profile-name': name,
       'profile-description': about,
