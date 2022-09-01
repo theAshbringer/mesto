@@ -6,6 +6,7 @@ import {
   cardTemplateSelector,
   baseUrl,
   authToken,
+  btnAvatar,
 } from '../utils/constants.js';
 import Api from '../components/Api';
 import Card from '../components/Card.js';
@@ -73,6 +74,7 @@ api
 
 /** Обработчик клика по аватарке */
 const handleAvatarClick = () => {
+  formValidators['edit-avatar'].resetValidation();
   popupAvatar.open();
 };
 
@@ -90,7 +92,6 @@ function loadProfile() {
   api.getUserInfo().then(({ name, about, avatar }) => {
     profile.setUserInfo({ name, description: about });
     profile.setAvatar(avatar);
-    profile.setEventListeners();
   });
 }
 
@@ -111,12 +112,18 @@ popupDelete.setEventListeners();
 
 /** Обновить */
 function updateProfile({ name, description }) {
-  api.updateUserInfo({ name, description }).then((profileInfo) => {
-    profile.setUserInfo({
-      name: profileInfo.name,
-      description: profileInfo.about,
+  api
+    .updateUserInfo({ name, description })
+    .then((profileInfo) => {
+      profile.setUserInfo({
+        name: profileInfo.name,
+        description: profileInfo.about,
+      });
+    })
+    .finally(() => {
+      popupEdit.renderSaving(false);
+      popupEdit.close();
     });
-  });
 }
 
 /** Обработчик отправки формы редактирования профиля */
@@ -155,6 +162,8 @@ const handleAddFormSubmit = (formData) => {
     })
     .finally(() => {
       formValidators['add-card'].disableButton();
+      popupAdd.renderSaving(false);
+      popupAdd.close();
     });
 };
 
@@ -169,6 +178,11 @@ const handleAvatarFormSubmit = (formData) => {
     })
     .then((res) => {
       profile.setAvatar(res.avatar);
+    })
+    .finally(() => {
+      formValidators['edit-avatar'].disableButton();
+      popupAvatar.renderSaving(false);
+      popupAvatar.close();
     });
 };
 
@@ -182,7 +196,7 @@ popupEdit.setEventListeners();
 popupAdd.setEventListeners();
 popupAvatar.setEventListeners();
 
-// Событие "Редактировать профиль"
+// Обработчик клика по кнопке редактирования профиля
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
   api.getUserInfo().then(({ name, about }) => {
@@ -194,11 +208,14 @@ btnEdit.addEventListener('click', () => {
   });
 });
 
-// Событие "Добавить карточку"
+// Обработчик клика по кнопке добавления карточки
 btnAdd.addEventListener('click', () => {
   formValidators['add-card'].resetValidation();
   popupAdd.open();
 });
+
+// Обработчик клика по аве
+btnAvatar.addEventListener('click', handleAvatarClick);
 
 // Валидация форм
 const formValidators = {};
