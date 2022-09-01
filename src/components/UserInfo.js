@@ -14,12 +14,6 @@ export default class UserInfo {
     this._description.textContent = description;
   }
 
-  setEventListeners() {
-    this._avatar
-      .closest('.profile__avatar-container')
-      .addEventListener('click', this._handleAvatarClick);
-  }
-
   setAvatar(avatarLink) {
     this._avatar.src = avatarLink;
   }

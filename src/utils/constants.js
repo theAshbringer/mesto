@@ -1,5 +1,6 @@
 const btnAdd = document.querySelector('.add-btn');
 const btnEdit = document.querySelector('.edit-btn');
+const btnAvatar = document.querySelector('.profile__avatar-container');
 const cardListSelector = '.cards';
 const cardTemplateSelector = '#card-template';
 
@@ -38,6 +39,7 @@ const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-49/';
 export {
   btnAdd,
   btnEdit,
+  btnAvatar,
   cardListSelector,
   cardTemplateSelector,
   initialCards,
