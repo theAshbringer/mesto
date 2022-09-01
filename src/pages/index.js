@@ -55,8 +55,8 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
       handleCardClick,
       handleDeleteCard,
     },
-    myId,
-    api
+    api,
+    myId
   ).generateCard();
   return card;
 };
