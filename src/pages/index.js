@@ -1,5 +1,6 @@
 import './index.css';
 import {
+  profileElement,
   btnAdd,
   btnEdit,
   cardListSelector,
@@ -92,6 +93,7 @@ function loadProfile() {
   api.getUserInfo().then(({ name, about, avatar }) => {
     profile.setUserInfo({ name, description: about });
     profile.setAvatar(avatar);
+    profileElement.classList.add('profile_active');
   });
 }
 
