@@ -47,7 +47,7 @@ export default class Card {
   /** Поставить лайк */
   _handleLikeButton = () => {
     if (!this._liked) {
-      this._api.put(`cards/${this._id}/likes`).then(({ likes }) => {
+      this._api.likeCard(this._id).then(({ likes }) => {
         this._likes = likes;
         this._likeNumberElement.textContent = this._likes.length;
         this._liked = true;

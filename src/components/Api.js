@@ -24,8 +24,8 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  put(url) {
-    return fetch(`${this._baseUrl}${url}`, {
+  likeCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
       method: 'PUT',
       headers: {
         authorization: this._authToken,
