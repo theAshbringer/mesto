@@ -178,12 +178,7 @@ const handleAddFormSubmit = (formData) => {
 /** Обработчик отправки новой аватарки */
 const handleAvatarFormSubmit = (formData) => {
   api
-    .patch({
-      url: 'users/me/avatar',
-      body: {
-        avatar: formData['avatar-link'],
-      },
-    })
+    .updateAvatar(formData['avatar-link'])
     .then((res) => {
       profile.setAvatar(res.avatar);
     })

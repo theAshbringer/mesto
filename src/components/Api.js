@@ -11,14 +11,16 @@ export default class Api {
     return res.json();
   }
 
-  patch({ url, body }) {
-    return fetch(`${this._baseUrl}${url}`, {
+  updateAvatar(avatar) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this._authToken,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        avatar,
+      }),
     }).then((res) => this._handleResponse(res));
   }
 
@@ -69,7 +71,7 @@ export default class Api {
 
   /** Обновить данные профиля с сервера */
   updateUserInfo({ name, description }) {
-    return this.patch({
+    return this.updateAvatar({
       url: 'users/me',
       body: {
         name: name,
