@@ -79,12 +79,16 @@ export default class Api {
   }
 
   updateUserInfo({ name, description }) {
-    return this.updateAvatar({
-      url: 'users/me',
-      body: {
-        name: name,
-        about: description,
+    return fetch(`${this._baseUrl}users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authToken,
+        'Content-Type': 'application/json',
       },
-    });
+      body: JSON.stringify({
+        name,
+        about: description,
+      }),
+    }).then((res) => this._handleResponse(res));
   }
 }
