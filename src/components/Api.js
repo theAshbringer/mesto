@@ -4,16 +4,19 @@ export default class Api {
     this._authToken = authToken;
   }
 
+  _handleResponse(res) {
+    if (!res.ok) {
+      Promise.reject(`Ошибка!: ${res.status}`);
+    }
+    return res.json();
+  }
+
   get(url) {
     return fetch(`${this._baseUrl}${url}`, {
       headers: {
         authorization: this._authToken,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   patch({ url, body }) {
@@ -24,11 +27,7 @@ export default class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   post({ url, body }) {
@@ -39,11 +38,7 @@ export default class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   put(url) {
@@ -52,11 +47,7 @@ export default class Api {
       headers: {
         authorization: this._authToken,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   deleteCard(cardId) {
@@ -65,11 +56,7 @@ export default class Api {
       headers: {
         authorization: this._authToken,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
   /** Загрузить карточки с сервера */
