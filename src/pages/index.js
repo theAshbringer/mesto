@@ -243,14 +243,12 @@ popupAvatar.setEventListeners();
 // Обработчик клика по кнопке редактирования профиля
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  api.loadUserInfo().then(({ name, about }) => {
-    // убрать вызов get
-    popupEdit.setInputValues({
-      'profile-name': name,
-      'profile-description': about,
-    });
-    popupEdit.open();
+  const { name, description } = profile.getUserInfo();
+  popupEdit.setInputValues({
+    'profile-name': name,
+    'profile-description': description,
   });
+  popupEdit.open();
 });
 
 // Обработчик клика по кнопке добавления карточки
