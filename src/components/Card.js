@@ -3,7 +3,8 @@ export default class Card {
     data,
     templateSelector,
     { handleCardClick, handleDeleteCard, handleLike, handleDislike },
-    userId
+    userId,
+    options
   ) {
     this._id = data.id;
     this._title = data.title;
@@ -16,11 +17,14 @@ export default class Card {
     this._liked = this._likes.map((item) => item._id).includes(this._userId);
     this._templateSelector = templateSelector;
     this._template = document.querySelector(this._templateSelector).content;
-    this._cardElement = this._template.querySelector('.card');
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
     this._handleLike = handleLike;
     this._handleDislike = handleDislike;
+    this._options = options;
+    this._cardElement = this._template.querySelector(
+      this._options.cardElementSelector
+    );
   }
 
   /** Достать элемент карточки из шаблона */
@@ -36,11 +40,13 @@ export default class Card {
   /** Переключить лайк в зависимости от состояния */
   _toggleLike() {
     if (this._liked) {
-      this._element.querySelector('.like-btn').classList.add('like-btn_active');
+      this._element
+        .querySelector(this._options.likeButtonSelector)
+        .classList.add(this._options.activeLikeBttonClass);
     } else {
       this._element
-        .querySelector('.like-btn')
-        .classList.remove('like-btn_active');
+        .querySelector(this._options.likeButtonSelector)
+        .classList.remove(this._options.activeLikeBttonClass);
     }
   }
 
@@ -52,7 +58,9 @@ export default class Card {
 
   /** Удалить кнопку удаления карточки, если карточка чужая */
   _removeDeleteBtnIfForeign() {
-    this._deleteBtn = this._element.querySelector('.card__delete');
+    this._deleteBtn = this._element.querySelector(
+      this._options.deleteButtonSelector
+    );
     if (!this._isOwner) {
       this._deleteBtn.remove();
       this._deleteBtn = '';
@@ -66,11 +74,11 @@ export default class Card {
     }
 
     this._element
-      .querySelector('.card__like-btn')
+      .querySelector(this._options.likeButtonSelector)
       .addEventListener('click', this._handleLikeButton);
 
     this._element
-      .querySelector('.card__onclick')
+      .querySelector(this._options.onclickSelector)
       .addEventListener('click', () =>
         this._handleCardClick(this._title, this._image)
       );
@@ -87,15 +95,18 @@ export default class Card {
     this._getTemplate();
     this._toggleLike();
     this._removeDeleteBtnIfForeign();
-    this._cardImageElement = this._element.querySelector('.card__photo');
+    this._cardImageElement = this._element.querySelector(
+      this._options.imageSelector
+    );
     this._setEventListeners();
     this._cardImageElement.src = this._image;
     this._cardImageElement.alt = this._title;
     this._likeNumberElement = this._element.querySelector(
-      '.card__likes-number'
+      this._options.likesNumberSelector
     );
     this._likeNumberElement.textContent = this._likes.length;
-    this._element.querySelector('.card__title').textContent = this._title;
+    this._element.querySelector(this._options.titleSelector).textContent =
+      this._title;
 
     return this._element;
   }

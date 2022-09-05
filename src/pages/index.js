@@ -10,6 +10,7 @@ import {
   btnAvatar,
   validationOptions,
   profileOptions,
+  cardOptions,
 } from '../utils/constants.js';
 import Api from '../components/Api';
 import Card from '../components/Card.js';
@@ -74,7 +75,8 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
       handleLike,
       handleDislike,
     },
-    myId
+    myId,
+    cardOptions
   ).generateCard();
   return card;
 };
