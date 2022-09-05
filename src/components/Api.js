@@ -59,7 +59,7 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  getUserInfo() {
+  loadUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {
       headers: {
         authorization: this._authToken,

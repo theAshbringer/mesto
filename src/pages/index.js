@@ -95,7 +95,7 @@ const cardList = new Section((item) => {
 // Инициализация карточек
 let myId = '';
 api
-  .getUserInfo()
+  .loadUserInfo()
   .then((res) => {
     myId = res._id;
   })
@@ -127,7 +127,7 @@ const profile = new UserInfo({
 
 /** Загрузить данные профиля */
 function loadProfile() {
-  api.getUserInfo().then(({ name, about, avatar }) => {
+  api.loadUserInfo().then(({ name, about, avatar }) => {
     // убрать повторный вызов
     profile.setUserInfo({ name, description: about });
     profile.setAvatar(avatar);
@@ -243,7 +243,7 @@ popupAvatar.setEventListeners();
 // Обработчик клика по кнопке редактирования профиля
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
-  api.getUserInfo().then(({ name, about }) => {
+  api.loadUserInfo().then(({ name, about }) => {
     // убрать вызов get
     popupEdit.setInputValues({
       'profile-name': name,
