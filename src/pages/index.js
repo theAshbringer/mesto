@@ -177,8 +177,8 @@ function updateProfile({ name, description }) {
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
   updateProfile({
-    name: formData[profileOptions.nameSelector],
-    description: formData[profileOptions.descriptionSelector],
+    name: formData['profile-name'],
+    description: formData['profile-description'],
   });
 };
 
