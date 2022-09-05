@@ -9,6 +9,7 @@ import {
   authToken,
   btnAvatar,
   validationOptions,
+  profileOptions,
 } from '../utils/constants.js';
 import Api from '../components/Api';
 import Card from '../components/Card.js';
@@ -120,11 +121,7 @@ const handleAvatarClick = () => {
   popupAvatar.open();
 };
 
-const profile = new UserInfo({
-  nameSelector: '.profile__name',
-  descriptionSelector: '.profile__description',
-  avatarSelector: '.profile__avatar',
-});
+const profile = new UserInfo(profileOptions);
 
 /** Загрузить данные профиля */
 function loadProfile() {
@@ -179,8 +176,8 @@ function updateProfile({ name, description }) {
 /** Обработчик отправки формы редактирования профиля */
 const handleEditFormSubmit = (formData) => {
   updateProfile({
-    name: formData['profile-name'],
-    description: formData['profile-description'],
+    name: formData[profileOptions.nameSelector],
+    description: formData[profileOptions.descriptionSelector],
   });
 };
 
