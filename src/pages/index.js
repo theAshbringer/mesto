@@ -79,7 +79,7 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
 };
 
 // Создаем контейнер с карточками
-const cardList = new Section(async (item) => {
+const cardList = new Section((item) => {
   return createCard(
     {
       id: item._id,
