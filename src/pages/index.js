@@ -119,14 +119,11 @@ const handleAvatarClick = () => {
   popupAvatar.open();
 };
 
-const profile = new UserInfo(
-  {
-    nameSelector: '.profile__name',
-    descriptionSelector: '.profile__description',
-    avatarSelector: '.profile__avatar',
-  },
-  handleAvatarClick
-);
+const profile = new UserInfo({
+  nameSelector: '.profile__name',
+  descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__avatar',
+});
 
 /** Загрузить данные профиля */
 function loadProfile() {
