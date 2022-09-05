@@ -54,7 +54,7 @@ export default class Card {
         this._toggleLike();
       });
     } else {
-      this._api.delete(`cards/${this._id}/likes`).then(({ likes }) => {
+      this._api.dislikeCard(this._id).then(({ likes }) => {
         this._likes = likes;
         this._likeNumberElement.textContent = this._likes.length;
         this._liked = false;

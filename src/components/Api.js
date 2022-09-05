@@ -33,6 +33,15 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
+  dislikeCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}cards/${cardId}`, {
       method: 'DELETE',
