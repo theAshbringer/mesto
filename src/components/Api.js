@@ -78,7 +78,6 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  /** Обновить данные профиля с сервера */
   updateUserInfo({ name, description }) {
     return this.updateAvatar({
       url: 'users/me',
@@ -86,8 +85,6 @@ export default class Api {
         name: name,
         about: description,
       },
-    }).catch((err) => {
-      console.log('Не удалось обновить профиль: ', err.status);
     });
   }
 }

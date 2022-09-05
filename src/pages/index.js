@@ -113,9 +113,14 @@ popupCard.setEventListeners();
 
 /** Обработчик удаления карточки */
 const handlePopupDeleteSubmit = (card) => {
-  api.deleteCard(card._id).then(() => {
-    card.removeElement();
-  });
+  api
+    .deleteCard(card._id)
+    .then(() => {
+      card.removeElement();
+    })
+    .catch((err) => {
+      console.log('Не удалось удалить карточку: ', err);
+    });
 };
 
 const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
@@ -130,6 +135,9 @@ function updateProfile({ name, description }) {
         name: profileInfo.name,
         description: profileInfo.about,
       });
+    })
+    .catch((err) => {
+      console.log('Не удалось обновить профиль: ', err.status);
     })
     .finally(() => {
       popupEdit.renderSaving(false);
@@ -181,6 +189,9 @@ const handleAvatarFormSubmit = (formData) => {
     .updateAvatar(formData['avatar-link'])
     .then((res) => {
       profile.setAvatar(res.avatar);
+    })
+    .catch((err) => {
+      console.log('Не удалось обновить аватар: ', err);
     })
     .finally(() => {
       formValidators['edit-avatar'].disableButton();

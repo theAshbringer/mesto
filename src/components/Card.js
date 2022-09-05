@@ -47,19 +47,29 @@ export default class Card {
   /** Поставить лайк */
   _handleLikeButton = () => {
     if (!this._liked) {
-      this._api.likeCard(this._id).then(({ likes }) => {
-        this._likes = likes;
-        this._likeNumberElement.textContent = this._likes.length;
-        this._liked = true;
-        this._toggleLike();
-      });
+      this._api
+        .likeCard(this._id)
+        .then(({ likes }) => {
+          this._likes = likes;
+          this._likeNumberElement.textContent = this._likes.length;
+          this._liked = true;
+          this._toggleLike();
+        })
+        .catch((err) => {
+          console.log('Не удалось поставить лайк: ', err);
+        });
     } else {
-      this._api.dislikeCard(this._id).then(({ likes }) => {
-        this._likes = likes;
-        this._likeNumberElement.textContent = this._likes.length;
-        this._liked = false;
-        this._toggleLike();
-      });
+      this._api
+        .dislikeCard(this._id)
+        .then(({ likes }) => {
+          this._likes = likes;
+          this._likeNumberElement.textContent = this._likes.length;
+          this._liked = false;
+          this._toggleLike();
+        })
+        .catch((err) => {
+          console.log('Не удалось убрать лайк: ', err);
+        });
     }
   };
 
