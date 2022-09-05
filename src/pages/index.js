@@ -149,6 +149,7 @@ const handlePopupDeleteSubmit = (card) => {
     .deleteCard(card._id)
     .then(() => {
       card.removeElement();
+      popupDelete.close();
     })
     .catch((err) => {
       console.log('Не удалось удалить карточку: ', err);
