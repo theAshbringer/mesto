@@ -95,25 +95,18 @@ const cardList = new Section((item) => {
   );
 }, cardListSelector);
 
-// Инициализация карточек
+// Загрузка профиля и карточек
 let myId = '';
-api
-  .loadUserInfo()
-  .then((res) => {
-    myId = res._id;
+Promise.all([api.loadUserInfo(), api.getInitialCards()])
+  .then(([{ name, about, avatar, _id }, cards]) => {
+    myId = _id;
+    profile.setUserInfo({ name, description: about });
+    profile.setAvatar(avatar);
+    profileElement.classList.add('profile_active');
+    cardList.renderItems(cards);
   })
   .catch((err) => {
-    console.log('Не удалось загрузить данные профиля: ', err.status);
-  })
-  .then(() => {
-    api
-      .getInitialCards()
-      .then((cards) => {
-        cardList.renderItems(cards);
-      })
-      .catch((err) => {
-        console.log('Не удалось инициализировать карточки: ', err.status);
-      });
+    console.log('Не удалось загрузить данные профиля/карточек: ', err.status);
   });
 
 /** Обработчик клика по аватарке */
@@ -123,18 +116,6 @@ const handleAvatarClick = () => {
 };
 
 const profile = new UserInfo(profileOptions);
-
-/** Загрузить данные профиля */
-function loadProfile() {
-  api.loadUserInfo().then(({ name, about, avatar }) => {
-    // убрать повторный вызов
-    profile.setUserInfo({ name, description: about });
-    profile.setAvatar(avatar);
-    profileElement.classList.add('profile_active');
-  });
-}
-
-loadProfile();
 
 const popupCard = new PopupWithImage('.popup_type_img');
 popupCard.setEventListeners();
