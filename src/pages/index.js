@@ -67,10 +67,18 @@ api
   .then((res) => {
     myId = res._id;
   })
+  .catch((err) => {
+    console.log('Не удалось загрузить данные профиля: ', err.status);
+  })
   .then(() => {
-    api.getInitialCards().then((cards) => {
-      cardList.renderItems(cards);
-    });
+    api
+      .getInitialCards()
+      .then((cards) => {
+        cardList.renderItems(cards);
+      })
+      .catch((err) => {
+        console.log('Не удалось инициализировать карточки: ', err.status);
+      });
   });
 
 /** Обработчик клика по аватарке */
@@ -91,6 +99,7 @@ const profile = new UserInfo(
 /** Загрузить данные профиля */
 function loadProfile() {
   api.getUserInfo().then(({ name, about, avatar }) => {
+    // убрать повторный вызов
     profile.setUserInfo({ name, description: about });
     profile.setAvatar(avatar);
     profileElement.classList.add('profile_active');
@@ -202,6 +211,7 @@ popupAvatar.setEventListeners();
 btnEdit.addEventListener('click', () => {
   formValidators['edit-profile'].resetValidation();
   api.getUserInfo().then(({ name, about }) => {
+    // убрать вызов get
     popupEdit.setInputValues({
       'profile-name': name,
       'profile-description': about,

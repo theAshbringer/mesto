@@ -11,14 +11,6 @@ export default class Api {
     return res.json();
   }
 
-  get(url) {
-    return fetch(`${this._baseUrl}${url}`, {
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => this._handleResponse(res));
-  }
-
   patch({ url, body }) {
     return fetch(`${this._baseUrl}${url}`, {
       method: 'PATCH',
@@ -59,22 +51,20 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  /** Загрузить карточки с сервера */
   getInitialCards() {
-    return this.get('cards')
-      .then((cards) => {
-        return cards;
-      })
-      .catch((err) => {
-        console.log('Не удалось инициализировать карточки: ', err.status);
-      });
+    return fetch(`${this._baseUrl}cards`, {
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
   }
 
-  /** Загрузить данные профиля с сервера */
   getUserInfo() {
-    return this.get('users/me').catch((err) => {
-      console.log('Не удалось загрузить данные профиля: ', err.status);
-    });
+    return fetch(`${this._baseUrl}users/me`, {
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
   }
 
   /** Обновить данные профиля с сервера */
