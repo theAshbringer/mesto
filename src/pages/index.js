@@ -104,7 +104,7 @@ popupCard.setEventListeners();
 
 /** Обработчик удаления карточки */
 const handlePopupDeleteSubmit = (card) => {
-  api.delete(`cards/${card._id}`).then(() => {
+  api.deleteCard(card._id).then(() => {
     card.removeElement();
   });
 };
