@@ -8,6 +8,7 @@ import {
   baseUrl,
   authToken,
   btnAvatar,
+  validationOptions,
 } from '../utils/constants.js';
 import Api from '../components/Api';
 import Card from '../components/Card.js';
@@ -262,15 +263,6 @@ btnAvatar.addEventListener('click', handleAvatarClick);
 
 // Валидация форм
 const formValidators = {};
-
-const validationOptions = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__field',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__field_invalid',
-  errorClass: 'popup__input-error_active',
-};
 
 // Включить валидацию
 const enableValidation = (validationOptions) => {
