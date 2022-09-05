@@ -74,7 +74,6 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
       handleLike,
       handleDislike,
     },
-    api,
     myId
   ).generateCard();
   return card;

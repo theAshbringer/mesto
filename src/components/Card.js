@@ -3,7 +3,6 @@ export default class Card {
     data,
     templateSelector,
     { handleCardClick, handleDeleteCard, handleLike, handleDislike },
-    api,
     userId
   ) {
     this._id = data.id;
@@ -22,7 +21,6 @@ export default class Card {
     this._handleDeleteCard = handleDeleteCard;
     this._handleLike = handleLike;
     this._handleDislike = handleDislike;
-    this._api = api;
   }
 
   /** Достать элемент карточки из шаблона */
