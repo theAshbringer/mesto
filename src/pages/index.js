@@ -63,7 +63,7 @@ const cardList = new Section(async (item) => {
 // Инициализация карточек
 let myId = '';
 api
-  .get('users/me')
+  .getUserInfo()
   .then((res) => {
     myId = res._id;
   })
