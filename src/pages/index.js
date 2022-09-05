@@ -165,13 +165,13 @@ function updateProfile({ name, description }) {
         name: profileInfo.name,
         description: profileInfo.about,
       });
+      popupEdit.close();
     })
     .catch((err) => {
       console.log('Не удалось обновить профиль: ', err.status);
     })
     .finally(() => {
       popupEdit.renderSaving(false);
-      popupEdit.close();
     });
 }
 
@@ -202,6 +202,7 @@ const handleAddFormSubmit = (formData) => {
         cardTemplateSelector
       );
       cardList.addItem(card);
+      popupAdd.close();
     })
     .catch((err) => {
       console.log('Не удалось запостить карточку: ', err);
@@ -209,7 +210,6 @@ const handleAddFormSubmit = (formData) => {
     .finally(() => {
       formValidators['add-card'].disableButton();
       popupAdd.renderSaving(false);
-      popupAdd.close();
     });
 };
 
@@ -219,6 +219,7 @@ const handleAvatarFormSubmit = (formData) => {
     .updateAvatar(formData['avatar-link'])
     .then((res) => {
       profile.setAvatar(res.avatar);
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log('Не удалось обновить аватар: ', err);
@@ -226,7 +227,6 @@ const handleAvatarFormSubmit = (formData) => {
     .finally(() => {
       formValidators['edit-avatar'].disableButton();
       popupAvatar.renderSaving(false);
-      popupAvatar.close();
     });
 };
 
