@@ -102,7 +102,7 @@ Promise.all([api.loadUserInfo(), api.getInitialCards()])
     myId = _id;
     profile.setUserInfo({ name, description: about });
     profile.setAvatar(avatar);
-    profileElement.classList.add('profile_active');
+    profileElement.classList.add(profileOptions.activeClass);
     cardList.renderItems(cards);
   })
   .catch((err) => {

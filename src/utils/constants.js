@@ -46,6 +46,7 @@ const profileOptions = {
   nameSelector: '.profile__name',
   descriptionSelector: '.profile__description',
   avatarSelector: '.profile__avatar',
+  activeClass: 'profile_active',
 };
 
 const cardOptions = {
