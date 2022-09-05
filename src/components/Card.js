@@ -2,7 +2,7 @@ export default class Card {
   constructor(
     data,
     templateSelector,
-    { handleCardClick, handleDeleteCard },
+    { handleCardClick, handleDeleteCard, handleLike, handleDislike },
     api,
     userId
   ) {
@@ -20,6 +20,8 @@ export default class Card {
     this._cardElement = this._template.querySelector('.card');
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLike = handleLike;
+    this._handleDislike = handleDislike;
     this._api = api;
   }
 
@@ -46,31 +48,8 @@ export default class Card {
 
   /** Поставить лайк */
   _handleLikeButton = () => {
-    if (!this._liked) {
-      this._api
-        .likeCard(this._id)
-        .then(({ likes }) => {
-          this._likes = likes;
-          this._likeNumberElement.textContent = this._likes.length;
-          this._liked = true;
-          this._toggleLike();
-        })
-        .catch((err) => {
-          console.log('Не удалось поставить лайк: ', err);
-        });
-    } else {
-      this._api
-        .dislikeCard(this._id)
-        .then(({ likes }) => {
-          this._likes = likes;
-          this._likeNumberElement.textContent = this._likes.length;
-          this._liked = false;
-          this._toggleLike();
-        })
-        .catch((err) => {
-          console.log('Не удалось убрать лайк: ', err);
-        });
-    }
+    if (!this._liked) this._handleLike(this);
+    else this._handleDislike(this);
   };
 
   /** Удалить кнопку удаления карточки, если карточка чужая */

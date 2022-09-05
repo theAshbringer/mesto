@@ -31,6 +31,36 @@ const handleDeleteCard = (card) => {
   popupDelete.open();
 };
 
+/** Обработчик удаления карточки */
+const handleLike = (card) => {
+  api
+    .likeCard(card._id)
+    .then(({ likes }) => {
+      card._likes = likes;
+      card._likeNumberElement.textContent = card._likes.length;
+      card._liked = true;
+      card._toggleLike();
+    })
+    .catch((err) => {
+      console.log('Не удалось поставить лайк: ', err);
+    });
+};
+
+/** Обработчик удаления карточки */
+const handleDislike = (card) => {
+  api
+    .dislikeCard(card._id)
+    .then(({ likes }) => {
+      card._likes = likes;
+      card._likeNumberElement.textContent = card._likes.length;
+      card._liked = false;
+      card._toggleLike();
+    })
+    .catch((err) => {
+      console.log('Не удалось убрать лайк: ', err);
+    });
+};
+
 /** Создать карточку */
 const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
   const card = new Card(
@@ -39,6 +69,8 @@ const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
     {
       handleCardClick,
       handleDeleteCard,
+      handleLike,
+      handleDislike,
     },
     api,
     myId
