@@ -22,17 +22,6 @@ export default class Api {
     }).then((res) => this._handleResponse(res));
   }
 
-  post({ url, body }) {
-    return fetch(`${this._baseUrl}${url}`, {
-      method: 'POST',
-      headers: {
-        authorization: this._authToken,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    }).then((res) => this._handleResponse(res));
-  }
-
   put(url) {
     return fetch(`${this._baseUrl}${url}`, {
       method: 'PUT',
@@ -64,6 +53,17 @@ export default class Api {
       headers: {
         authorization: this._authToken,
       },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  postCard(body) {
+    return fetch(`${this._baseUrl}cards`, {
+      method: 'POST',
+      headers: {
+        authorization: this._authToken,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
     }).then((res) => this._handleResponse(res));
   }
 

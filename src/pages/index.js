@@ -148,12 +148,9 @@ const handleEditFormSubmit = (formData) => {
 /** Обработчик отправки формы добавления карточки */
 const handleAddFormSubmit = (formData) => {
   api
-    .post({
-      url: 'cards',
-      body: {
-        name: formData['card-name'],
-        link: formData['card-description'],
-      },
+    .postCard({
+      name: formData['card-name'],
+      link: formData['card-description'],
     })
     .then((res) => {
       const card = createCard(
