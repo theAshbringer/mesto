@@ -9,8 +9,8 @@ export default class Section {
   }
 
   renderItems(items) {
-    items.forEach(async (item) => {
-      const renderedItem = await this._renderer(item);
+    items.forEach((item) => {
+      const renderedItem = this._renderer(item);
       this.addItem(renderedItem);
     });
   }

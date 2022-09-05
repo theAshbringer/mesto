@@ -4,102 +4,91 @@ export default class Api {
     this._authToken = authToken;
   }
 
-  get(url) {
-    return fetch(`${this._baseUrl}${url}`, {
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+  _handleResponse(res) {
+    if (!res.ok) {
+      Promise.reject(`Ошибка!: ${res.status}`);
+    }
+    return res.json();
   }
 
-  patch({ url, body }) {
-    return fetch(`${this._baseUrl}${url}`, {
+  updateAvatar(avatar) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
       headers: {
         authorization: this._authToken,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => this._handleResponse(res));
   }
 
-  post({ url, body }) {
-    return fetch(`${this._baseUrl}${url}`, {
+  likeCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  dislikeCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  getInitialCards() {
+    return fetch(`${this._baseUrl}cards`, {
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  loadUserInfo() {
+    return fetch(`${this._baseUrl}users/me`, {
+      headers: {
+        authorization: this._authToken,
+      },
+    }).then((res) => this._handleResponse(res));
+  }
+
+  postCard(body) {
+    return fetch(`${this._baseUrl}cards`, {
       method: 'POST',
       headers: {
         authorization: this._authToken,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
+    }).then((res) => this._handleResponse(res));
   }
 
-  put(url) {
-    return fetch(`${this._baseUrl}${url}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
-  }
-
-  delete(url) {
-    return fetch(`${this._baseUrl}${url}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._authToken,
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    });
-  }
-
-  /** Загрузить карточки с сервера */
-  getInitialCards() {
-    return this.get('cards')
-      .then((cards) => {
-        return cards;
-      })
-      .catch((err) => {
-        console.log('Не удалось инициализировать карточки: ', err.status);
-      });
-  }
-
-  /** Загрузить данные профиля с сервера */
-  getUserInfo() {
-    return this.get('users/me').catch((err) => {
-      console.log('Не удалось загрузить данные профиля: ', err.status);
-    });
-  }
-
-  /** Обновить данные профиля с сервера */
   updateUserInfo({ name, description }) {
-    return this.patch({
-      url: 'users/me',
-      body: {
-        name: name,
-        about: description,
+    return fetch(`${this._baseUrl}users/me`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authToken,
+        'Content-Type': 'application/json',
       },
-    }).catch((err) => {
-      console.log('Не удалось обновить профиль: ', err.status);
-    });
+      body: JSON.stringify({
+        name,
+        about: description,
+      }),
+    }).then((res) => this._handleResponse(res));
   }
 }

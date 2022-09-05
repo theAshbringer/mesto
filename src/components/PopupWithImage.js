@@ -14,4 +14,10 @@ export default class PopupWithImage extends Popup {
     this._link.alt = name;
     this._link.src = link;
   }
+
+  close() {
+    super.close();
+    this._link.alt = '';
+    this._link.src = '';
+  }
 }
