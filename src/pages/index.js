@@ -176,12 +176,12 @@ const handleAddFormSubmit = (formData) => {
       );
       cardList.prependItem(card);
       popupAdd.close();
+      formValidators['add-card'].disableButton();
     })
     .catch((err) => {
       console.log('Не удалось запостить карточку: ', err);
     })
     .finally(() => {
-      formValidators['add-card'].disableButton();
       popupAdd.renderSaving(false);
     });
 };
@@ -193,12 +193,12 @@ const handleAvatarFormSubmit = (formData) => {
     .then((res) => {
       profile.setAvatar(res.avatar);
       popupAvatar.close();
+      formValidators['edit-avatar'].disableButton();
     })
     .catch((err) => {
       console.log('Не удалось обновить аватар: ', err);
     })
     .finally(() => {
-      formValidators['edit-avatar'].disableButton();
       popupAvatar.renderSaving(false);
     });
 };
