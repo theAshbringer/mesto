@@ -32,7 +32,6 @@ export default class Card {
     this._element = this._cardElement.cloneNode(true);
   }
 
-  /** Удалить карточку по щелчку на корзину */
   _handleDeleteButton = () => {
     this._handleDeleteCard(this);
   };
@@ -50,14 +49,13 @@ export default class Card {
     }
   }
 
-  /** Поставить лайк */
   _handleLikeButton = () => {
     if (!this._liked) this._handleLike(this);
     else this._handleDislike(this);
   };
 
   /** Удалить кнопку удаления карточки, если карточка чужая */
-  _removeDeleteBtnIfForeign() {
+  _removeDeleteBtnIfNotOwner() {
     this._deleteBtn = this._element.querySelector(
       this._options.deleteButtonSelector
     );
@@ -67,7 +65,6 @@ export default class Card {
     }
   }
 
-  /** Установить слушатели на элементы карточки */
   _setEventListeners() {
     if (this._deleteBtn) {
       this._deleteBtn.addEventListener('click', this._handleDeleteButton);
@@ -84,17 +81,16 @@ export default class Card {
       );
   }
 
-  /** Удалить элемент карточки */
-  removeElement() {
+  removeCardElement() {
     this._element.remove();
     this._element = null;
   }
 
-  /** Сгенерировать готовую карточку */
+  /** Сгенерировать разметку карточки */
   generateCard() {
     this._getTemplate();
     this._toggleLike();
-    this._removeDeleteBtnIfForeign();
+    this._removeDeleteBtnIfNotOwner();
     this._cardImageElement = this._element.querySelector(
       this._options.imageSelector
     );
