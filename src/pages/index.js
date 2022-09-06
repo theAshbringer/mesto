@@ -174,7 +174,7 @@ const handleAddFormSubmit = (formData) => {
         },
         cardTemplateSelector
       );
-      cardList.addItem(card);
+      cardList.prependItem(card);
       popupAdd.close();
     })
     .catch((err) => {
