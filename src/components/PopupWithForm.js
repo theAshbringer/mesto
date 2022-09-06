@@ -18,7 +18,7 @@ export default class PopupWithForm extends Popup {
     return formValues;
   }
 
-  /** Собрать данные всех полей */
+  /** Установить данные всех полей */
   setInputValues(data) {
     this._inputList.forEach((input) => {
       input.value = data[input.name];
@@ -33,20 +33,17 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  /** Обработчик отправки формы */
   _handleSubmit = (evt) => {
     evt.preventDefault();
     this.renderSaving(true);
     this._submitCallback(this._getInputValues());
   };
 
-  /** Навесить слушатели */
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmit);
   }
 
-  /** Закрыть попап */
   close() {
     super.close();
     this._form.reset();

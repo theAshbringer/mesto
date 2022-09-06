@@ -23,18 +23,15 @@ import UserInfo from '../components/UserInfo.js';
 
 const api = new Api({ baseUrl, authToken });
 
-/** Обработчик клика на карточку */
 const handleCardClick = (name, link) => {
   popupCard.open(name, link);
 };
 
-/** Обработчик удаления карточки */
 const handleDeleteCard = (card) => {
   popupDelete.card = card;
   popupDelete.open();
 };
 
-/** Обработчик удаления карточки */
 const handleLike = (card) => {
   api
     .likeCard(card._id)
@@ -49,7 +46,6 @@ const handleLike = (card) => {
     });
 };
 
-/** Обработчик удаления карточки */
 const handleDislike = (card) => {
   api
     .dislikeCard(card._id)
@@ -64,7 +60,6 @@ const handleDislike = (card) => {
     });
 };
 
-/** Создать карточку */
 const createCard = ({ id, title, image, likes, owner }, templateSelector) => {
   const card = new Card(
     { id, title, image, likes, owner },
@@ -109,7 +104,6 @@ Promise.all([api.loadUserInfo(), api.getInitialCards()])
     console.log('Не удалось загрузить данные профиля/карточек: ', err.status);
   });
 
-/** Обработчик клика по аватарке */
 const handleAvatarClick = () => {
   formValidators['edit-avatar'].resetValidation();
   popupAvatar.open();
@@ -125,7 +119,7 @@ const handlePopupDeleteSubmit = (card) => {
   api
     .deleteCard(card._id)
     .then(() => {
-      card.removeElement();
+      card.removeCardElement();
       popupDelete.close();
     })
     .catch((err) => {
@@ -136,7 +130,6 @@ const handlePopupDeleteSubmit = (card) => {
 const popupDelete = new PopupDelete('.popup_type_del', handlePopupDeleteSubmit);
 popupDelete.setEventListeners();
 
-/** Обновить */
 function updateProfile({ name, description }) {
   api
     .updateUserInfo({ name, description })
@@ -243,7 +236,7 @@ btnAvatar.addEventListener('click', handleAvatarClick);
 // Валидация форм
 const formValidators = {};
 
-// Включить валидацию
+/** Включить валидацию */
 const enableValidation = (validationOptions) => {
   const formList = Array.from(
     document.querySelectorAll(validationOptions.formSelector)

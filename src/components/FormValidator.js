@@ -15,13 +15,11 @@ export default class FormValidator {
     });
   };
 
-  /** Включить кнопку */
   _enableButton() {
     this._button.classList.remove(this._inactiveButtonClass);
     this._button.removeAttribute('disabled', 'disabled');
   }
 
-  /** Переключение состояния кнопки */
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this.disableButton();
@@ -30,7 +28,6 @@ export default class FormValidator {
     }
   }
 
-  /** Показать ошибку */
   _showInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
@@ -38,7 +35,6 @@ export default class FormValidator {
     errorElement.classList.add(this._errorClass);
   }
 
-  /** Скрыть ошибку */
   _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
@@ -46,7 +42,6 @@ export default class FormValidator {
     errorElement.textContent = '';
   }
 
-  /** Проверка поля на валидность */
   _isValid(inputElement) {
     if (!inputElement.validity.valid) {
       this._showInputError(inputElement);
@@ -60,7 +55,6 @@ export default class FormValidator {
     this._toggleButtonState();
   };
 
-  /** Установить слушатели на форму */
   _setEventListeners() {
     this._inputList = Array.from(
       this._form.querySelectorAll(this._inputSelector)
@@ -78,7 +72,6 @@ export default class FormValidator {
     });
   }
 
-  /** Отключить кнопку */
   disableButton() {
     this._button.classList.add(this._inactiveButtonClass);
     this._button.setAttribute('disabled', 'disabled');
@@ -93,7 +86,6 @@ export default class FormValidator {
     });
   }
 
-  /** Включить валидацию */
   enableValidation() {
     this._setEventListeners();
   }

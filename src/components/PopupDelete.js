@@ -8,13 +8,11 @@ export default class PopupWithForm extends Popup {
     this.card = null;
   }
 
-  /** Обработчик отправки формы */
   _handleSubmit = (evt) => {
     evt.preventDefault();
     this._submitCallback(this.card);
   };
 
-  /** Навесить слушатели */
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener('submit', this._handleSubmit);
